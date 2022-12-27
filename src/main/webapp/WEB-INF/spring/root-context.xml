@@ -1,8 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
+		<!-- 어느 DB 에 접속할건지를 설정 -->
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="PILL" />
+		<property name="password" value="PILL" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+		<!-- MyBatis 설정파일의 위치를 지정하여 설정값들을 가지고 오겠다. -->
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<!-- DB 연결을 위한 도구를 참조하겠다. -->
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
+		<!-- 2단계에서 만들었던 SqlSessionFactoryBean 객체를 넘기면서 SqlSessionTemplate 객체를 생성하겠다. -->
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+		  
+	<!-- 파일 업로드 관련 bean 등록 -->
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+	
+		<!-- defaultEncoding : 업로드 되는 파일에 대한 인코딩 처리를 어떻게 할건지를 지정 -->
+		<property name="defaultEncoding" value="UTF-8" />
+		
+		<!--
+			maxUploadSize : 한번에 업로드 되는 파일의 총 용량
+			
+			- 총 파일의 최대용량은 10Mbyte 로 지정
+			10Mbyte == 10 * 1024 * 1024 Byte
+			단, xml 에서는 계산식이 적용되지 않으므로 직접 계산한 결과를 넣어야함
+			계산 결과 == 10,485,760 => 대략 10,000,000
+		-->
+		<property name="maxUploadSize" value="10000000" />
+		
+		<!-- maxInMemorySize : 메모리 상의 파일 최대 용량 -->
+ 		<property name="maxInMemorySize" value="10000000" />
+
+	 </bean>
+	 
+	<bean id="echoHandler" class="com.kh.pill.common.socket.EchoHandler" />
+	<websocket:handlers>
+		<websocket:mapping handler="echoHandler" path="/echo-ws" />
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>	
+		<websocket:sockjs />
+	</websocket:handlers>
 		
 </beans>
