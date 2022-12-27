@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="eventMapper">
+
+	<resultMap id="eventResultMap" type="event">
+		<result column="EVENT_NO" property="evtNo" />
+		<result column="EVENT_TITLE" property="evtTitle" />
+		<result column="EVENT_CONTENT" property="evtContent" />
+		<result column="EVENT_COUNT" property="evtCount" />
+		<result column="EVENT_IMG_NAME" property="evtImgName" />
+		<result column="EVENT_STATUS" property="evtStatus" />
+		<result column="EVENT_START" property="evtStart" />
+		<result column="EVENT_DEW" property="evtDew" />
+		<result column="EVENT_LIKE_COUNT" property="evtLikeCount" />
+		
+	</resultMap>
+	
+	<resultMap id="eventReplyResultMap" type="eventReply">
+		<result column="REPLY_NO" property="replyNo" />
+		<result column="REPLY_CONTENT" property="replyContent" />
+		<result column="REPLY_DATE" property="replyDate" />
+		<result column="PARENT_REPLY" property="parentReply" />
+		<result column="REPLY_STATUS" property="replyStatus" />
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="EVENT_NO" property="evtNo" />
+		<result column="MEMBER_NAME" property="memberName" />
+		
+	</resultMap>
+	
+	<resultMap id="eventLikeResultMap" type="eventLike">
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="EVENT_NO" property="evtNo" />
+	
+	</resultMap>
+	
+	<!-- 이벤트 게시물 갯수 조회 -->
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM EVENT
+		WHERE EVENT_STATUS = 'Y'
+	</select>
+
+	<!-- 이벤트 게시물 전체 조회 -->
+	<select id="selectEventList" resultMap="eventResultMap">
+		SELECT EVENT_NO
+		     , EVENT_TITLE
+		     , EVENT_CONTENT
+		     , EVENT_COUNT
+		     , EVENT_IMG_NAME
+		     , EVENT_STATUS
+		     , EVENT_START
+		     , EVENT_DEW
+		     , EVENT_LIKE_COUNT
+		FROM EVENT
+		WHERE EVENT_STATUS = 'Y'
+		ORDER BY EVENT_NO DESC
+	</select>
+	
+	<!-- 이벤트 게시물 상세조회 -->
+	<select id="selectEvent" resultMap="eventResultMap" parameterType="_int">
+		SELECT EVENT_NO
+			  ,	EVENT_TITLE
+			  , EVENT_START
+			  , EVENT_DEW
+			  , EVENT_LIKE_COUNT
+			  , EVENT_CONTENT
+			  , EVENT_IMG_NAME
+			  , EVENT_LIKE_COUNT
+		FROM EVENT
+		WHERE EVENT_NO = #{eno}
+			  
+	</select>
+	
+	<!-- 이벤트 댓글 리스트 조회 -->
+	<select id="selectReplyList" resultMap="eventReplyResultMap" parameterType="_int">
+		SELECT REPLY_NO 
+		     , REPLY_CONTENT
+			 , TO_CHAR(REPLY_DATE, 'YYYY-MM-DD') AS "REPLY_DATE"
+			 , PARENT_REPLY
+		     , MEMBER_NAME
+		FROM EVENT_REPLY
+		JOIN MEMBER USING(MEMBER_NO)
+		WHERE EVENT_NO = #{evtNo}
+		START WITH PARENT_REPLY IS NULL
+		CONNECT BY PRIOR REPLY_NO = PARENT_REPLY
+		ORDER SIBLINGS BY REPLY_NO
+		
+	
+	</select>
+	
+	<!-- 이벤트 게시물 추가 -->
+	<insert id="insertEvent" parameterType="event">
+		INSERT INTO EVENT (EVENT_NO
+						  , EVENT_TITLE
+						  , EVENT_START
+						  , EVENT_DEW
+						  , EVENT_IMG_NAME
+						  , EVENT_CONTENT)
+			VALUES (SEQ_EVENT_NO.NEXTVAL
+					, #{evtTitle}
+					, #{evtStart}
+					, #{evtDew}
+					, #{evtImgName}
+					, #{evtContent})
+
+	</insert>
+	
+	<!-- 이벤트 게시물 삭제 -->
+	<update id="deleteEvent" parameterType="_int">
+		UPDATE EVENT
+		SET EVENT_STATUS = 'N'
+		WHERE EVENT_NO = #{eno}
+	</update>
+	
+	<!-- 이벤트 게시물 수정 -->
+	<update id="updateEvent" parameterType="event">
+		UPDATE EVENT
+		   SET EVENT_TITLE = #{evtTitle}
+		     , EVENT_START = #{evtStart}
+		     , EVENT_DEW = #{evtDew}
+		     , EVENT_IMG_NAME = #{evtImgName}
+		     , EVENT_CONTENT = #{evtContent}
+		 WHERE EVENT_NO = #{evtNo}
+	</update>
+	
+
+	
+	<!-- 이벤트 좋아요 누름 -->
+	<insert id="insertEvtLike" parameterType="eventLike">
+	INSERT INTO EVENT_LIKE (EVENT_NO
+						  , MEMBER_NO)
+			        VALUES (#{evtNo}
+					      , #{memberNo})
+
+	</insert>
+	
+	
+	
+	<!-- 이벤트 좋아요 조회 -->
+	<select id="selectEventLike" parameterType="eventLike" resultMap="eventLikeResultMap">
+		SELECT EVENT_NO
+		     , MEMBER_NO
+		FROM EVENT_LIKE
+		WHERE EVENT_NO = #{evtNo}
+		  AND MEMBER_NO = #{memberNo}
+	</select>
+	
+	
+	
+	<!-- EvtLikeCount 컬럼 업데이트  -->
+	<update id="updateEventEvtLikeCount" parameterType="_int">
+		UPDATE EVENT
+		   SET EVENT_LIKE_COUNT = (SELECT COUNT(*) COUNT
+		   						   FROM EVENT_LIKE
+		   						   WHERE EVENT_NO = #{eno})	
+		WHERE EVENT_NO = #{eno}
+	</update>
+	
+	<!-- 이벤트 좋아요 삭제 --> 
+	<delete id="deleteEvtLike" parameterType="eventLike">
+		DELETE
+		FROM EVENT_LIKE
+		WHERE EVENT_NO = #{evtNo}
+		  AND MEMBER_NO = #{memberNo}
+	
+	</delete>
+	
+	
+	<!-- 이벤트 좋아요 갯수 세기 -->
+	<select id="selectEvtLikeCount" resultType="_int">
+		SELECT COUNT(*) COUNT
+		FROM EVENT_LIKE
+		WHERE EVENT_NO = #{evtNo}
+	</select>
+	
+	
+	<!-- 이벤트 댓글 작성 -->
+	<insert id="insertReply" parameterType="eventReply">
+	 INSERT INTO EVENT_REPLY (REPLY_NO
+	 						, REPLY_CONTENT
+	 						, REPLY_DATE
+	 						, MEMBER_NO
+	 						, EVENT_NO)
+	 			      VALUES (SEQ_REPLY_NO.NEXTVAL
+	 			              , #{replyContent}
+	 			              , SYSDATE
+	 			              , #{memberNo}
+	 			              , #{evtNo})
+	</insert>
+	
+	<!-- 이벤트 댓글 삭제 -->
+	<delete id="deleteReply" parameterType="_int">
+		DELETE
+		FROM EVENT_REPLY
+		WHERE REPLY_NO = #{replyNo}
+	
+	</delete>
+	
+	
+	<!-- 이벤트 대댓글 작성 -->
+	<insert id="insertNestedReply" parameterType="eventReply">
+		INSERT INTO EVENT_REPLY (REPLY_NO
+		                       , REPLY_CONTENT
+		                       , PARENT_REPLY
+		                       , EVENT_NO
+		                       , MEMBER_NO)
+						 VALUES (SEQ_REPLY_NO.NEXTVAL
+						       , #{replyContent}
+						       , #{parentReply}
+						       , #{evtNo}
+						       , #{memberNo})
+	
+	</insert>
+	
+	<!-- 이벤트 대댓글 삭제 -->
+	<delete id="deleteNrReply" parameterType="_int">
+		DELETE
+		FROM EVENT_REPLY
+		WHERE REPLY_NO = #{replyNo}
+		 
+	
+	</delete>
+	
+	<select id="selectMyEventListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		FROM EVENT
+		WHERE EVENT_NO IN (SELECT EVENT_NO
+						   FROM EVENT_LIKE
+						   WHERE MEMBER_NO = #{memberNo})
+	</select>
+	
+	<select id="selectMyEventList" parameterType="_int" resultMap="eventResultMap">
+		SELECT *
+		FROM EVENT
+		WHERE EVENT_NO IN (SELECT EVENT_NO
+						   FROM EVENT_LIKE
+						   WHERE MEMBER_NO = #{memberNo})
+	</select>
+	
+</mapper>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="magazineMapper">
+
+	<!-- 매거진 -->
+	<resultMap id="magazineResultSet" type="magazine">
+		<result column="MAGAZINE_NO" property="magazineNo" />
+		<result column="MAGAZINE_TITLE" property="magazineTitle" />
+		<result column="MAGAZINE_CONTENT" property="magazineContent" />
+		<result column="MAGAZINE_COUNT" property="magazineCount" />
+		<result column="MAGAZINE_IMG_NAME" property="magazineImgName" />
+		<result column="MAGAZINE_IMG_NAME2" property="magazineImgName2" />
+		<result column="CATEGORY_NO" property="categoryNo" />	
+		<result column="MAGAZINE_STATUS" property="magazineStatus" />	
+		<result column="MAGAZINE_HASHTAG" property="magazineHashtag" />	
+		<result column="MAGAZINE_LIKE_COUNT" property="magazineLikeCount" />	
+	</resultMap>	
+	
+	<!-- 카테고리 -->
+	<resultMap id="magazineCategoryResult" type="category">	
+		<result column="CATEGORY_NO" property="categoryNo" />
+		<result column="CATEGORY_NAME" property="categoryName" />	
+	</resultMap>
+	
+	<!-- 이전글 다음글 -->
+	<resultMap id="prePageNextPage" type="magazinePage">
+		<result column="MAGAZINE_NO" property="magazineNo" />
+		<result column="PRE_NO" property="preNo" />
+		<result column="PRE_TITLE" property="preTitle" />
+		<result column="NEXT_NO" property="nextNo" />
+		<result column="NEXT_TITLE" property="nextTitle" />
+	</resultMap>
+	
+	<!-- 좋아요 -->
+	<resultMap id="magazineLikeResultSet" type="magazineLike">
+		<result column="MAGAZINE_LIKE_NO" property="magazineLikeNo" />
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="MAGAZINE_NO" property="magazineNo" />
+		<result column="LIKE_NUM" property="magazineLike" />
+	</resultMap>
+	
+	<!-- 전체 게시글 갯수 구하기 -->
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM MAGAZINE
+		 WHERE MAGAZINE_STATUS = 'Y'
+	</select>
+	
+	<!-- 라이프 게시글 갯수 구하기 -->
+	<select id="selectListCount1" resultType="_int">
+		SELECT COUNT(*)
+		  FROM MAGAZINE
+		 WHERE MAGAZINE_STATUS = 'Y'
+		   AND CATEGORY_NO = 1
+	</select>
+	
+	<!-- 시즌 게시글 갯수 구하기 -->
+	<select id="selectListCount2" resultType="_int">
+		SELECT COUNT(*)
+		  FROM MAGAZINE
+		 WHERE MAGAZINE_STATUS = 'Y'
+		   AND CATEGORY_NO = 2
+	</select>
+	
+	<!-- 이슈 게시글 갯수 구하기 -->
+	<select id="selectListCount3" resultType="_int">
+		SELECT COUNT(*)
+		  FROM MAGAZINE
+		 WHERE MAGAZINE_STATUS = 'Y'
+		   AND CATEGORY_NO = 3
+	</select>
+
+	<select id="selectMagazineList" resultMap="magazineResultSet" >
+		SELECT CATEGORY_NAME "CATEGORY_NO"
+               , MAGAZINE_NO
+               , MAGAZINE_COUNT
+               , MAGAZINE_IMG_NAME
+               , MAGAZINE_TITLE
+               , MAGAZINE_HASHTAG
+            FROM MAGAZINE
+            JOIN CATEGORY USING (CATEGORY_NO)
+           WHERE MAGAZINE_STATUS= 'Y'
+        ORDER BY MAGAZINE_NO DESC
+	</select>
+
+	<insert id="insertMagazine" parameterType="magazine">
+		INSERT INTO MAGAZINE (MAGAZINE_NO
+							, CATEGORY_NO
+						    , MAGAZINE_TITLE
+						    , MAGAZINE_CONTENT
+						    , MAGAZINE_IMG_NAME
+						    , MAGAZINE_HASHTAG)
+					  VALUES (SEQ_MAGAZINE_NO.NEXTVAL
+							, #{categoryNo}
+							, #{magazineTitle}
+							, #{magazineContent}
+							, #{magazineImgName}
+							, #{magazineHashtag})
+	</insert>
+	
+		
+	<select id="selectMagazine" resultMap="magazineResultSet" parameterType="_int">
+		 SELECT MAGAZINE_NO
+			  ,	MAGAZINE_TITLE
+			  , MAGAZINE_CONTENT
+			  , MAGAZINE_IMG_NAME
+			  , MAGAZINE_HASHTAG
+			  , CATEGORY_NAME AS "CATEGORY_NO"
+		   FROM MAGAZINE
+		   JOIN CATEGORY USING (CATEGORY_NO)
+		  WHERE MAGAZINE_NO = #{magazineNo}
+		    AND MAGAZINE_STATUS= 'Y'
+		   
+	</select>
+	
+	<update id="deleteMagazine" parameterType="_int">
+		UPDATE MAGAZINE
+		   SET MAGAZINE_STATUS = 'N'
+		 WHERE MAGAZINE_NO = #{magazineNo}
+	</update>
+	
+	<update id="updateMagazine" parameterType="magazine">
+		UPDATE MAGAZINE
+		   SET CATEGORY_NO = #{categoryNo}
+		     , MAGAZINE_TITLE = #{magazineTitle}
+		     , MAGAZINE_CONTENT = #{magazineContent}
+		     , MAGAZINE_IMG_NAME = #{magazineImgName}
+		     , MAGAZINE_HASHTAG = #{magazineHashtag}
+		 WHERE MAGAZINE_NO = #{magazineNo}
+	</update>
+
+
+	
+	<!-- 좋아요 insert -->
+	<insert id="insertMagazineLike" parameterType="magazineLike">
+	INSERT INTO MAGAZINE_LIKE (MAGAZINE_NO
+						     , MEMBER_NO)
+			           VALUES (#{magazineNo}
+					         , #{memberNo})
+
+	</insert>
+
+	<!-- 좋아요 조회 -->
+	<select id="selectMagazineLike" parameterType="magazineLike" resultMap="magazineLikeResultSet">
+		SELECT MAGAZINE_NO
+		     , MEMBER_NO
+		  FROM MAGAZINE_LIKE
+	     WHERE MAGAZINE_NO = #{magazineNo}
+		   AND MEMBER_NO = #{memberNo}
+	</select>
+		
+	<!-- 좋아요 카운트 업데이트   -->
+	<update id="updateMagazineLikeCount" parameterType="_int">
+		UPDATE MAGAZINE
+		   SET MAGAZINE_LIKE_COUNT = 
+		   							(SELECT COUNT(*)
+		   						       FROM MAGAZINE_LIKE
+		   						      WHERE MAGAZINE_NO = #{magazineNo})	
+		 WHERE MAGAZINE_NO = #{magazineNo}
+	</update>
+	
+	<!-- 좋아요 삭제 --> 
+	<delete id="deleteMagazineLike" parameterType="magazineLike">
+		DELETE
+		  FROM MAGAZINE_LIKE
+		 WHERE MAGAZINE_NO = #{magazineNo}
+		   AND MEMBER_NO = #{memberNo}
+	
+	</delete>
+	
+	
+	<!-- 좋아요 카운트 -->
+	<select id="selectMagazineLikeCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		  FROM MAGAZINE_LIKE
+		 WHERE MAGAZINE_NO = #{magazineNo}
+	</select>
+
+	
+	<!-- 이전글 다음글 -->
+	<select id="magazinePage" resultMap="prePageNextPage" parameterType="_int">
+		SELECT RESULT.*
+		FROM
+   			(SELECT MAGAZINE_NO,
+		            LAG(MAGAZINE_NO, 1, 9999) OVER (ORDER BY MAGAZINE_NO DESC) PRENO,
+		            LEAD(MAGAZINE_NO, 1, 9999) OVER (ORDER BY MAGAZINE_NO DESC) NEXTNO,
+		            MAGAZINE_TITLE,
+		            LAG(MAGAZINE_TITLE, 1, 9999) OVER (ORDER BY MAGAZINE_NO DESC) PRETITLE,
+		            LEAD(MAGAZINE_TITLE, 1, 9999) OVER (ORDER BY MAGAZINE_NO DESC) NEXTTITLE
+		            FROM MAGAZINE
+		            WHERE MAGAZINE_STATUS = 'Y'
+		            ORDER BY MAGAZINE_NO DESC) RESULT
+		WHERE MAGAZINE_NO = #{magazineNo}
+	</select>
+
+	<!-- 조회수  -->
+	<update id="updateViewCount" parameterType="_int">
+		UPDATE MAGAZINE
+		   SET MAGAZINE_COUNT = MAGAZINE_COUNT + 1
+		 WHERE MAGAZINE_NO = #{magazineNo}
+	</update>
+	
+	<!-- 최신순 (이미 위에있음)/인기순 -->
+	<!-- 인기 (조회순) -->
+	<select id="selectPopularList" resultMap="magazineResultSet">
+		SELECT CATEGORY_NAME
+		     , MAGAZINE_NO
+		     , MAGAZINE_COUNT
+		     , MAGAZINE_IMG_NAME
+		     , MAGAZINE_TITLE
+		     , MAGAZINE_HASHTAG
+		FROM MAGAZINE
+		JOIN CATEGORY USING (CATEGORY_NO)
+		WHERE MAGAZINE_STATUS = 'Y'
+		ORDER BY MAGAZINE_COUNT DESC 
+	</select>
+	
+	<!-- 카테고리 -->
+	<!-- 라이프 -->
+	<select id="selectLifeList" resultMap="magazineResultSet">
+		SELECT CATEGORY_NAME "CATEGORY_NO"
+		     , MAGAZINE_NO
+		     , MAGAZINE_COUNT
+		     , MAGAZINE_IMG_NAME
+		     , MAGAZINE_TITLE
+		     , MAGAZINE_HASHTAG
+		  FROM MAGAZINE
+		  JOIN CATEGORY USING (CATEGORY_NO)
+		 WHERE MAGAZINE_STATUS = 'Y'
+		   AND CATEGORY_NO = 1
+		 ORDER BY MAGAZINE_COUNT DESC 
+	</select>
+
+	<!-- 시즌 -->
+	<select id="selectSeasonList" resultMap="magazineResultSet">
+		SELECT CATEGORY_NAME "CATEGORY_NO"
+		     , MAGAZINE_NO
+		     , MAGAZINE_COUNT
+		     , MAGAZINE_IMG_NAME
+		     , MAGAZINE_TITLE
+		     , MAGAZINE_HASHTAG
+		  FROM MAGAZINE
+		  JOIN CATEGORY USING (CATEGORY_NO)
+		 WHERE MAGAZINE_STATUS = 'Y'
+		   AND CATEGORY_NO = 2
+		 ORDER BY MAGAZINE_COUNT DESC 
+	</select>
+	
+		<!-- 이슈 -->
+	<select id="selectIssueList" resultMap="magazineResultSet">
+		SELECT CATEGORY_NAME "CATEGORY_NO"
+		     , MAGAZINE_NO
+		     , MAGAZINE_COUNT
+		     , MAGAZINE_IMG_NAME
+		     , MAGAZINE_TITLE
+		     , MAGAZINE_HASHTAG
+		  FROM MAGAZINE
+		  JOIN CATEGORY USING (CATEGORY_NO)
+		 WHERE MAGAZINE_STATUS = 'Y'
+		   AND CATEGORY_NO = 3
+	     ORDER BY MAGAZINE_COUNT DESC 
+	</select>
+
+</mapper>

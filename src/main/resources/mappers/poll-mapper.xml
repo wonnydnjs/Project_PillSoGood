@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="pollMapper">
+	
+	<resultMap id="pollResultSet" type="poll">
+		<result column="POLL_NO" property="pollNo"/>
+		<result column="POLL_DATE" property="pollDate"/>
+		<result column="POLL_STATUS" property="pollStatus"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+	</resultMap>
+	
+	<resultMap id="pollResultDetailSet" type="pollResult">
+		<result column="PRODUCT_NAME" property="productName"/>
+		<result column="PRODUCT_EXPLAIN" property="productExplain"/>
+		<result column="PRODUCT_PRICE" property="productPrice"/>
+		<result column="PRODUCT_IMG_PATH" property="productImgPath"/>
+		<result column="PRODUCT_EFFECT" property="productEffect"/>
+		<result column="PRODUCT_EFFECT_PATH" property="productEffectPath"/>
+		<result column="POLL_LEVEL" property="pollLevel"/>
+		<result column="POLL_NO" property="pollNo"/>
+		<result column="PRODUCT_NO" property="productNo"/>
+	</resultMap>
+	
+	<insert id="insertPoll">
+		INSERT INTO POLL (POLL_NO
+						, MEMBER_NO)
+					VALUES (SEQ_POLL_NO.NEXTVAL
+						  , #{memberNo})
+	</insert>
+	
+	<select id="selectPoll" resultMap="pollResultSet">
+		SELECT * 
+		  FROM POLL
+		 WHERE MEMBER_NO = #{memberNo}
+		   AND POLL_STATUS='Y'
+		   AND POLL_DATE IN (SELECT MAX(POLL_DATE) 
+		   					 FROM POLL)
+	</select>
+	
+	<update id="updateMember" parameterType="member">
+		UPDATE MEMBER
+		   SET MEMBER_BIRTH_YEAR = #{memberBirthYear}
+		     , HEIGHT = #{height}
+		     , WEIGHT = #{weight}
+		     , GENDER = #{gender}
+		 WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<insert id="insertResultType" parameterType="pollResult">
+		INSERT INTO POLL_RESULT
+		VALUES (#{pollLevel}, #{pollNo}, #{productNo})
+	</insert>
+	
+	<select id="selectResult" resultMap="pollResultDetailSet">
+		SELECT PRODUCT_NAME
+			 , PRODUCT_EXPLAIN
+			 , PRODUCT_PRICE
+			 , PRODUCT_IMG_PATH
+			 , PRODUCT_EFFECT
+			 , PRODUCT_EFFECT_PATH
+			 , POLL_LEVEL
+			 , POLL_NO
+			 , PRODUCT_NO
+		  FROM PRODUCT
+		  JOIN POLL_RESULT USING(PRODUCT_NO)
+		  JOIN POLL USING(POLL_NO)
+		 WHERE POLL_NO = ( SELECT MAX(POLL_NO)
+		                     FROM POLL
+		                    WHERE MEMBER_NO = #{memberNo})
+	</select>
+	
+	<select id="insertCart" parameterType="cart">
+		INSERT INTO CART (CART_NO
+						, MEMBER_NO
+						, PRODUCT_NO)
+				  VALUES (SEQ_CART_NO.NEXTVAL
+				  		, #{memberNo}
+				  		, #{productNo})
+	
+	</select>
+	
+	
+	<select id="selectPollResult" resultMap="pollResultDetailSet">
+		SELECT PRODUCT_NAME, PRODUCT_EXPLAIN, POLL_DATE, POLL_NO
+		  FROM (SELECT PRODUCT_NAME, PRODUCT_EXPLAIN, POLL_DATE, POLL_NO, DENSE_RANK() OVER(ORDER BY POLL_NO DESC) RANK
+		        FROM PRODUCT PRO
+		        JOIN POLL_RESULT PR USING(PRODUCT_NO)
+		        JOIN POLL USING(POLL_NO)
+		        WHERE MEMBER_NO = #{memberNo}
+		        AND POLL_STATUS = 'Y')
+		WHERE RANK &lt;= 3
+	</select>
+
+	<select id="selectPollList" resultMap="pollResultSet" >
+		SELECT POLL_NO, POLL_DATE
+		  FROM (SELECT DISTINCT POLL_NO, TO_CHAR(POLL_DATE,'YYYY-MM-DD') POLL_DATE, DENSE_RANK() OVER(ORDER BY POLL_NO DESC) RANK
+		        FROM POLL
+		        JOIN POLL_RESULT USING(POLL_NO)
+		        WHERE POLL_LEVEL IN (1,2)
+		        AND MEMBER_NO = #{memberNo}
+		        AND POLL_STATUS = 'Y'
+		        ORDER BY POLL_NO DESC)
+		  WHERE RANK &lt;= 3
+	</select>
+	
+	<select id="pollResult" parameterType="poll" resultMap="pollResultDetailSet">
+		SELECT PRODUCT_NAME
+			 , PRODUCT_EXPLAIN
+			 , PRODUCT_PRICE
+			 , PRODUCT_IMG_PATH
+			 , PRODUCT_EFFECT
+			 , PRODUCT_EFFECT_PATH
+			 , POLL_LEVEL
+			 , POLL_NO
+			 , PRODUCT_NO
+		  FROM PRODUCT
+		  JOIN POLL_RESULT USING(PRODUCT_NO)
+		  JOIN POLL USING(POLL_NO)
+		 WHERE POLL_NO = #{pollNo}
+		   AND MEMBER_NO = #{memberNo}
+		   AND POLL_STATUS = 'Y'
+	</select>
+	
+	
+	<update id="deletePoll">
+		UPDATE POLL
+		   SET POLL_STATUS = 'N'
+		 WHERE POLL_NO = ${pollNo}
+	</update>
+	
+	<delete id="deleteCart">
+		DELETE CART
+		 WHERE MEMBER_NO = #{memberNo}
+		   AND CART_STATUS = 'Y'
+	</delete>
+
+</mapper>

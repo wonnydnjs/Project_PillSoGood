@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="orderMapper">
+	
+	<resultMap id="cartResultSet" type="cart">
+		<result column="CART_NO" property="cartNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="PRODUCT_NO" property="productNo"/>
+		<result column="CART_AMOUNT" property="cartAmount"/>
+		<result column="CART_STATUS" property="cartStatus"/>
+		
+		<result column="PRODUCT_NO" property="productNo" />
+		<result column="PRODUCT_NAME" property="productName" />
+		<result column="PRODUCT_EXPLAIN" property="productExplain" />
+		<result column="PRODUCT_PRICE" property="productPrice" />
+		<result column="PRODUCT_IMG_PATH" property="productImgPath" />
+		
+	</resultMap>
+	
+	<resultMap id="orderResultSet" type="order">
+		<result column="ORDER_NO" property="orderNo"/>
+		<result column="ORDER_DATE" property="orderDate"/>
+		<result column="ORDER_PRICE" property="orderPrice"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="SUBS_COUNT" property="subsCount"/>
+		<result column="CUSTOMER_UID" property="customerUid"/>
+		<result column="ORDER_RECEIPT" property="orderReceipt"/>
+		<result column="ORDER_STATUS" property="orderStatus"/>
+		<result column="SUBS_STATUS" property="subsStatus"/>
+		<result column="DELIVERY" property="delivery"/>
+		<result column="ADDRESS" property="address"/>
+	</resultMap>
+	
+	<resultMap id="orderCartResultSet" type="orderCart">
+		<result column="CART_NO" property="cartNo"/>
+		<result column="ORDER_NO" property="orderNo"/>
+	</resultMap>
+	
+	<select id="selectCountByCustomerUid" parameterType="string" resultType="_int">
+		SELECT NVL(MAX(SUBS_COUNT), 0) "SUBS_COUNT"
+		FROM ORDERS
+		WHERE CUSTOMER_UID = #{customerUid}
+		  AND ORDER_STATUS = 'Y'
+	</select>
+	
+	<select id="checkSubscribing" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		FROM ORDERS
+		WHERE MEMBER_NO = #{memberNo}
+		  AND SUBS_STATUS = 'Y'
+	</select>
+	
+	<insert id="insertOrder" parameterType="order">
+		INSERT INTO ORDERS (ORDER_NO
+						  , ORDER_DATE
+						  , ORDER_PRICE
+						  , MEMBER_NO
+						  , SUBS_COUNT
+						  , CUSTOMER_UID
+						  , ORDER_RECEIPT
+						  , ORDER_STATUS
+						  , SUBS_STATUS
+						  , ADDRESS)
+					VALUES (#{orderNo}
+						  , TO_DATE(#{orderDate}, 'YYYYMMDDHH24MISS')
+						  , #{orderPrice}
+						  , #{memberNo}
+						  , #{subsCount}
+						  , #{customerUid}
+						  , #{orderReceipt}
+						  , #{orderStatus}
+						  , #{subsStatus}
+						  , #{address})
+	</insert>
+	
+	<select id="selectCart" parameterType="_int" resultMap="cartResultSet">
+		SELECT CART_NO
+		     , PRODUCT_NO
+		     , CART_AMOUNT
+		     , PRODUCT_NAME
+		     , PRODUCT_EXPLAIN
+		     , PRODUCT_PRICE
+		     , PRODUCT_IMG_PATH
+		  FROM CART
+		  JOIN PRODUCT USING (PRODUCT_NO)
+		 WHERE MEMBER_NO = #{memberNo} 
+		   AND CART_STATUS = 'Y'
+		 ORDER BY CART_NO
+	</select>
+	
+	<insert id="insertOrderCart" parameterType="orderCart">
+		INSERT INTO ORDER_CART
+		VALUES (#{cartNo}, #{orderNo})
+	</insert>
+	
+	<update id="deleteCart" parameterType="_int">
+		UPDATE CART
+		SET CART_STATUS = 'N'
+		WHERE MEMBER_NO = #{memberNo}
+		  AND CART_STATUS = 'Y'
+	</update>
+	
+	<update id="deleteOrder" parameterType="order">
+		UPDATE ORDERS
+		   SET ORDER_STATUS = 'C'
+			 , ORDER_DATE = TO_DATE(#{orderDate}, 'YYYYMMDDHH24MISS')
+		 WHERE ORDER_NO = #{orderNo}
+	</update>
+	
+	<update id="deleteSubs" parameterType="order">
+		UPDATE ORDERS
+		   SET SUBS_STATUS = 'C'
+		     , CUSTOMER_UID = SUBSTR(#{customerUid}, -4) || '_' || #{orderNo}
+		 WHERE CUSTOMER_UID = #{customerUid}
+		   AND SUBS_STATUS = 'Y'
+		   AND ORDER_STATUS = 'Y'
+	</update>
+	
+	<select id="selectCartNoForSubs" parameterType='_int' resultMap="orderCartResultSet">
+		SELECT CART_NO
+		FROM ORDER_CART
+		WHERE ORDER_NO = (SELECT ORDER_NO
+						  FROM ORDERS
+						  WHERE MEMBER_NO = #{memberNo}
+						    AND SUBS_STATUS = 'Y'
+							AND ORDER_STATUS = 'Y'
+							AND SUBS_COUNT = 1)
+		ORDER BY CART_NO
+	</select>
+	
+	<insert id="insertCart" parameterType="cart">
+		INSERT INTO CART (CART_NO
+						, MEMBER_NO
+						, PRODUCT_NO
+						, CART_AMOUNT)
+				   VALUES (SEQ_CART_NO.NEXTVAL
+				   		 , #{memberNo}
+				   		 , #{productNo}
+				   		 , #{cartAmount})		
+	</insert>
+	
+	<select id="selectIsCart" parameterType="cart" resultType="_int">
+		SELECT NVL(MAX(CART_AMOUNT), 0) "CART_AMOUNT"
+		  FROM CART
+		 WHERE MEMBER_NO = #{memberNo}
+		   AND PRODUCT_NO = #{productNo}
+		   AND CART_STATUS = 'Y'
+	</select>
+	
+	<update id="updateCart" parameterType="cart">
+		UPDATE CART
+		   SET CART_AMOUNT = #{cartAmount}
+		 WHERE MEMBER_NO = #{memberNo}
+		   AND PRODUCT_NO = #{productNo}
+		   AND CART_STATUS = 'Y'
+	</update>
+	
+	<delete id="removeCart" parameterType="cart">
+		DELETE CART
+		 WHERE PRODUCT_NO = #{productNo}
+		   AND MEMBER_NO = #{memberNo}
+		   AND CART_STATUS = 'Y'
+	</delete>
+	
+	<select id="selectMyOrderListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		FROM ORDERS
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="selectMyOrderList" parameterType="_int" resultMap="orderResultSet">
+		SELECT ORDER_NO
+			 , TO_CHAR(ORDER_DATE, 'YYYY-MM-DD') "ORDER_DATE"
+			 , ORDER_PRICE
+			 , SUBS_COUNT
+			 , ORDER_STATUS
+			 , SUBS_STATUS
+		FROM ORDERS
+		WHERE MEMBER_NO = #{memberNo}
+		ORDER BY ORDER_NO DESC
+	</select>
+	
+	<select id="searchOrderListByDateCount" parameterType="hashmap" resultType="_int">
+		SELECT COUNT(*)
+		FROM ORDERS
+		WHERE MEMBER_NO = #{memberNo}
+		  AND ORDER_DATE BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD HH24:MI:SS') AND TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:MI:SS')
+	</select>
+	
+	<select id="searchOrderListByDate" parameterType="hashmap" resultMap="orderResultSet">
+		SELECT ORDER_NO
+			 , TO_CHAR(ORDER_DATE, 'YYYY-MM-DD') "ORDER_DATE"
+			 , ORDER_PRICE
+			 , SUBS_COUNT
+			 , ORDER_STATUS
+			 , SUBS_STATUS
+		FROM ORDERS
+		WHERE MEMBER_NO = #{memberNo}
+		  AND ORDER_DATE BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD HH24:MI:SS') AND TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:MI:SS')
+		ORDER BY ORDER_NO DESC
+	</select>
+	
+	<select id="selectMyOrder" parameterType="string" resultMap="orderResultSet">
+		SELECT ORDER_NO
+			 , TO_CHAR(ORDER_DATE, 'YYYY-MM-DD HH24:MI:SS') "ORDER_DATE"
+			 , ORDER_PRICE
+			 , MEMBER_ID "MEMBER_NO"
+			 , SUBS_COUNT
+			 , CUSTOMER_UID
+			 , ORDER_RECEIPT
+			 , ORDER_STATUS
+			 , SUBS_STATUS
+			 , DELIVERY
+			 , ADDRESS
+		FROM ORDERS O, MEMBER M
+		WHERE O.MEMBER_NO = M.MEMBER_NO
+		  AND ORDER_NO = #{orderNo}
+	</select>
+	
+	<select id="selectMyOrderCarts" parameterType="string" resultMap="cartResultSet">
+		SELECT PRODUCT_NO
+			 , CART_AMOUNT
+		FROM CART
+		JOIN ORDER_CART USING (CART_NO)
+		WHERE ORDER_NO = ${orderNo}
+	</select>
+	
+	<select id="selectMySubsList" parameterType="_int" resultMap="orderResultSet">
+		SELECT ORDER_NO
+			 , TO_CHAR(ORDER_DATE, 'YYYY-MM-DD') "ORDER_DATE"
+			 , ORDER_PRICE
+			 , SUBS_COUNT
+			 , CUSTOMER_UID
+			 , ORDER_STATUS
+			 , SUBS_STATUS
+		FROM ORDERS
+		WHERE MEMBER_NO = #{memberNo}
+		  AND SUBS_STATUS IN ('Y', 'C')
+		ORDER BY ORDER_NO DESC
+	</select>
+	
+	<select id="selectMyCustomerUidCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(DISTINCT CUSTOMER_UID)
+		FROM ORDERS
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="selectMySubs" parameterType="string" resultMap="orderResultSet">
+		SELECT ORDER_NO
+			 , TO_CHAR(ORDER_DATE, 'YYYY-MM-DD') "ORDER_DATE"
+			 , ORDER_PRICE
+			 , SUBS_COUNT
+			 , SUBS_STATUS
+			 , ADDRESS
+		FROM ORDERS
+		WHERE CUSTOMER_UID = #{customerUid}
+		  AND SUBS_COUNT = (SELECT MAX(SUBS_COUNT)
+		  					FROM ORDERS
+		  					WHERE CUSTOMER_UID = #{customerUid})
+	</select>
+	
+	<select id="selectMyFirstSubs" parameterType="string" resultType="string">
+		SELECT TO_CHAR(ORDER_DATE, 'YYYY-MM-DD') "ORDER_DATE"
+		FROM ORDERS
+		WHERE SUBS_COUNT = 1
+		  AND CUSTOMER_UID = #{customerUid}
+	</select>
+	
+	<select id="selectAllListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM ORDERS
+	</select>
+	
+	<select id="selectOrderAllList" resultMap="orderResultSet">
+		SELECT ORDER_NO
+			 , TO_CHAR(ORDER_DATE, 'YYYY-MM-DD') "ORDER_DATE"
+			 , ORDER_PRICE
+			 , MEMBER_ID "MEMBER_NO"
+			 , SUBS_COUNT
+			 , ORDER_STATUS
+			 , SUBS_STATUS
+		FROM ORDERS O, MEMBER M
+		WHERE O.MEMBER_NO = M.MEMBER_NO
+		ORDER BY ORDER_NO DESC
+	</select>
+	
+	<update id="updateOrder" parameterType="order">
+		UPDATE ORDERS
+		   SET DELIVERY = #{delivery}
+		   	 , ADDRESS = #{address}
+		 WHERE ORDER_NO = #{orderNo}
+	</update>
+	
+	
+	<!-- 관리자페이지 당해 당월 매출 구하기 -->
+	<select id="selectSalesPerMonth" resultMap="orderResultSet">
+		SELECT TO_CHAR(ORDER_DATE,'YYYY.MM') AS "ORDER_DATE",
+		       SUM(ORDER_PRICE) AS "ORDER_PRICE"
+		FROM ORDERS
+		WHERE ORDER_STATUS = 'Y'
+		  AND EXTRACT(YEAR FROM ORDER_DATE) = EXTRACT(YEAR FROM SYSDATE)
+		GROUP BY TO_CHAR(ORDER_DATE,'YYYY.MM')
+		ORDER BY ORDER_DATE
+	</select>
+	
+	
+	<!-- 관리자페이지 연간 매출 구하기 -->
+	<select id="selectSalesPerYear" resultMap="orderResultSet">
+		SELECT TO_CHAR(ORDER_DATE,'YYYY') AS "ORDER_DATE",
+		       SUM(ORDER_PRICE) AS "ORDER_PRICE"
+		FROM ORDERS
+		WHERE ORDER_STATUS = 'Y'
+		  AND ORDER_DATE BETWEEN '2018-01-01' AND '2022-12-31'
+		GROUP BY TO_CHAR(ORDER_DATE,'YYYY')
+		ORDER BY ORDER_DATE
+	
+	</select>
+	
+	<!-- 관리자 페이지 제품 누척 매출 구하기 -->
+	<select id="productSalesStatistics" resultMap="cartResultSet">
+		SELECT PRODUCT_NAME 
+		       , SUM(PRODUCT_PRICE*CART_AMOUNT) PRODUCT_PRICE
+				FROM CART
+		JOIN PRODUCT USING (PRODUCT_NO)
+		WHERE CART_STATUS = 'N'
+		GROUP BY PRODUCT_NAME 
+		ORDER BY PRODUCT_PRICE DESC
+		
+	</select>
+	
+	
+	
+</mapper>

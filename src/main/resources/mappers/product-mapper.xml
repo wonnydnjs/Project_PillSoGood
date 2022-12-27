@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="productMapper">
+
+	<resultMap id="productResultSet" type="product">
+		<result column="PRODUCT_NO" property="productNo" />
+		<result column="PRODUCT_NAME" property="productName" />
+		<result column="PRODUCT_EXPLAIN" property="productExplain" />
+		<result column="PRODUCT_PRICE" property="productPrice" />
+		<result column="PRODUCT_STOCK" property="productStock" />
+		<result column="PRODUCT_IMG_PATH" property="productImgPath" />
+		<result column="PRODUCT_DESCRIPTION" property="productDescription" />
+		<result column="PRODUCT_ENROLL_DATE" property="productEnrollDate" />
+		<result column="PRODUCT_STATUS" property="productStatus" />
+		<result column="PRODUCT_COUNT" property="productCount" />
+	</resultMap>
+	
+	<resultMap id="productLikeResultSet" type="productLike">
+		<result column="PRODUCT_NO" property="productNo" />
+		<result column="MEMBER_NO" property="memberNo" />
+	</resultMap>
+	
+	<select id="selectList" resultMap="productResultSet" parameterType="_int">
+		SELECT PRODUCT_NO
+		     , PRODUCT_NAME
+		     , PRODUCT_EXPLAIN
+		     , PRODUCT_PRICE
+		     , PRODUCT_STOCK
+		     , PRODUCT_IMG_PATH
+		     , PRODUCT_DESCRIPTION
+		     , PRODUCT_ENROLL_DATE
+		     , PRODUCT_STATUS
+		  FROM PRODUCT
+		 WHERE PRODUCT_STATUS = 'Y'
+		<choose>
+			<when test="filter == 'all'">
+				ORDER BY PRODUCT_NO DESC
+			</when>
+			<when test="filter == 'price'">
+				ORDER BY PRODUCT_PRICE
+			</when>
+			<when test="filter == 'name'">
+				ORDER BY PRODUCT_NAME
+			</when>
+			<when test="filter != ''">
+				AND PRODUCT_NAME LIKE '%' || #{filter} || '%'
+				ORDER BY PRODUCT_NO DESC
+			</when>
+		</choose>
+	</select>
+	
+	<insert id="insertProduct" parameterType="product">
+		INSERT INTO PRODUCT (PRODUCT_NO
+						   , PRODUCT_NAME
+						   , PRODUCT_EXPLAIN
+						   , PRODUCT_PRICE
+						   , PRODUCT_STOCK
+						   , PRODUCT_IMG_PATH
+						   , PRODUCT_DESCRIPTION)
+				      VALUES (SEQ_PRODUCT_NO.NEXTVAL
+				   		   , #{productName}
+				   		   , #{productExplain}
+				   		   , #{productPrice}
+				   		   , #{productStock}
+				   		   , #{productImgPath}
+				   		   , #{productDescription})
+	</insert>
+	
+	<update id="increaseCount" parameterType="int">
+		UPDATE PRODUCT
+		   SET PRODUCT_COUNT = PRODUCT_COUNT + 1
+		 WHERE PRODUCT_NO = #{productNo}
+		   AND PRODUCT_STATUS = 'Y'
+	</update>
+	
+	<select id="selectProduct" parameterType="_int" resultMap="productResultSet">
+		SELECT PRODUCT_NO
+			 , PRODUCT_NAME
+			 , PRODUCT_EXPLAIN
+		     , PRODUCT_PRICE
+		     , PRODUCT_STOCK
+		     , PRODUCT_IMG_PATH
+		     , PRODUCT_DESCRIPTION
+		  FROM PRODUCT
+		 WHERE PRODUCT_NO = #{productNo}
+		   AND PRODUCT_STATUS = 'Y'
+	</select>
+	
+	<update id="deleteProduct" parameterType="_int">
+   		UPDATE PRODUCT
+		   SET PRODUCT_STATUS = 'N'
+		 WHERE PRODUCT_NO = #{productNo}	 
+   </update>
+   
+   <update id="updateProduct" parameterType="product">
+       UPDATE PRODUCT
+          SET PRODUCT_NAME = #{productName}
+            , PRODUCT_EXPLAIN = #{productExplain}
+		    , PRODUCT_PRICE = #{productPrice}
+		    , PRODUCT_STOCK = #{productStock}
+		    , PRODUCT_IMG_PATH = #{productImgPath}
+		    , PRODUCT_DESCRIPTION = #{productDescription}
+        WHERE PRODUCT_NO = #{productNo}
+    </update>
+    
+    <select id="selectProductLike" parameterType="productLike" resultType="_int">
+		SELECT COUNT(*)
+		  FROM PRODUCT_LIKE
+		 WHERE PRODUCT_NO = #{productNo}
+		   AND MEMBER_NO = #{memberNo}
+	</select>
+	
+	<delete id="deleteProductLike" parameterType="productLike">
+		DELETE
+		  FROM PRODUCT_LIKE
+		 WHERE PRODUCT_NO = #{productNo}
+		   AND MEMBER_NO = #{memberNo}
+	</delete>
+	
+	<insert id="insertProductLike" parameterType="productLike">
+		INSERT INTO PRODUCT_LIKE (PRODUCT_NO, MEMBER_NO)
+						VALUES (#{productNo}, #{memberNo})
+		 
+	</insert>
+    
+    <select id="selectMyOrderProducts" parameterType="string" resultMap="productResultSet">
+		SELECT P.PRODUCT_NO
+			 , PRODUCT_NAME
+			 , PRODUCT_EXPLAIN
+			 , PRODUCT_PRICE
+			 , PRODUCT_IMG_PATH
+		FROM PRODUCT P, ORDER_CART OC, CART C, ORDERS O
+		WHERE P.PRODUCT_NO = C.PRODUCT_NO
+		  AND C.CART_NO = OC.CART_NO
+		  AND OC.ORDER_NO = O.ORDER_NO
+		  AND O.ORDER_NO = #{orderNo}
+	</select>
+	
+	
+	<!-- 관리자 페이지 리스트 카운트 조회 -->
+	<select id="adSelectListCount" resultType="_int">
+	    SELECT COUNT(*)
+		FROM PRODUCT
+		
+	</select>
+	
+	<!-- 관리자 페이지 제품 전체 리스트 조회 -->
+	<select id="adSelectProductList" resultMap="productResultSet"> 
+			SELECT PRODUCT_NO, PRODUCT_NAME, PRODUCT_PRICE
+			       , PRODUCT_STOCK, PRODUCT_ENROLL_DATE, PRODUCT_STATUS
+			FROM PRODUCT
+			
+			
+	</select>
+	
+
+	<select id="selectMyProductListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		  FROM PRODUCT
+		 WHERE PRODUCT_NO IN (SELECT PRODUCT_NO
+		  					    FROM PRODUCT_LIKE
+		 					   WHERE MEMBER_NO = #{memberNo})
+	</select>
+	
+	<select id="selectMyProductList" parameterType="_int" resultMap="productResultSet">
+		SELECT *
+		  FROM PRODUCT
+		 WHERE PRODUCT_NO IN (SELECT PRODUCT_NO
+		  					    FROM PRODUCT_LIKE
+		 					   WHERE MEMBER_NO = #{memberNo})
+	</select>
+	
+
+
+</mapper>

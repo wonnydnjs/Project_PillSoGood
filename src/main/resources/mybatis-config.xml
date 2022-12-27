@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "mybatis-3-config.dtd" >
+<configuration>
+
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	
+	<typeAliases>
+		<typeAlias type="com.kh.pill.member.model.vo.Member" alias="member" />
+		
+		<typeAlias type="com.kh.pill.event.model.vo.Event" alias="event" />
+		<typeAlias type="com.kh.pill.event.model.vo.EventLike" alias="eventLike" />
+		<typeAlias type="com.kh.pill.event.model.vo.EventReply" alias="eventReply" />
+		
+		<typeAlias type="com.kh.pill.magazine.model.vo.Magazine" alias="magazine" />
+		<typeAlias type="com.kh.pill.magazine.model.vo.MagazineLike" alias="magazineLike" />
+		<typeAlias type="com.kh.pill.magazine.model.vo.Category" alias="category" />
+		<typeAlias type="com.kh.pill.magazine.model.vo.MagazinePage" alias="magazinePage" />
+		
+		<typeAlias type="com.kh.pill.order.model.vo.Order" alias="order" />
+		<typeAlias type="com.kh.pill.order.model.vo.OrderCart" alias="orderCart" />
+		<typeAlias type="com.kh.pill.order.model.vo.Cart" alias="cart" />
+		
+		<typeAlias type="com.kh.pill.poll.model.vo.Poll" alias="poll" />
+		<typeAlias type="com.kh.pill.poll.model.vo.PollResult" alias="pollResult" />
+		
+		<typeAlias type="com.kh.pill.product.model.vo.Product" alias="product" />
+		<typeAlias type="com.kh.pill.product.model.vo.ProductEffect" alias="productEffect" />
+		<typeAlias type="com.kh.pill.product.model.vo.ProductLike" alias="productLike" />
+		<typeAlias type="com.kh.pill.product.model.vo.EffectInfo" alias="effectInfo" />
+		
+		<typeAlias type="com.kh.pill.question.model.vo.Question" alias="question" />
+		
+		<typeAlias type="com.kh.pill.review.model.vo.Review" alias="review" />
+		<typeAlias type="com.kh.pill.review.model.vo.ReviewFile" alias="reviewFile" />
+		<typeAlias type="com.kh.pill.review.model.vo.ReviewReply" alias="reviewReply" />
+		
+		<typeAlias type="com.kh.pill.notice.model.vo.Notice" alias="notice" />
+		
+		<typeAlias type="com.kh.pill.alarm.model.vo.Alarm" alias="alarm" />
+	</typeAliases>
+	
+
+	 <mappers>
+	 	<mapper resource="/mappers/member-mapper.xml"/>
+	 	<mapper resource="/mappers/event-mapper.xml"/>
+	 	<mapper resource="/mappers/magazine-mapper.xml"/>
+	 	<mapper resource="/mappers/notice-mapper.xml"/>
+	 	<mapper resource="/mappers/order-mapper.xml"/>
+	 	<mapper resource="/mappers/poll-mapper.xml"/>
+	 	<mapper resource="/mappers/product-mapper.xml"/>
+	 	<mapper resource="/mappers/question-mapper.xml"/>
+	 	<mapper resource="/mappers/review-mapper.xml"/>
+	 	<mapper resource="/mappers/alarm-mapper.xml"/>
+	 	
+	 </mappers>
+
+</configuration>

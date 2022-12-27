@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+
+	<resultMap id="memberResultSet" type="member">
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="MEMBER_ID" property="memberId" />
+		<result column="MEMBER_PWD" property="memberPwd" />
+		<result column="MEMBER_NAME" property="memberName" />
+		<result column="EMAIL" property="email" />
+		<result column="PHONE" property="phone" />
+		<result column="ADDRESS_ZIP" property="addressZip" />
+		<result column="ADDRESS_1" property="address1" />
+		<result column="ADDRESS_2" property="address2" />
+		<result column="GENDER" property="gender" />
+		<result column="MEMBER_BIRTH_YEAR" property="memberBirthYear" />
+		<result column="HEIGHT" property="height" />
+		<result column="WEIGHT" property="weight" />
+		<result column="MEMBER_ENROLL_DATE" property="memberEnrollDate" />
+		<result column="MEMBER_STATUS" property="memberStatus" />
+	</resultMap>
+	
+	<!-- 로그인용 쿼리문 -->
+	<select id="loginMember" parameterType="member" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+		  AND MEMBER_STATUS = 'Y'
+	</select>
+	
+	<!-- 비밀번호 변경 쿼리문 -->
+	<update id="changePwdMember" parameterType="member">
+	UPDATE MEMBER
+   	   SET MEMBER_PWD = #{memberPwd}
+ 	 WHERE MEMBER_ID = #{memberId}
+	</update>
+	
+	<!-- 회원가입용 쿼리문 -->
+	<insert id="insertMember" parameterType="member">
+		INSERT INTO MEMBER (MEMBER_NO
+						  , MEMBER_ID
+						  , MEMBER_PWD
+						  , MEMBER_NAME
+						  , PHONE
+						  , EMAIL
+						  , ADDRESS_ZIP
+						  , ADDRESS_1
+						  , ADDRESS_2)
+					VALUES (SEQ_MEMBER_NO.NEXTVAL
+						  , #{memberId}
+						  , #{memberPwd}
+						  , #{memberName}
+						  , #{phone}
+						  , #{email}
+						  , #{addressZip}
+						  , #{address1}
+						  , #{address2})
+	</insert>
+	
+	<update id="updateMember" parameterType="member">
+		UPDATE MEMBER
+		   SET MEMBER_NAME = #{memberName}
+		     , PHONE = #{phone}
+		     , GENDER = #{gender}
+		     , MEMBER_BIRTH_YEAR = #{memberBirthYear}
+		     , HEIGHT = #{height}
+		     , WEIGHT = #{weight}
+		 WHERE MEMBER_ID = #{memberId}
+	</update>
+	
+	<update id="deleteMember" parameterType="string">
+		UPDATE MEMBER
+		   SET MEMBER_STATUS = 'N'
+		 WHERE MEMBER_ID = #{memberId}
+	</update>
+	
+	<select id="idCheck" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_ID = #{checkId}
+	</select>
+	
+	<select id="idFind" parameterType="hashmap" resultType="string">
+		SELECT MEMBER_ID
+		FROM MEMBER
+	   WHERE MEMBER_NAME = #{memberName}
+		 AND EMAIL = #{email}
+		 AND MEMBER_STATUS = 'Y'
+	</select>
+	
+	
+	<!-- 관리자 회원 리스트 수 조회 -->
+	<select id="adminSelectListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_STATUS = 'Y'
+	</select>
+	
+	<!-- 관리자 회원 리스트 조회 -->
+	<select id="adminSelectList" resultMap="memberResultSet">
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NAME,
+		       EMAIL, MEMBER_ENROLL_DATE
+		       , MEMBER_STATUS
+		FROM MEMBER
+	</select>
+	
+	<!-- 관리자 회원 상세조회 -->
+	<select id="adminSelectMember" resultMap="memberResultSet" parameterType="_int">
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NAME, PHONE,
+		       EMAIL, GENDER, ADDRESS_ZIP, ADDRESS_1, ADDRESS_2,
+		       MEMBER_BIRTH_YEAR, HEIGHT, WEIGHT, 
+		       MEMBER_ENROLL_DATE,
+		       MEMBER_STATUS
+		FROM MEMBER
+		WHERE MEMBER_NO = #{memberNo}
+	
+	</select>
+	
+	<!-- 관리자 회원 정보 수정 -->
+	<update id="adminUpdateMember" parameterType="member">
+	 	UPDATE MEMBER
+		SET MEMBER_NAME = #{memberName}
+	       , EMAIL = #{email}
+	       , PHONE = #{phone}
+	       , ADDRESS_ZIP = #{addressZip}
+	       , ADDRESS_1 = #{address1}
+	       , ADDRESS_2 = #{address2}
+	       , GENDER = #{gender}
+		WHERE MEMBER_NO = #{memberNo}
+	
+	</update>
+	
+	<!-- 관리자 회원 탈퇴 처리 -->
+	<update id="adminDeleteMember" parameterType="_int">
+		UPDATE MEMBER
+		SET MEMBER_STATUS = 'N'
+		WHERE MEMBER_NO = #{memberNo}
+	
+	</update>
+	
+	<!-- 관리자 회원 검색 리스트 수 조회 -->
+	<select id="adminSelectSearchListCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_ID = #{keyword}
+		   OR MEMBER_NAME = #{keyword}
+		   OR EMAIL = #{keyword}
+	</select>
+	
+	<!-- 관리자 회원 검색 조회 -->
+	<select id="adminSelectSearchList" parameterType="string" resultMap="memberResultSet">
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NAME,
+		       EMAIL, MEMBER_ENROLL_DATE
+		       , MEMBER_STATUS
+		FROM MEMBER
+		WHERE MEMBER_ID = #{keyword}
+		   OR MEMBER_NAME = #{keyword}
+		   OR EMAIL = #{keyword}
+	</select>
+	
+</mapper>

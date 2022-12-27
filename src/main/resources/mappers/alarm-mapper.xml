@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="alarmMapper">
+	<resultMap id="alarmResultSet" type="alarm">
+		<result column="ALARM_NO" property="alarmNo"/>
+		<result column="ALARM_CONTENT" property="alarmContent" />
+		<result column="ALARM_DATE" property="alarmDate" />
+		<result column="FROM_ID" property="fromId" />
+		<result column="ALARM_READ" property="alarmRead" />
+		<result column="ALARM_STATUS" property="alarmStatus" />
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="ALARM_URL" property="alarmUrl" />
+	</resultMap>
+	
+	<select id="selectMaxQuestionNo" resultType="_int">
+		SELECT NVL(MAX(QUESTION_NO),0) QUESTION_NO
+		  FROM QUESTION
+	</select>
+	
+	<select id="selectMaxReviewNo" resultType="_int">
+		SELECT NVL(MAX(REVIEW_NO),0) REVIEW_NO
+		  FROM REVIEW
+	</select>
+	
+	
+	<select id="selectMemberNo" resultType="_int">
+		SELECT MEMBER_NO
+		  FROM MEMBER
+		 WHERE MEMBER_ID = #{toId}
+	</select>
+	
+	<insert id="insertQuestionAlarm" parameterType="alarm">
+		INSERT INTO ALARM (ALARM_NO
+						 , ALARM_CONTENT
+						 , FROM_ID
+						 , MEMBER_NO
+						 , ALARM_URL)
+				   VALUES (SEQ_ALARM_NO.NEXTVAL
+				   		 , #{alarmContent}
+				   		 , #{fromId}
+				   		 , #{memberNo}
+				   		 , #{alarmUrl})
+	</insert>
+	
+	<select id="selectAlarmList" resultMap="alarmResultSet">
+		SELECT ALARM_NO
+			 , ALARM_CONTENT
+			 , TO_CHAR(ALARM_DATE, 'YYYY-MM-DD') ALARM_DATE
+			 , FROM_ID
+			 , ALARM_READ
+			 , ALARM_STATUS
+			 , MEMBER_NO
+			 , ALARM_URL
+		  FROM ALARM
+		 WHERE MEMBER_NO = #{memberNo}
+		   AND ALARM_STATUS = 'Y'
+	</select>
+	
+	<update id="alarmReadUpdate" parameterType="_int">
+		UPDATE ALARM
+		   SET ALARM_READ = 2
+		 WHERE ALARM_NO = #{alramNo}
+	</update>
+	
+	<update id="deleteAlarm">
+		UPDATE ALARM
+		   SET ALARM_STATUS = 'N'
+		 WHERE ALARM_NO = #{alarmNo}
+	</update>
+	
+	<update id="readAllAlarm">
+		UPDATE ALARM
+		   SET ALARM_READ = 2
+		 WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<update id="deleteReadAlarm">
+		UPDATE ALARM
+		   SET ALARM_STATUS = 'N'
+		 WHERE MEMBER_NO = #{memberNo}
+		   AND ALARM_READ = 2
+	</update>
+
+</mapper>
