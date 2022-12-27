@@ -201,7 +201,7 @@
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid" id="menubar">
       <span class="logo">
-        <a class="nav" href="/PillSoGood" style="text-decoration: none;">
+        <a class="nav" href="${ pageContext.request.contextPath }" style="text-decoration: none;">
           <jsp:include page="logo.jsp" />
         </a>
      </span>

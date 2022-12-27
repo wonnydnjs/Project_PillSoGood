@@ -68,7 +68,7 @@
                 </div>
                 <div id="content_2_3">
                     <div class="col text-center">
-                        <button class="btn btn-primary btn-lg" onclick="location.href='/PillSoGood'"> 메인으로 돌아가기 </button>
+                        <button class="btn btn-primary btn-lg" onclick="location.href='${ pageContext.request.contextPath }'"> 메인으로 돌아가기 </button>
                     </div>
                 </div>
             </div>
