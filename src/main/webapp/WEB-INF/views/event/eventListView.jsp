@@ -10,29 +10,29 @@
 <title>이벤트</title>
 <style>
 
-    div {
-        /* border : 1px solid #78C2AD; */
-        box-sizing : border-box;
-    }
+	div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        height: auto;
+        height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { height: auto; display: flex; color: black; }
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
-    #content_2_1 { height: 10%; float: left; }
-    #content_2_2 { height: 80%; float: left; }
-    #content_2_3 { height: 10%; float: left; }
-
-    #header { height: 130px; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
 
     #content_2_1>p {
         font-size: 35px;
@@ -41,60 +41,25 @@
         margin-left: 30px;
         font-weight: bold;
     }
-
-    /* content 영역 */
-    #content>div { height : 100%; float : left; }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; }
-    #content_3 { width : 20%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
-
-
-    .eventTable * {
-        border : none;
-    }
-    .eventStatus {
-        margin-left : 15px;
-    }
-
-    .eventContent {
-        font-size: 0.9em;
-    }
-
-    .eventDate {
-        font-size : 0.8em;
-    }
-
-    .eventLike {
-        font-size : 0.8em;
-    }
-
-	#eventList {
-        color: black;
-    }
     
-    #eventList td {
-        padding-left: 30px;
-    }
-
-    #noticePagination {
-        padding: 20px;
-        height: 200px;
-    }
+    .eventTable * { border : none; }
+    .eventStatus { margin-left : 15px; }
+    .eventContent { font-size: 0.9em; }
+    .eventDate { font-size : 0.8em; }
+    .eventLike { font-size : 0.8em; }
+	#eventList { color: black; }
+    #eventList td { padding-left: 30px; }
 
     #thum>img {
         object-fit: cover;
         margin: auto;
     }
 
-
 </style>
 </head>
 <body>
 
     <div class="wrap">
-        
         <div id="navigator2">
         	<jsp:include page="../common/menubar.jsp" />
         </div>
@@ -155,46 +120,40 @@
 	                    </table>
                     </c:forEach>
                 </div>
-
-				<div id="content_2_3">
-             		<!-- 페이지네이션 -->
-                    <div id="noticePagination">
-                    	<ul class="pagination  justify-content-center">
-	                    	<c:choose> 
-	                    		<c:when test="${ pi.currentPage eq 1 }">
-	                    			<li class="page-item"><a class="page-link" href="#">&lt;</a></li>
-	                    		</c:when>
-	                    		<c:otherwise>
-	                    			<li class="page-item"><a class="page-link" href="list.ev?cpage=${ pi.currentPage - 1 }">&lt;</a></li>
-	                    		</c:otherwise>
-	                    	</c:choose>
-	                    	
-	                    	<c:forEach var="e" begin="${ pi.startPage }" end="${ pi.endPage }">
-	                    		<li class="page-item"><a class="page-link" href="list.ev?cpage=${ e }">${ e }</a></li>
-	                    	</c:forEach>
-	                    	
-	                    	<c:choose>
-	                    		<c:when test="${pi.currentPage eq pi.maxPage }">
-	                    			<li class="page-item"><a class="page-link" href="#">&gt;</a></li>
-	                    		</c:when>
-	                    		<c:otherwise>
-	                    			<li class="page-item"><a class="page-link" href="list.ev?cpage=${ pi.currentPage + 1 }">&gt;</a></li>
-	                    		</c:otherwise>
-	                    	</c:choose>
-                        </ul>
-                    </div>
+                
+                <!-- 페이지네이션 -->
+                <div id="noticePagination" style="margin-top: 80px;">
+                   	<ul class="pagination  justify-content-center">
+                    	<c:choose> 
+                    		<c:when test="${ pi.currentPage eq 1 }">
+                    			<li class="page-item"><a class="page-link" href="#">&lt;</a></li>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<li class="page-item"><a class="page-link" href="list.ev?cpage=${ pi.currentPage - 1 }">&lt;</a></li>
+                    		</c:otherwise>
+                    	</c:choose>
+                    	
+                    	<c:forEach var="e" begin="${ pi.startPage }" end="${ pi.endPage }">
+                    		<li class="page-item"><a class="page-link" href="list.ev?cpage=${ e }">${ e }</a></li>
+                    	</c:forEach>
+                    	
+                    	<c:choose>
+                    		<c:when test="${pi.currentPage eq pi.maxPage }">
+                    			<li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<li class="page-item"><a class="page-link" href="list.ev?cpage=${ pi.currentPage + 1 }">&gt;</a></li>
+                    		</c:otherwise>
+                    	</c:choose>
+                       </ul>
                 </div>
-                
-                
+
+				<div id="content_2_3"></div>
             </div>
 
             <div id="content_3"></div>
         </div>
-
-
         <jsp:include page="../common/footer.jsp" />
-
-        
     </div>
     
 </body>

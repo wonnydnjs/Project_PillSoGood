@@ -7,52 +7,42 @@
 <meta charset="UTF-8">
 <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
 <title>MY PAGE 내 정보 관리</title>
-
 <style>
 
-    div {
-        /*border : 1px solid #78C2AD;*/
-        box-sizing : border-box;
-    }
+	div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        /* 전체 길이 개별 커스텀 */
-        height: 1400px;
+        height: auto;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    /* 내용 길이 개별 wrap - 350px */
-    #content { height: 1050px; }
+	#header { height: 130px; }
+	
+    #content { height: auto; display:flex; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; padding-bottom: 200px;}
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
-    #content_2_1 { height: 115px; }
-    #content_2_2 { color: black; }
-
-    #header { height: 130px; }
+    #content_2_2 { height: auto; color: black; }
 
     #content_2_1>p {
         font-size: 35px;
         color: black;
         margin-top: 20px;
-        margin-left: 30px;
+        margin-left: 15px;
+        font-weight: bold;
     }
-
-    /* content 영역 */
-    #content>div { height : 100%; float : left; }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; }
-    #content_3 { width : 20%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
     /* ----- 마이페이지 공통 style ----- */
     /* 영역 구분 */
-    #content2_2>div { height: 100%; }
+    #content_2_2>div { height: 100%; }
     #mypage_navi { width: 20%; padding: 10px; float: left; }
     #mypage_content { width: 80%; padding: 30px; float: left; }
 
@@ -103,7 +93,6 @@
 
 </head>
 <body>
-
 
     <div class="wrap">
         
@@ -215,7 +204,6 @@
                             </div>
                         </form>
                         
-
                         <script>
                         $(function() {
                             
@@ -227,7 +215,6 @@
 
                         </script>
 
-
                         <hr>
                         <div id="change_pwd">
                          <!--비밀번호 변경  -->
@@ -235,22 +222,20 @@
                         </div>
                         <br>
     					<button type="button" class="btn btn-outline-secondary btn-sm" style="float: right;" onclick="deleteForm()">회원탈퇴</button>
-				    <script>			    
-					    function changePwdForm() {
-					    	
-					    	location.href = "changePwdForm.me";
-					    
-					    }
-					    
-					    function deleteForm() {
-					    	
-					    	location.href = "deleteForm.me"
-					    }
-				    </script>
-                        
+					    <script>			    
+						    function changePwdForm() {
+						    	
+						    	location.href = "changePwdForm.me";
+						    
+						    }
+						    
+						    function deleteForm() {
+						    	
+						    	location.href = "deleteForm.me"
+						    }
+					    </script>
          
                     </div>
-
                 </div>
 
             </div>

@@ -9,28 +9,29 @@
 <title>결제 완료</title>
 <style>
 
-    div {
-        /* border : 1px solid #78C2AD; */
-        box-sizing : border-box;
-    }
+    div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        height: 1150px;
+        height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { height: 800px; }
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
-    #content_2_1 { height: 115px; }
-    #content_2_2 { color: black; }
-
-    #header { height: 130px; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
 
     #content_2_1>p {
         font-size: 35px;
@@ -39,14 +40,6 @@
         margin-left: 30px;
         font-weight: bold;
     }
-
-    /* content 영역 */
-    #content>div { height : 100%; float : left; }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; }
-    #content_3 { width : 20%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
     /* 여기서부터는 내가 준 스타일 영역 */
     #checkicon {

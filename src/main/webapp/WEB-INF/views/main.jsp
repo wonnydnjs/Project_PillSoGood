@@ -3,201 +3,200 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
-    <title>Pill So Good</title>
-    <style>
-        div {
-            /* border: 1px solid #78C2AD; */
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
+<title>PillSoGood</title>
+<style>
+    div {
+        /* border: 1px solid #78C2AD; */
+        box-sizing: border-box;
+    }
 
-        /* 전체를 감싸는 wrap */
-        .wrap {
-            width: 100%;
-            height: 3800px;
-            margin: auto;
-        }
+    /* 전체를 감싸는 wrap */
+    .wrap {
+        width: 100%;
+        height: 3800px;
+        margin: auto;
+    }
 
-        .wrap>div {
-            width: 100%;
-        }
+    .wrap>div {
+        width: 100%;
+    }
 
-        #content {
-            height: 3800px;
-            display: block;
-        }
+    #content {
+        height: 3800px;
+        display: block;
+    }
 
-        #content1 {
-            width: 100%;
-        }
+    #content1 {
+        width: 100%;
+    }
 
-        #content1>#text {
-            position: absolute;
-            transform: translate(110%, 80%);
-        }
+    #content1>#text {
+        position: absolute;
+        transform: translate(110%, 80%);
+    }
 
-        #content2 {
-            width: 100%;
-        }
+    #content2 {
+        width: 100%;
+    }
 
-        #content2_1 {
-            width: 20%;
-            float: left;
-        }
+    #content2_1 {
+        width: 20%;
+        float: left;
+    }
 
-        #content2_2 {
-            width: 60%;
-            float: left;
-            color: rgb(40, 40, 40);
-        }
+    #content2_2 {
+        width: 60%;
+        float: left;
+        color: rgb(40, 40, 40);
+    }
 
-        #content2_3 {
-            width: 20%;
-            float: left;
-        }
+    #content2_3 {
+        width: 20%;
+        float: left;
+    }
 
-        #content3 {
-            width: 100%;
-            background-color: rgba(120, 194, 173, 0.23);
-            color: rgb(40, 40, 40);
-        }
+    #content3 {
+        width: 100%;
+        background-color: rgba(120, 194, 173, 0.23);
+        color: rgb(40, 40, 40);
+    }
 
-        #content3_1 {
-            width: 10%;
-            float: left;
-        }
+    #content3_1 {
+        width: 10%;
+        float: left;
+    }
 
-        #content3_2 {
-            width: 80%;
-            float: left;
-            text-align: center;
-        }
+    #content3_2 {
+        width: 80%;
+        float: left;
+        text-align: center;
+    }
 
-        #content3_2>table {
-            margin-top: 50px;
-            width: 100%;
-        }
+    #content3_2>table {
+        margin-top: 50px;
+        width: 100%;
+    }
 
-        #content3_2>table h5 {
-            color: #40b695;
-            font-weight: bold;
-        }
+    #content3_2>table h5 {
+        color: #40b695;
+        font-weight: bold;
+    }
 
-        #content3_3 {
-            width: 10%;
-            float: left;
-        }
-
-
-        /* content 영역 */
-        #content>div {
-            height: 100%;
-            float: left;
-        }
-
-        body {
-            font-family: 'Noto Sans KR', sans-serif !important;
-        }
-
-        #healthIcon {
-            background-color: rgba(211, 211, 211, 0.273);
-            border-radius: 25px;
-            width: 80px;
-            height: 80px;
-        }
-
-        #healthIcon>p {
-            font-size: 30px;
-            padding-top: 15px;
-            padding-left: 25px;
-            color: rgb(105, 104, 104);
-        }
+    #content3_3 {
+        width: 10%;
+        float: left;
+    }
 
 
+    /* content 영역 */
+    #content>div {
+        height: 100%;
+        float: left;
+    }
 
-        #content2Table td {
-            padding-left: 15px;
-            height: 150px;
-            
-        }
+    body {
+        font-family: 'Noto Sans KR', sans-serif !important;
+    }
+
+    #healthIcon {
+        background-color: rgba(211, 211, 211, 0.273);
+        border-radius: 25px;
+        width: 80px;
+        height: 80px;
+    }
+
+    #healthIcon>p {
+        font-size: 30px;
+        padding-top: 15px;
+        padding-left: 25px;
+        color: rgb(105, 104, 104);
+    }
 
 
-        #content1>img {
-            display: inline-block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
 
-        /* 슬라이드 효과 */
-        .swiper-container {
-            width: 1000px;
-            height: 420px;
-        }
-
-        .swiper-slide {
-            text-align: center;
-            /* display:flex; */
-            /* 내용을 중앙정렬 하기위해 flex 사용 */
-            align-items: center;
-            /* 위아래 기준 중앙정렬 */
-            justify-content: center;
-            /* 좌우 기준 중앙정렬 */
-        }
-
-        .swiper-slide>div {
-            margin: auto;
-            background-color: rgba(211, 211, 211, 0.273);
-            border-radius: 50%;
-            width: 200px;
-            height: 200px;
-            margin-top: 80px;
-        }
-
-        .swiper-slide img {
-            max-width: 100%;
-            /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
-            /* 이 예제에서 필요해서 설정했습니다.
-            상황에따라 다를 수 있습니다. */
-        }
-
-        .swiper-button-next {
-            margin-right: 0px;
-        }
-
-        .swiper-button-prev {
-            margin-left: 0px;
-        }
-
-        #cotent5_4Table td #el1{
-            background-color: white;
-            width: 300px;
-            height: 280px;
-            border-radius: 50% 20% / 10% 40%;
-            margin-top: 50px;
-            margin-left: 50px;
-        }
+    #content2Table td {
+        padding-left: 15px;
+        height: 150px;
         
-        .swiper-slide:hover {
-        	cursor : pointer;
-        }
+    }
 
 
-    </style>
+    #content1>img {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
+    /* 슬라이드 효과 */
+    .swiper-container {
+        width: 1000px;
+        height: 420px;
+    }
 
-    <!-- 알약 슬라이드에 필요함 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+    .swiper-slide {
+        text-align: center;
+        /* display:flex; */
+        /* 내용을 중앙정렬 하기위해 flex 사용 */
+        align-items: center;
+        /* 위아래 기준 중앙정렬 */
+        justify-content: center;
+        /* 좌우 기준 중앙정렬 */
+    }
+
+    .swiper-slide>div {
+        margin: auto;
+        background-color: rgba(211, 211, 211, 0.273);
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+        margin-top: 80px;
+    }
+
+    .swiper-slide img {
+        max-width: 100%;
+        /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
+        /* 이 예제에서 필요해서 설정했습니다.
+        상황에따라 다를 수 있습니다. */
+    }
+
+    .swiper-button-next {
+        margin-right: 0px;
+    }
+
+    .swiper-button-prev {
+        margin-left: 0px;
+    }
+
+    #cotent5_4Table td #el1{
+        background-color: white;
+        width: 300px;
+        height: 280px;
+        border-radius: 50% 20% / 10% 40%;
+        margin-top: 50px;
+        margin-left: 50px;
+    }
     
-    <!-- AOS 라이브러리 불러오기-->
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"> 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> 
+    .swiper-slide:hover {
+    	cursor : pointer;
+    }
+
+
+</style>
+
+
+<!-- 알약 슬라이드에 필요함 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+
+<!-- AOS 라이브러리 불러오기-->
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"> 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> 
 
 </head>
 
@@ -488,18 +487,11 @@
                         </table>
 
                         <table style="width: 1000px;" align="center" id="content6_Table" >
-                             <tbody>
-                               
-                            
-                            </tbody>
                         </table>
 
                     </div>
                     <div id="content6_3" style="width: 10%; float: left;">&ensp;</div>
                 </div>
-
-
-      
 
              </div>
             </div>
@@ -579,7 +571,6 @@
             	}
             	
             	
-            	
             	function latestMagazine() {
             		
             		$.ajax({
@@ -625,7 +616,6 @@
 				                                 +"</tr>";
             						
             					}
-                                
             					
             				}
             				
@@ -638,12 +628,9 @@
             				console.log("main.jsp latestMagazine ajax failure");
             			}
             			
-            			
             		});
             		
             	}
-            	
-            	
             	
                 var swiper = new Swiper('.swiper-container', {
 
@@ -666,15 +653,9 @@
                     }
                 });
                 
-                
             </script>
 
-            
     <jsp:include page="/WEB-INF/views/common/footer.jsp" /> 
 
- 
-
-
 </body>
-
 </html>

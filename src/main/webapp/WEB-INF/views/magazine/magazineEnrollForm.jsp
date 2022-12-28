@@ -14,124 +14,100 @@
 <!-- hashtag 폴리필 (구버젼 브라우저 지원) -->
 <script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />    
-
 <link rel='stylesheet' href='https://unpkg.com/@yaireo/tagify/dist/tagify.css'>
 <link rel='stylesheet' href='https://unpkg.com/@yaireo/dragsort/dist/dragsort.css'>
-
-<!-- 순수 js -->
 <style>
+	
+	div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    div {
-        box-sizing : border-box;
-    }
-
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        height: 1530px;
+        height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
-    #navigator2 { height: 0px; }
-
-    #content { height: 1150px; }
+    #navigator2 { height: 100px; }
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
-    #content_2_1 { height: 5%; float: left; }
-    #content_2_2 { height: 80%; float: left; }
-    #content_2_3 { height: 15%; float: left; }
-
-    #header { height: 0px; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
 
     #content_2_1>p {
         font-size: 35px;
         color: black;
         margin-top: 20px;
         margin-left: 30px;
+        font-weight: bold;
     }
 
-    /* content 영역 */
-    #content>div { height : 100%; float : left; }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; }
-    #content_3 { width : 20%; }
+	.innerContent { 
+		display: flex;
+		float: left;
+		left: 1000px;
+		position:relative;
+		top: 5%;
+		left: 5%;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
 
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
+	.innerContent {
+		padding: 40px;
+		padding-top: 60px;
+		border-radius: 15px;
+		border-color: rgba(128, 126, 126, 0.541);
+	}
 
-    .innerContent { 
-      display: flex;
-      float: left;
-      left: 1000px;
-      position:relative;
-      top: 5%;
-      left: 5%;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      }
+	#magazineTitle {
+		width: 900px;
+		box-sizing: border-box;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		height:45px;
+	}
 
-      .innerContent {
-        padding: 40px;
-        padding-top: 60px;
-        border-radius: 15px;
-        border-color: rgba(128, 126, 126, 0.541);
-      }
+	#content {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
 
-      #magazineTitle {
-        width: 900px;
-        box-sizing: border-box;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        height:45px;
-      }
+	th { 
+		padding-left: 10px;
+		padding-right: 20px;
+	}
 
-      #content{
-        margin-top: 10px;
-        margin-bottom: 10px;
-      }
+	#select { width: 200px; }
 
-      th { 
-        padding-left: 10px;
-        padding-right: 20px;
-      }
-
-      #select {
-        width: 200px;
-      }
-
-      .btnArea {
-        padding-top: 80px;
-        padding-bottom: 40px;
-      }
+	.btnArea {
+		padding-top: 80px;
+		padding-bottom: 40px;
+	}
       
-      .logoArea>p {
-     	 position:relative;
-     	 margin-left:-270px;
-     	 padding-top:-100px;
-     	 top: 5%;
-      }
+	.tagify {
+		--tag--max-width: 250px;
+		width: 100%;
+		max-width: 600px;
+	}
 
-	  .logoArea {
-		    padding-left: 29%;
-    		padding-top: 80px;
-		}
+	.tagify .tagify__tag-text {
+		white-space: nowrap;
+	}
 
-      .tagify {
-               --tag--max-width: 250px;
-               width: 100%;
-               max-width: 600px;
-      }
-
-      .tagify .tagify__tag-text {
-        white-space: nowrap;
-      }
-      
-      .tagify{    
- 		max-width: 900px;
-		}
+	.tagify {    
+		max-width: 900px;
+	}
 
 </style>
-
 </head>
 <body>
 
@@ -142,13 +118,9 @@
         <div id="content">
             <div id="content_1"></div>
             <div id="content_2">
-              <div id="content_2_1">
-                <!-- 로고 영역 -->
-                <div class="logoArea">
-                    <p style="display: inline; font-size: 20px;">PillSoGood Magazine</p>
-                </div>
-              </div>
-
+            	<div id="content_2_1">
+            		<p>매거진</p>
+            	</div>
               <div id="content_2_2">
                 <div class="innerContent" style="border: 2px solid;">
                   <form id="enrollForm" method="post" action="enroll.mag" enctype="multipart/form-data">
@@ -232,10 +204,10 @@
               </div>
 
          </div>
-            </div>
-            <div id="content_2_3"></div>
-            
-            <div id="content_3"></div>
+         <div id="content_2_3"></div>
+         </div>
+         
+         <div id="content_3"></div>
         </div>
         <jsp:include page="../common/footer.jsp" />
     </div>

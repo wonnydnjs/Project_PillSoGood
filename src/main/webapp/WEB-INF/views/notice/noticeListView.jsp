@@ -7,64 +7,32 @@
 <meta charset="UTF-8">
 <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
 <title>공지사항</title>
-
-
 <style>
-   div {
-        
-        box-sizing : border-box;
-    }
-
-    /* 전체를 감싸는 wrap */
-    .wrap {
-        width: 98%;
-        height: 1530px;
-        margin : auto;
-    }
-
-    .wrap>div { width : 100%; }
-
-    #navigator2 { height: 100px; }
-
-    #content { height: 1150px; }
-    #content_2>div { width: 100%; }
-    #content_2_1 { height: 10%; float: left; }
-    #content_2_2 { height: 80%; float: left; }
-    #content_2_3 { height: 10%; float: left; }
-
-    #header { height: 130px; }
-
-    #content_2_1>p {
-        font-size: 35px;
-        color: black;
-        margin-top: 20px;
-        margin-left: 30px;
-    }
-
-    /* content 영역 */
-    #content>div { height : 100%; float : left; }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; }
-    #content_3 { width : 20%; }
-
+	
+	div { box-sizing : border-box; }
     body { font-family: 'Noto Sans KR', sans-serif !important; }
-
 
     .wrap {
         width: 100%;
-        height: 1480px;
+        height: inherit;
         margin : auto;
     }
-    
-    
-    
+    .wrap>div { width : 100%; }
+
     #navigator2 { height: 100px; }
-        
-    #content { height: 1100px; }
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
-    #content_2_1 { height: 10%; float: left; }
-    #content_2_2 { height: 90%; float: left; }
-        
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
+
     #content_2_1>p {
         font-size: 35px;
         color: black;
@@ -73,31 +41,20 @@
         font-weight: bold;
     }
 	
-	#noticeTable>tbody *:hover {
-		cursor : pointer;
-	}
+	#noticeTable>tbody *:hover { cursor : pointer; }
 	
     #noticeTable>tbody * {
         height: 70px;
         vertical-align: middle;
     }
 
-    #noticePagination {
-		margin-top: 50px;
-        padding-top : 20px;
-    }
-    
-    #noticeTable td {
-        padding-left: 30px;
-    }
+    #noticePagination { margin-top: 80px; }
+    #noticeTable td { padding-left: 30px; }
 
 </style>
-
 </head>
 <body>
-
 	<div class="wrap">
-       
         <div id="navigator2">
         	<jsp:include page="../common/menubar.jsp" />
         </div>
@@ -112,13 +69,11 @@
                     			<button style="float:right; margin-right: 20px;" onclick="location.href='enrollForm.no'" class="btn btn-primary btn-primary btn-lg">등록</button>	
                     		</c:when>
                     	</c:choose>
-                        
                     </p>
                 </div>
                 <div id="content_2_2">
 
                     <table class="table table-hover" id="noticeTable" style="color: black;">
-                        
                         <tbody>
                         	<c:forEach var="n" items="${ list }">
                         		<tr align="center" width="100%">
@@ -135,7 +90,6 @@
 						$(function() {
 							
 							$("#noticeTable>tbody>tr").click(function() {
-								
 								
 								location.href='detail.no?nno='+ $(this).children().eq(0).text();
 								
@@ -186,16 +140,12 @@
                         </nav>
                     </div>
                 </div>
+                <div id="content_2_3"></div>
                 
             </div>
-
             <div id="content_3"></div>
         </div>
-
-		
         <jsp:include page="../common/footer.jsp" />
-
-        
     </div>
 
 </body>

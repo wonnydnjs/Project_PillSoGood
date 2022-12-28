@@ -11,30 +11,28 @@
 <title>ADMIN PAGE 문의 관리</title>
 <style>
 
-    div {
-       /*  border : 1px solid #78C2AD; */
-        box-sizing : border-box;
-    }
+	div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        /* 전체 길이 개별 커스텀 */
         height: auto;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    /* 내용 길이 개별 wrap - 350px */
+	#header { height: 130px; }
+	
     #content { height: auto; display:flex; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; padding-bottom: 200px;}
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
-    #content_2_1 { height: 10%; }
-    #content_2_2 { height:90%; color: black; }
-
-    #header { height: 130px; }
+    #content_2_2 { height: auto; color: black; }
 
     #content_2_1>p {
         font-size: 35px;
@@ -44,17 +42,9 @@
         font-weight: bold;
     }
 
-    /* content 영역 */
-    #content>div { height : 100%; float : left; }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; padding-bottom: 200px;}
-    #content_3 { width : 20%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
-
     /* ----- 마이페이지 공통 style ----- */
     /* 영역 구분 */
-    #content2_2>div { height: 100%; }
+    #content_2_2>div { height: 100%; }
     #mypage_navi { width: 20%; padding: 10px; float: left; }
     #mypage_content { width: 80%; padding: 30px; float: left; }
 
@@ -95,7 +85,6 @@
         font-size: large;
         font-weight: bold;
     }
-
 
     /* ----- 문의조회 style ----- */
     /* 목록 테이블 */

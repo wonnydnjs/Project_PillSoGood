@@ -5,52 +5,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
-    <title>후기 상세</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
+<title>후기 상세</title>
 <style>
 
-    div { 
-        box-sizing : border-box;
-        /* border: 1px solid #78C2AD; */ 
-    }
+	div { box-sizing : border-box; }
+    body, pre { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        height: auto;
+        height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { height : auto; display: flex; }
-    #content_2>div { width: 100%; float: left; }
-    #content_2_1 { height: 115px; }
-    #content_2_2 { height: auto; }
-
-    #header { height: 130px; }
-
-    #content_2_1>p {
-        font-size: 35px;
-        font-weight: bold;
-        color: black;
-        margin-top: 20px;
-        margin-left: 30px;
-    }
-
-    /* content 영역 */
-    #content>div { height : auto; float : left; }
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
     #content_1 { width : 20%; }
     #content_2 { width : 60%; }
     #content_3 { width : 20%; }
+    
+    #content_2>div { width: 100%; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
 
-    body, pre { font-family: 'Noto Sans KR', sans-serif !important; }
-
+    #content_2_1>p {
+        font-size: 35px;
+        color: black;
+        margin-top: 20px;
+        margin-left: 30px;
+        font-weight: bold;
+    }
+	
+	#select { width: 200px; }
+	i { cursor: pointer; }
+	
     .btnArea { padding: 15px 0px; }
 
     .pillCart {
@@ -135,11 +131,9 @@
         left: 1050px;
     }
 
-    .listBtnArea { width: 140px; margin: auto; margin-top: 20px; }
+    .listBtnArea { margin-top: 50px; }
     
-    .replyContent {
-        color: black;
-    }
+    .replyContent { color: black; }
 
     #rep, #rep2 {
         font-size: 18px;
@@ -444,11 +438,11 @@
                         <tbody></tbody>
                     </table>
                     
-                    <div class="listBtnArea">
+                    <div class="listBtnArea" align="center">
                         <button type="button" class="btn btn-outline-secondary" id="listBtn" onclick="location.href='list.re';" style="width:140px">목록으로</button>
                     </div>    
                 </div>
-                <div style="height: 150px"></div>
+                <div id="content_2_3"></div>
             </div>
             <div id="content_3"></div>
         </div>
@@ -566,7 +560,6 @@
             });
         }
         
-        
         function toUserSocketMsg() {
         	
         	if(socket) {
@@ -576,7 +569,6 @@
     			socket.send(socketMsg);
         		
         	}
-        	
         	
         	$.ajax({
         		
@@ -597,14 +589,8 @@
         			
         			console.log("toUserAlarm reviewDetailView.jsp ajax failure");
         		}
-        		
-        		
         	});
-        	
         }
-        
-        
-        
     </script>
 </body>
 </html>

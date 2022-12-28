@@ -10,28 +10,29 @@
 <title>장바구니</title>
 <style>
 
-    div {
-        /* border : 1px solid #78C2AD; */
-        box-sizing : border-box;
-    }
+    div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        height: auto;
+        height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { height: auto; display: flex; }
-    #content_2>div { width: 100%; float: left; }
-    #content_2_1 { height: 115px; float: left; }
-    #content_2_2 { height: auto; float: left; }
-
-    #header { height: 130px; }
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
+    #content_2>div { width: 100%; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
 
     #content_2_1>p {
         font-size: 35px;
@@ -79,15 +80,6 @@
     }
 
     #btnss>div { width: 50%; float: left; }
-
-
-    /* content 영역 */
-    #content>div { height : 100%; float : left; }
-    #content_1 { width : 25%; }
-    #content_2 { width : 50%; }
-    #content_3 { width : 25%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
 </style>
 </head>

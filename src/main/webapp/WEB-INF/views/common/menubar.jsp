@@ -135,7 +135,6 @@
 	 
 	 #alarmTable *:hover {
 	 	text-decoration : none;
-	 	
 	 }
 
 </style>
@@ -152,7 +151,6 @@
 	<c:if test="${ loginUser ne null }">
 		<script>
 		
-		
 			var socket  = null;
 			$(document).ready(function(){
 			    // 웹소켓 연결
@@ -167,14 +165,10 @@
 
 	    </script>
 	</c:if>	
-
 	
   <script>
 		var toastCount = 0;
 		// 전역변수 설정
-		
-		
-
 		
 	    function onMessage(evt){
 	    	selectAlarmList();
@@ -252,7 +246,6 @@
         </ul>
 
         <div class="text-decoration-none" id="side" style="font-size: 15px;">
-  
             
             <c:choose>
             	<c:when test="${ empty loginUser }">
@@ -354,9 +347,7 @@
 	    		}
 	    	});
     	}
-    	
     }
-    
     
     function alarmReadUpdate(alarmNo) {
     	   	
@@ -370,12 +361,9 @@
     		error : function() {
     			console.log("alarmReadUpdate ajax failure");
     		}
-    		
-    		
     	});
     	
     }
-    
     
     function deleteAlarm(alarmNo) {
     	
@@ -435,10 +423,7 @@
 
   </script>
 
-
-
 	<div id="socketAlarmArea" ></div>
-
 
 </body>
 </html>

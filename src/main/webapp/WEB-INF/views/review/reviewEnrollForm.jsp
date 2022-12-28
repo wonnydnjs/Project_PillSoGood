@@ -4,51 +4,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
-    <title>후기 등록</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
+<title>후기 등록</title>
 <style>
 
-    div {
-		/* border : 1px solid #78C2AD; */
-        box-sizing : border-box;
-    }
+    div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        height: auto;
+        height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { height: auto; display: flex; }
-    #content_2>div { width: 100%; float: left; }
-    #content_2_1 { height: 115px; }
-    #content_2_2 { height: auto; }
-
-    #header { height: 130px; }
-
-    #content_2_1>p {
-        font-size: 35px;
-        font-weight: bold;
-        color: black;
-        margin-top: 20px;
-        margin-left: 30px;
-    }
-
-    /* content 영역 */
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
     #content>div { height : 100%; float : left; }
+    
     #content_1 { width : 20%; }
     #content_2 { width : 60%; }
     #content_3 { width : 20%; }
+    
+    #content_2>div { width: 100%; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
 
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
+    #content_2_1>p {
+        font-size: 35px;
+        color: black;
+        margin-top: 20px;
+        margin-left: 30px;
+        font-weight: bold;
+    }
 
 	label {
 		font-weight: bold;
@@ -64,23 +57,10 @@
         width: 200px;
         margin: auto;
 	}
-
-    #title {
-        width: 900px;
-        box-sizing: border-box;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-
-    #content{
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-
-    #select { width: 200px; }
-      
-    i { cursor: pointer; }
-	  
+	
+	#select { width: 200px; }
+	i { cursor: pointer; }
+	 
 	.filebox input[type="file"] {
 		position: absolute;
 		width: 1px;
@@ -166,7 +146,7 @@
 									</div>
 								</div>
 								<div>
-									<div id="titlee"><label for="title">제목</label></div>
+									<div><label>제목</label></div>
 									<div><input type="text" class="form-control" name="reviewTitle" id="reviewTitle" placeholder="후기 제목을 입력해주세요 (30자 이내)" maxlength="30" required></div>
 								</div>
 								<br>
@@ -225,7 +205,7 @@
 								<br>
 								
 								<div>
-									<div><label for="content">내용</label></div>
+									<div><label>내용</label></div>
 									<div><textarea class="form-control" cols="20" rows="15" style="resize:none;" name="reviewContent" placeholder="후기 내용을 입력해주세요 (1000자 이내)" maxlength="1000" required></textarea></div>
 								</div>
 								<br>
@@ -321,8 +301,6 @@
 											socket.send(socketMsg);
 										}
 										
-										
-										
 										$.ajax({
 											url : "insertReview.alarm",
 											data : {
@@ -341,18 +319,14 @@
 												console.log("reviewEnroll.jsp ajax failure");
 											}
 											
-											
-											
 										});
-										
 									}
-									
 								</script>
 							</div>  
 						</form>
 					</div>
 				</div>
-				<div style="height: 150px"></div>
+				<div id="content_2_3"></div>
 			</div>
             <div id="content_3"></div>
         </div>

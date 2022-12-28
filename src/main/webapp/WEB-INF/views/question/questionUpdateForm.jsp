@@ -9,27 +9,29 @@
 <title>1:1 문의 수정</title>
 <style>
 
-    div {
-        box-sizing : border-box;
-    }
+    div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
         height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
+	#header { height: 130px; }
+	
     #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
     #content_2_1, #content_2_3 { height: 115px; }
     #content_2_2 { height: auto; color: black; }
-
-    #header { height: 130px; }
 
     #content_2_1>p {
         font-size: 35px;
@@ -39,18 +41,8 @@
         font-weight: bold;
     }
 
-    /* content 영역 */
-    #content>div { height : 100vh; float : left; }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; height: auto!important;}
-    #content_3 { width : 20%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
-
-    /* 영섭 작업 영역 시작 */
-
     /* content_2_2 영역 분배 */
-    #content_2_2>div { width: 100%;}        
+    #content_2_2>div { width: 100%;}
 
     #update_btn { text-align: center; }
 
@@ -60,8 +52,6 @@
         width: 200px;
         margin: auto;
     }
-
-    /* 영섭 작업 영역 끝 */
 
     .form-control {
         margin-left: 0px;
@@ -93,13 +83,12 @@
             <div id="content_1"></div>
             <div id="content_2">
                 <div id="content_2_1">
-                    <p>1:1 문의</p>
+                    <p>1:1 문의 수정</p>
                 </div>
                 <div id="content_2_2">
 
                     <form action="update.qu" method="post" enctype="multipart/form-data">
                     	<input type="hidden" name="questionNo" value="${ q.questionNo }">
-                        <!-- 영섭 작업 영역 시작 -->
 
                         <!-- 제목 부분 -->
                         <div>
@@ -137,7 +126,6 @@
                             <button type="submit" class="btn btn-primary">수정하기</button>
                         </div>
 
-                        <!-- 영섭 작업 영역 끝 -->
                     </form>
                 </div>
                 

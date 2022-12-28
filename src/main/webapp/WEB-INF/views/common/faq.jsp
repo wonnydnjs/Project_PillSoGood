@@ -9,29 +9,29 @@
 <title>FAQ</title>
 <style>
 
-	/* [샛별] 파일 받으면 이 부분 지우기 */
-	div {
-		/* border : 1px solid rgb(120, 194, 173); */
-		box-sizing : border-box;
-	}
+	div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-	/* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
         height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
+	#header { height: 130px; }
+	
     #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
     #content_2_1, #content_2_3 { height: 115px; }
     #content_2_2 { height: auto; color: black; }
-
-    #header { height: 130px; }
 
     #content_2_1>p {
         font-size: 35px;
@@ -43,14 +43,6 @@
 
 	/* 제목 본문 영역 */
 	#contentTable { height: auto; width: 100%; }
-
-	/* content 영역 */
-    #content>div { height : 100%; float : left; }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; }
-    #content_3 { width : 20%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
 	table { width: 100%; }
 
@@ -283,7 +275,7 @@
 						</table>
 					</div>
 				</div>
-				<div style="height: 150px"></div>
+				<div id="content_2_3"></div>
 			</div>
             <div id="content_3"></div>
         </div>

@@ -10,45 +10,29 @@
 <title>아이디 찾기</title>
 <style>
 
-    div {
-        box-sizing : border-box;
-    }
+    div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
-        width: 100%; 
-        height: 1530px;
+        width: 100%;
+        height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { height: 1000px; }
-    #content_2>div { width: 100%; }
-    #content_2_1 { height: 10%; float: left; }
-    #content_2_2 { height: 80%; float: left; }
-    #content_2_3 { height: 10%; float: left; }
-
-    #header { height: 130px; }
-
-    #content_2_1>p {
-        font-size: 35px;
-        color: black;
-        margin-top: 20px;
-        margin-left: 30px;
-        text-align : center;
-        font-weight: bold;
-    }
-
-    /* content 영역 */
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
     #content>div { height : 100%; float : left; }
+    
     #content_1 { width : 20%; }
-    #content_2 { width : 60%; color: }
+    #content_2 { width : 60%; }
     #content_3 { width : 20%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
+    
+    #content_2>div { width: 100%; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
 
     /* 여기부터는 내가 준 스타일 영역 */
     #success_id_main_text {
@@ -81,22 +65,10 @@
         margin-bottom: 30px;
     }
 
-    #successId>p {
-        margin-top: 33px;
-    }
-
-
-    #checkicon {
-        color: #78C2AD;
-    }
+    #successId>p { margin-top: 33px; }
+    #checkicon { color: #78C2AD; }
     
-
-
-
-
-
 </style>
-
 </head>
 <body>
 
@@ -107,9 +79,7 @@
         <div id="content">
             <div id="content_1"></div>
             <div id="content_2">
-                <div id="content_2_1">
-                    <p></p>
-                </div>
+                <div id="content_2_1"></div>
                 <div id="content_2_2">
                     <div id="success_id_main_text">
                         <i class="fa-sharp fa-solid fa-circle-check" id="checkicon"></i> <br>

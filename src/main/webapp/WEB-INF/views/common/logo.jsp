@@ -14,8 +14,6 @@
             display: inline;
             font-family: 'Hammersmith One', sans-serif !important;
         }
-
-
     </style>
 </head>
 <link rel="preconnect" href="https://fonts.googleapis.com">

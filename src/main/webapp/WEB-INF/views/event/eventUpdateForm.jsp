@@ -9,44 +9,37 @@
 <title>이벤트 수정</title>
 <style>
 
-    div {
-        /* border : 1px solid #78C2AD; */
-        box-sizing : border-box;
-    }
+    div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        height: auto;
+        height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { height: auto; display: flex; color: black; }
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
-    #content_2_1 { height: 10%; float: left; }
-    #content_2_2 { height: 90%; float: left;  padding-bottom: 100px;}
-
-    #header { height: 130px; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
 
     #content_2_1>p {
         font-size: 35px;
         color: black;
         margin-top: 20px;
-        
+        margin-left: 30px;
         font-weight: bold;
     }
-
-    /* content 영역 */
-    #content>div { height : 100%; float : left; }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; }
-    #content_3 { width : 20%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
     
     #eventModifyArea{ 
         width: 100%;
@@ -55,10 +48,7 @@
         margin: auto;
 
     }
-    #eventModifyForm th {
-        text-align: left;
-    }
-
+    #eventModifyForm th { text-align: left; }
 
     #eventModifyForm td>*  {
         /* width : 690px; */
@@ -79,9 +69,7 @@
             <div id="content_1"></div>
             <div id="content_2">
                 <div id="content_2_1">
-                    <p>
-                        이벤트 수정하기
-                    </p>    
+                    <p>이벤트 수정</p>    
                 </div>
                 <div id="content_2_2">
                         <div id="eventModifyArea">
@@ -128,31 +116,20 @@
                                         </tr>
                                     </table>
                                 </div>
-                                
-                                
 
                             <div align="center" style="padding-bottom: 30px;">
                                 <button class="btn btn-primary btn-lg" type="submit">등록</button> &nbsp;
                                 <button class="btn btn-light btn-lg" type="reset">취소</button>
                             </div>
-
-                       
-                        
                         </form>
                     </div>
 
-
                 </div>
-
+                <div id="content_2_3"></div>
             </div>
-
             <div id="content_3"></div>
         </div>
-
-
         <jsp:include page="../common/footer.jsp" />
-
-        
     </div>
     
 </body>

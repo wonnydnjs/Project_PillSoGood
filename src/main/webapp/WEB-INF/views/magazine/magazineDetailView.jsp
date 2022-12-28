@@ -18,28 +18,29 @@
 <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />    
 <style>
 
-    div {
-        /* border: 1px solid #F3969A; */
-        box-sizing : border-box;
-    }
+	div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
         height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
+	#header { height: 130px; }
+	
     #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
-    #content_2_1 { height: 115px; }
+    #content_2_1, #content_2_3 { height: 115px; }
     #content_2_2 { height: auto; color: black; }
-
-    #header { height: 130px; }
 
     #content_2_1>p {
         font-size: 35px;
@@ -49,19 +50,10 @@
         font-weight: bold;
     }
 
-    /* content 영역 */
-    #content>div { height : auto; float : left; }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; }
-    #content_3 { width : 20%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
-
     .btnArea {
         margin-left: 88%;
         padding-bottom:20px;
     }
-
 
     .thumbnailArea>p {
         font-size: 40px;
@@ -77,7 +69,6 @@
         margin-top: 12%;
         margin-left: -47%;
     }
-
 
     .magazineContentPic {
         width: 1000px;
@@ -103,7 +94,6 @@
     }
 
     .likeControl{ width:30px; height:30px; }
-
 
     /* 하단 이전글/다음글 영역 */
     .pageContent>table {
@@ -132,7 +122,8 @@
         border-top: 2px solid black;
         border-bottom: 2px solid black;
     }
-
+    
+    .listBtnArea { margin-top: 50px; }
     
 </style>
 </head>
@@ -146,8 +137,8 @@
         <div id="content">
             <div id="content_1"></div>
             <div id="content_2">
-                <div id="content_2_1"><p>매거진</p>
-                 
+                <div id="content_2_1">
+                	<p>매거진</p>
                 </div>
                 <div id="content_2_2">
                     <!-- 삭제 수정 버튼 영역 -->
@@ -246,15 +237,12 @@
                     <div align="center" class="listBtnArea"><button class="btn btn-primary" onclick="list()">목록으로</button></div>
 
                 </div>
-                <div style="height: 150px"></div>
+                <div id="content_2_3"></div>
             </div>
             <div id="content_3"></div>
         </div>
         <jsp:include page="../common/footer.jsp" />
     </div>
-
-
-
 
     <script>
         function list() {

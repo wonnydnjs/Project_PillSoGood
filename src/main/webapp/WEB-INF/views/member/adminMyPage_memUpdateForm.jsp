@@ -9,31 +9,29 @@
 <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
 <title>ADMIN PAGE 회원 정보 수정</title>
 <style>
+	
+	div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    div {
-       /*  border : 1px solid #78C2AD; */
-        box-sizing : border-box;
-    }
-
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        /* 전체 길이 개별 커스텀 */
         height: auto;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    /* 내용 길이 개별 wrap - 350px */
+	#header { height: 130px; }
+	
     #content { height: auto; display:flex; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; padding-bottom: 200px;}
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
-    #content_2_1 { height: 10%; }
-    #content_2_2 { height:90%; color: black; }
-
-    #header { height: 130px; }
+    #content_2_2 { height: auto; color: black; }
 
     #content_2_1>p {
         font-size: 35px;
@@ -43,17 +41,9 @@
         font-weight: bold;
     }
 
-    /* content 영역 */
-    #content>div { height : 100%; float : left; }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; padding-bottom: 200px;}
-    #content_3 { width : 20%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
-
     /* ----- 마이페이지 공통 style ----- */
     /* 영역 구분 */
-    #content2_2>div { height: 100%; }
+    #content_2_2>div { height: 100%; }
     #mypage_navi { width: 20%; padding: 10px; float: left; }
     #mypage_content { width: 80%; padding: 30px; float: left; }
 
@@ -95,7 +85,7 @@
         font-weight: bold;
     }
 
-        /* ----- 회원정보수정 style ----- */
+    /* ----- 회원정보수정 style ----- */
     /* 목록 테이블 */
     #member_info { margin-top: 20px; }
     #member_info>tbody>tr { height: 50px; }
@@ -110,13 +100,10 @@
         margin: 0px 5px;
     }
 
-    
-
 </style>
 
 <!-- 카카오 주소 API -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 
 </head>
 <body>
@@ -281,7 +268,6 @@
                                 }
                             </script>
 
-                            
                             <br><br>
 
                             <div id="process_btn" align="center">

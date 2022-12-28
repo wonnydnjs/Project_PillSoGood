@@ -11,47 +11,40 @@
 <title>MY PAGE 주문 조회</title>
 <style>
 
-    div {
-        box-sizing : border-box;
-    }
-    
-    /* 전체를 감싸는 wrap */
+	div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
+
     .wrap {
         width: 100%;
-        height: inherit;
+        height: auto;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { display: flex; height: auto; }
+	#header { height: 130px; }
+	
+    #content { height: auto; display:flex; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; padding-bottom: 200px;}
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
-    #content_2_1, #content_2_3 { height: 115px; }
     #content_2_2 { height: auto; color: black; }
-
-    #header { height: 130px; }
 
     #content_2_1>p {
         font-size: 35px;
         color: black;
         margin-top: 20px;
-        margin-left: 30px;
+        margin-left: 15px;
         font-weight: bold;
     }
 
-    /* content 영역 */
-    #content>div { height : 100%; float : left; }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; }
-    #content_3 { width : 20%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
-
     /* ----- 마이페이지 공통 style ----- */
     /* 영역 구분 */
-    #content2_2>div { height: 100%; }
+    #content_2_2>div { height: 100%; }
     #mypage_navi { width: 20%; padding: 10px; float: left; }
     #mypage_content { width: 80%; padding: 30px; float: left; }
 

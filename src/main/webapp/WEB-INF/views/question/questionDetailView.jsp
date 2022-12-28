@@ -11,27 +11,29 @@
 <title>1:1 문의 상세</title>
 <style>
 
-    div {
-        box-sizing : border-box;
-    }
+    div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
         height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
+	#header { height: 130px; }
+	
     #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
     #content_2_1, #content_2_3 { height: 115px; }
     #content_2_2 { height: auto; color: black; }
-
-    #header { height: 130px; }
 
     #content_2_1>p {
         font-size: 35px;
@@ -41,23 +43,11 @@
         font-weight: bold;
     }
 
-    /* content 영역 */
-    #content>div { height : 100vh; float : left; }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; height: auto!important;}
-    #content_3 { width : 20%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
-
-    /* 영섭 작업 영역 시작 */
-
     /* 버튼 스타일 */
     #btnDelete, #btnUpdate {
         height: 30px;
         width: 60px;
     }
-
-    /* 영섭 작업 영역 끝 */
 
     .form-control {
         margin-left: 0px;
@@ -78,9 +68,7 @@
         background-color: #afe0d147;
         padding: 30px;
         border-radius: 10px;
-        
     }
-
 
     #answer_content, #not_answer {
         width: 90%;
@@ -90,8 +78,6 @@
     }
 
     #answer_content th, #answer_content td, #not_answer { padding: 20px; color: black; }
-
-	
 
     #answer_enroll {
         width: 90%;
@@ -113,6 +99,7 @@
 	#update_btn button {
 		width: 80px;
 	}
+	
 </style>
 </head>
 <body>
@@ -139,7 +126,6 @@
 						</c:otherwise>
 					</c:choose>
 					<br>
-                    <!-- 영섭 작업 영역 시작 -->
 
                     <!-- 제목 부분 -->
                     <p>제목</p>
@@ -191,7 +177,6 @@
                     </c:if>
                     <hr>
                     <br><br>
-
 
                     <div>
                     	<c:choose>
@@ -326,15 +311,12 @@
                         	
                         	function toUserSocketMsg() {
                         		
-                        		
-                        		
                         		if(socket) {
                         			let socketMsg = "answer"+","+"${ loginUser.memberId },"+"${q.memberNo}," + "bno," + "${q.questionTitle}";
                         			selectAlarmList();
                         			socket.send(socketMsg);
                         			//console.log(socket);
                            		}
-                        		
                         		
                         		$.ajax({
                         			url : "insertAnswer.alarm",
@@ -355,15 +337,9 @@
                         			}
                         			
                         		});
-                        		
-                        		
                         	}
-                        	
-                        	
                         </script>
                     </div>
-
-                    <!-- 영섭 작업 영역 끝 -->
 
                 </div>
                 <div id="content_2_3"></div>

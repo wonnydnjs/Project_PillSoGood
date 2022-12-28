@@ -4,88 +4,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
-    <title>후기 수정</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
+<title>후기 수정</title>
 <style>
 
-    div {
-        box-sizing : border-box;
-    }
+    div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
-        width: 98%;
-        height: 1830px;
+        width: 100%;
+        height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { height: 1450px; }
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
-    #content_2_1 { height: 1%; float: left; }
-    #content_2_2 { height: 80%; float: left; }
-    #content_2_3 { height: 10%; float: left; }
-
-    #header { height: 130px; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
 
     #content_2_1>p {
         font-size: 35px;
         color: black;
         margin-top: 20px;
         margin-left: 30px;
+        font-weight: bold;
     }
 
-    /* content 영역 */
-    #content>div { height : 100%; float : left; }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; }
-    #content_3 { width : 20%; }
+	.innerContent {
+		display: flex;
+		position:relative;
+		top: 5%;
+		left: 5%;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
 
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
-
-    .innerContent { 
-      display: flex;
-      position:relative;
-      top: 5%;
-      left: 5%;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      }
-
-      .innerContent {
-        padding: 40px;
-        padding-top: 60px;
-        border-radius: 15px;
-        border-color: rgba(128, 126, 126, 0.541);
-      }
-
-      #title {
-        width: 900px;
-        box-sizing: border-box;
-        margin-top: 10px;
-        margin-bottom: 10px;
-      }
-
-      #content{
-        margin-top: 10px;
-        margin-bottom: 10px;
-      }
-
-      #select {
-        width: 200px;
-      }
-      
-      i {
-      	cursor: pointer;
-	  }
-	  
-	  .filebox input[type="file"] {
+	.innerContent {
+		padding: 40px;
+		padding-top: 60px;
+		border-radius: 15px;
+		border-color: rgba(128, 126, 126, 0.541);
+	}
+	
+	#select { width: 200px; }
+	i { cursor: pointer; }
+	
+	.filebox input[type="file"] {
 		position: absolute;
 		width: 1px;
 		height: 1px;
@@ -132,8 +109,8 @@
 		-moz-appearance: none;
 		appearance: none;
 	}
+	
 </style>
-
 </head>
 <body>
 
@@ -145,11 +122,7 @@
             <div id="content_1"></div>
             <div id="content_2">
               <div id="content_2_1">
-                <!-- 로고 영역 -->
-                <div class="logoArea">
-                      <jsp:include page="../common/logo.jsp" />
-                    <p style="display: inline; font-size: 20px;">제품후기</p>
-                </div>
+              	<p>후기 수정</p>
               </div>
 
               <div id="content_2_2">
@@ -164,8 +137,8 @@
                             --%>
 
                             <div>
-                                <div><label for="title">제목</label></div>
-                                <div><input type="text" class="form-control" name="reviewTitle" value="${ r.reviewTitle }"required></div>
+                                <div><label>제목</label></div>
+                                <div><input type="text" class="form-control" name="reviewTitle" value="${ r.reviewTitle }" required></div>
                             </div>
                             
                             <div>
@@ -222,7 +195,7 @@
                             </div>
 
                             <div>
-                                <div><label for="content">내용</label></div>
+                                <div><label>내용</label></div>
                                 <div><textarea class="form-control" style="resize:none;" name="reviewContent" required>${ r.reviewContent }</textarea></div>
                             </div>
 

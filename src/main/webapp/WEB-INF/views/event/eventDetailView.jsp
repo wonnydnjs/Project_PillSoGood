@@ -9,31 +9,31 @@
 <meta charset="UTF-8">
 <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
 <title>이벤트 상세</title>
-
 <style>
+	
+	div { box-sizing : border-box; }
+    body, pre { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    div {
-        /* border : 1px solid #78C2AD; */
-        box-sizing : border-box;
-    }
-
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
         height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { height: auto; display:flex; }
-    #content_2>div { width: 100%; color: black; }
-    #content_2_1 { height: 115px; }
-    #content_2_2 { height: auto; }
-
-    #header { height: 130px; }
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
+    #content_2>div { width: 100%; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
 
     #content_2_1>p {
         font-size: 35px;
@@ -42,14 +42,6 @@
         margin-left: 30px;
         font-weight: bold;
     }
-
-    /* content 영역 */
-    #content>div { height : auto; float : left;  }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; }
-    #content_3 { width : 20%; }
-
-    body, pre { font-family: 'Noto Sans KR', sans-serif !important;  }
 
     table { color: black; width: 100%; }
 
@@ -200,12 +192,11 @@
                     
                     <hr>
 
-
 					<!-- 댓글이 달리는 부분 -->
                     <div id="replyArea" align="center"></div>
                     
-                    <div align="center">
-                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='list.ev';" style="width:140px; margin-top: 50px;">목록으로</button>
+                    <div align="center" style="margin-top: 50px;">
+                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='list.ev';">목록으로</button>
                     </div> 
 
                     <script>
@@ -507,7 +498,7 @@
                     </script>
 
                 </div>
-                <div style="height: 115px;"></div>
+                <div id="content_2_3"></div>
             </div>
             <div id="content_3"></div>
         </div>

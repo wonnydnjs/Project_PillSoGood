@@ -13,46 +13,38 @@
 <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
 <title>매거진</title>
 <style>
+	
+	div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    div {
-		/* border: 1px solid #78C2AD; */
-		box-sizing : border-box;
-	}
+    .wrap {
+        width: 100%;
+        height: inherit;
+        margin : auto;
+    }
+    .wrap>div { width : 100%; }
 
-	/* 전체를 감싸는 wrap */
-	.wrap {
-		width: 100%;
-		height: auto;
-		margin : auto;
-	}
-
-	.wrap>div { width : 100%; }
-
-	#navigator2 { height: 100px; }
-
-	#content { height: auto; display: flex; }
-	#content_2>div { width: 100%; float: left; }
-	#content_2_1 { height: 115px; }
-	#content_2_2 { height: auto; color: black; }
-
+    #navigator2 { height: 100px; }
 	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
+    #content_2>div { width: 100%; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
 
-	#content_2_1>p {
-		font-size: 35px;
-		color: black;
-		margin-top: 20px;
-		margin-left: 30px;
-		font-weight: bold;
-	}
-
-	/* content 영역 */
-	#content>div { height : 100%; float : left; }
-	#content_1 { width : 20%; }
-	#content_2 { width : 60%; }
-	#content_3 { width : 20%; }
-
-	body { font-family: 'Noto Sans KR', sans-serif !important; }
-
+    #content_2_1>p {
+        font-size: 35px;
+        color: black;
+        margin-top: 20px;
+        margin-left: 30px;
+        font-weight: bold;
+    }
 
 	/* 매거진 썸네일/제목/해시태그 영역 */
 	.thumbnailAll{
@@ -96,7 +88,6 @@
 	}
 
 	.hashtagArea { width: 300px; }
-
 
 	/* 카테고리 영역 */
 	.cont-select { position: relative; width: 140px; }
@@ -163,15 +154,13 @@
 	
 	.list-member ul { padding-left: 1rem; }
 
-
 	/* 하단 페이징 바 */
-	#pagingArea { padding: 20px; height: 200px; margin-top: 50px; }
+	#pagingArea { margin-top: 80px; }
 
 </style>
 </head>
 <body>
 
-	
     <div class="wrap">
         <div id="navigator2">
 			<jsp:include page="../common/menubar.jsp" />
@@ -190,28 +179,29 @@
 				</div>
                    
 
-				<!-- 카테고리 영역 -->
-				<div class="magazineSelect">
-					<article class="cont-select">
-						<button class="btn btn-outline-secondary btn-select">
-							<c:choose>
-								<c:when test="${ not empty life }">라이프</c:when>
-								<c:when test="${ not empty season }">시즌</c:when>
-								<c:when test="${ not empty issue }">이슈</c:when>
-								<c:otherwise>전체</c:otherwise>
-							</c:choose>
-						</button>
-							<ul class="list-member">
-								<li><button type="button" onclick="location.href='list.mag';">전체</button></li>
-								<li><button type="button" onclick="location.href='list.mag?life=1';">라이프</button></li>
-								<li><button type="button" onclick="location.href='list.mag?season=2';">시즌</button></li>
-								<li><button type="button" onclick="location.href='list.mag?issue=3';">이슈</button></li>
-							</ul>
-					</article>
-				</div>
-				
                 <!-- 실제 작업할 영역 -->
                 <div id="content_2_2">
+                
+                	<!-- 카테고리 영역 -->
+					<div class="magazineSelect">
+						<article class="cont-select">
+							<button class="btn btn-outline-secondary btn-select">
+								<c:choose>
+									<c:when test="${ not empty life }">라이프</c:when>
+									<c:when test="${ not empty season }">시즌</c:when>
+									<c:when test="${ not empty issue }">이슈</c:when>
+									<c:otherwise>전체</c:otherwise>
+								</c:choose>
+							</button>
+								<ul class="list-member">
+									<li><button type="button" onclick="location.href='list.mag';">전체</button></li>
+									<li><button type="button" onclick="location.href='list.mag?life=1';">라이프</button></li>
+									<li><button type="button" onclick="location.href='list.mag?season=2';">시즌</button></li>
+									<li><button type="button" onclick="location.href='list.mag?issue=3';">이슈</button></li>
+								</ul>
+						</article>
+					</div>
+					<br>
 
                     <!-- 매거진 썸네일/제목/해시태그 영역 -->
                     <div>
@@ -243,8 +233,6 @@
                         </div>
                     </div>
 
-					
-                        
 					<!-- 페이지 -->
 					<div id="pagingArea">
 						<ul class="pagination justify-content-center">
@@ -345,18 +333,15 @@
 							</c:choose>
 						</ul>
 					</div>
-                    
-     			</div>                  
+     			</div>
+     			<div id="content_2_3"></div>                  
             </div>
             <div id="content_3"></div>
         </div>
         <jsp:include page="../common/footer.jsp" />
     </div>
 
-    
-	
-</body>
-	<script>
+    <script>
 	    $(function() {
 	        $(".thumbnail").click(function() {      
 	        	
@@ -386,4 +371,6 @@
 		    }
 		});
 	</script>
+	
+</body>
 </html>

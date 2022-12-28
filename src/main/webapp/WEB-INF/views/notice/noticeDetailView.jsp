@@ -9,73 +9,31 @@
 <title>공지사항 상세</title>
 <style>
 
-	div {
-        
-        box-sizing : border-box;
-    }
+	div { box-sizing : border-box; }
+    body, pre { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        
+        height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { display:flex; }
-    #content_2>div { width: 100%; }
-    #content_2_1 { height: 10%; float: left; }
-    #content_2_2 { height: 80%; float: left; }
-    #content_2_3 { height: 10%; float: left; }
-
-    #header { height: 130px; }
-
-    #content_2_1>p {
-        font-size: 35px;
-        color: black;
-        margin-top: 20px;
-        margin-left: 30px;
-    }
-
-    /* content 영역 */
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
     #content>div { height : 100%; float : left; }
+    
     #content_1 { width : 20%; }
     #content_2 { width : 60%; }
     #content_3 { width : 20%; }
-
-    body * { font-family: 'Noto Sans KR', sans-serif !important; }
-
-    #noticeModify {
-        margin-right : 20px;
-    }
-
-    #noticeContent {
-
-        width : 100%;
-        height : 695px;
-        resize : none;
-        border : none;
-    }
     
-    #noticePrevNextTable:hover {
-    
-    	cursor : pointer;
-    	
-    }
-    
-    #noticeContent:focus {
-    	outline : none;
-    }
-    
-    textarea:focus {
-    	outline: none;
-    	box-shadow:none;
-	}
-	
-	#content_2_1>p {
+    #content_2>div { width: 100%; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
+
+    #content_2_1>p {
         font-size: 35px;
         color: black;
         margin-top: 20px;
@@ -83,17 +41,30 @@
         font-weight: bold;
     }
     
-    #content_2 table *, #content_2 pre {
-    	color : black;
+    #noticeModify { margin-right : 20px; }
+
+    #noticeContent {
+        width : 100%;
+        height : 695px;
+        resize : none;
+        border : none;
     }
     
+    #noticePrevNextTable { margin-top: 50px; }
+    #noticePrevNextTable:hover { cursor : pointer; }
+    #noticeContent:focus { outline : none; }
+    
+    textarea:focus {
+    	outline: none;
+    	box-shadow:none;
+	}
+	
+    #content_2 table *, #content_2 pre { color : black; }
+    
 </style>
-
 </head>
 <body>
-
     <div class="wrap">
-        
         <div id="navigator2">
             <jsp:include page="../common/menubar.jsp" />
         </div>
@@ -109,12 +80,9 @@
                             	<button style="float:right;" class="btn btn-primary btn-warning" onclick="postFormSubmit(1);" id="noticeModify">수정</button>	
 	                   		</c:when>
                     	</c:choose>
-                            
                     </p>
                 <form id="postForm" action="" method="post">
-	            	
 	            	<input type="hidden" name="nno" value="${ n.noticeNo }">
-                    
 	            </form>
 	            
 	            <script>
@@ -129,15 +97,11 @@
 	            			$("#postForm").attr("action", "delete.no").submit();
 	            			
 	            		}
-	            		
 	            	}
 	            </script>
                     
                 </div>
                 <div id="content_2_2">
-                    
-                    
-
                     <br clear="both"/>
 
                     <div>
@@ -151,9 +115,10 @@
                             </tbody>
                          </table>
                     </div>
+                    <br>
 
                     <div>
-                        <pre>${ n.noticeContent}</pre>
+                        <pre style="width:80%; margin: auto;">${ n.noticeContent }</pre>
 
                         <br>
                         <table class="table table-hover" id="noticePrevNextTable">
@@ -180,9 +145,7 @@
                             </tbody>
                          </table>
                          
-                         
                      <script>
-                     
                      	const textarea = $("#noticeContent");
                      	const handlesize = ()=> {
                      		textarea.current.style.height = 'auto';
@@ -192,7 +155,6 @@
 							
 							$("#noticePrevNextTable>tbody>tr").click(function() {
 								
-								
 								location.href='detail.no?nno='+ $(this).children().eq(0).text();
 								
 							});
@@ -200,25 +162,18 @@
 						});
 					</script>
                     </div>
+                    
+                    <div class="col text-center" style="height:100px; margin-top: 80px;">
+                        <button class="btn btn-primary" onclick="location.href='list.no'">목록으로</button>
+                    </div>
 
                 </div>
-                <div id="content_2_3">
-                    <div class="col text-center" style="height:100px;">
-                        <button class="btn btn-primary btn-lg" onclick="location.href='/PillSoGood/list.no'"> 목록으로 </button>
-                    </div>
-                </div>
+                <div id="content_2_3"></div>
             </div>
 
             <div id="content_3"></div>
         </div>
-		
-
         <jsp:include page="../common/footer.jsp" />
-
-	
-        
     </div>
-    
-
 </body>
 </html>

@@ -14,35 +14,37 @@
 <title>환영합니다.</title>
 <style>
 
-    div {
-        /* border : 1px solid #78C2AD; */
-        box-sizing : border-box;
-    }
+    div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        height: auto;
+        height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { height: auto; display: flex; color: black;}
-    #content_2>div { width: 100%; float: left; }
-    #content_2_2 { height: auto; }
-
-    #header { height: 130px; }
-
-    /* content 영역 */
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
     #content>div { height : 100%; float : left; }
+    
     #content_1 { width : 20%; }
     #content_2 { width : 60%; }
     #content_3 { width : 20%; }
+    
+    #content_2>div { width: 100%; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
 
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
+    #content_2_1>p {
+        font-size: 35px;
+        color: black;
+        margin-top: 20px;
+        margin-left: 30px;
+        font-weight: bold;
+    }
 
     /* 여기서부터는 내가 준 스타일 영역 */
     #checkicon {
@@ -63,10 +65,7 @@
         font-size: 17px;
     }
 
-    #btn {
-        padding: 30px;
-    }
-   
+    #btn { padding: 30px; }
 
 </style>
 </head>
@@ -80,6 +79,7 @@
         <div id="content">
             <div id="content_1"></div>
             <div id="content_2">
+            	<div id="content_2_1"></div>
                 <div id="content_2_2">
                     <div id="checkicon">
                         <i class="fa-sharp fa-solid fa-circle-check" ></i>
@@ -102,7 +102,7 @@
                         <button class="btn btn-secondary" onclick="location.href='survey.po'">건강설문 시작하기</button>
                     </div>
                 </div>
-                <div style="height: 150px;"></div>
+                <div id="content_2_3"></div>
             </div>
             <div id="content_3"></div>
         </div>

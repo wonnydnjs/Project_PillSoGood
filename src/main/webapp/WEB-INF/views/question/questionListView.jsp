@@ -9,27 +9,29 @@
 <title>1:1 문의내역</title>
 <style>
 
-    div {
-        box-sizing : border-box;
-    }
+    div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
         height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
+	#header { height: 130px; }
+	
     #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
     #content_2_1, #content_2_3 { height: 115px; }
     #content_2_2 { height: auto; color: black; }
-
-    #header { height: 130px; }
 
     #content_2_1>p {
         font-size: 35px;
@@ -39,15 +41,6 @@
         font-weight: bold;
     }
 
-    /* content 영역 */
-    #content>div { height : 100%; float : left; }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; }
-    #content_3 { width : 20%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
-
-    /* 영섭 작업 영역 시작 */
     #insertInquiry {
         text-align: center;
         height: 100px;
@@ -58,8 +51,6 @@
         width: 300px;
         margin-bottom: 30px;
     }
-
-    /* 영섭 작업 영역 끝 */
 
     /* 부트스트랩 페이징 */
     .pagination { justify-content: center; }
@@ -73,6 +64,7 @@
         padding: 15px;
     }
     #question_list>tbody td:hover { cursor: pointer; }
+    
 </style>
 </head>
 <body>
@@ -89,11 +81,9 @@
                     <p>1:1 문의</p>
                 </div>
                 <div id="content_2_2">
-
                     
 					<c:choose>
 						<c:when test="${ not empty loginUser }">
-							<!-- 영섭 작업 영역 시작 -->
 		                    <!-- 문의사항 등록 버튼 -->
 		                    <div id="insertInquiry">
 		                        <button type="button" class="btn btn-primary" onclick="location.href='enrollForm.qu'">문의사항 등록하기</button>
@@ -137,7 +127,6 @@
 		                            </tbody>
 		                        </table>
 		                    </div>
-		                    <br><br>
 		                    
 		                    <c:if test="${ not empty list }">
 			                    <script>
@@ -150,7 +139,7 @@
 				            </c:if>
 		
 		                    <!-- 페이징 -->
-		                    <div style="margin-top: 50px;">
+		                    <div style="margin-top: 80px;">
 		                        <ul class="pagination">
 		                        	<c:if test="${ not empty list }">
 			                        	<c:choose>
@@ -184,7 +173,6 @@
 		                            </c:if>
 		                        </ul>
 		                    </div>
-		                    <!-- 영섭 작업 영역 끝 -->
 	                	</c:when>
 	                	<c:otherwise>
 	                		<div align="center" style="margin-bottom:80px;">

@@ -11,45 +11,29 @@
 <title>회원가입</title>
 <style>
 
-    div {
-        /* border : 1px solid #78C2AD; */
-        box-sizing : border-box;
-    }
+    div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        height: auto;
+        height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { height: auto; display: flex; }
-    #content_2>div { width: 100%; float: left; }
-    #content_2_1 { height: 115px; }
-    #content_2_2 { height: auto; }
-
-    #header { height: 130px; }
-
-    #content_2_1>p {
-        font-size: 35px;
-        color: rgb(0, 0, 0);
-        margin-top: 20px;
-        margin-left: 30px;
-        text-align : center;
-        font-weight: bold;
-    }
-
-    /* content 영역 */
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
     #content>div { height : 100%; float : left; }
+    
     #content_1 { width : 20%; }
     #content_2 { width : 60%; }
     #content_3 { width : 20%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
+    
+    #content_2>div { width: 100%; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
 
     /* 여기부터는 내가 준 스타일 영역 */
     #memberEnrollFrom {
@@ -60,6 +44,27 @@
     }
     
     #memberEnrollForm tr { height: 40px!important; }
+    
+    #enrollText {
+        font-weight: bold;
+        text-align: center;
+        line-height: 115px;
+        color: black;
+    }
+    
+    .pwds { position: relative; }
+
+    /* 눈 아이콘 위치 지정 */
+    .eyes {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        cursor: pointer;
+        margin-right: 20px;
+        line-height: 37px;
+        color: #78C2AD;
+    }
 
 </style>
 
@@ -78,7 +83,7 @@
             <div id="content_1"></div>
             <div id="content_2">
                 <div id="content_2_1">
-                    <p>회원가입</p>
+                    <h1 id="enrollText">회원가입</h1>
                 </div>
                 <div id="content_2_2">
                     <form action="insert.me" method="post" id="enrollForm" onsubmit="return enrollForm_check()">
@@ -104,16 +109,22 @@
                                 <th colspan="3">비밀번호</th>
                             </tr>
                             <tr>
-                                <td colspan="3">
+                                <td colspan="3" class="pwds">
                                     <input type="password" class="form-control" placeholder="특문,영문,숫자를 포함하여 8~20자 이하로 입력해주세요" minlength="8" maxlength="20" style="width:500px" required name="memberPwd" id="memberPwd">
+                                    <div class="eyes">
+	                                    <i class="fas fa-eye fa-lg"></i>
+	                                </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th colspan="3">비밀번호 재확인</th>
                             </tr>
                             <tr>
-                                <td colspan="3">
+                                <td colspan="3" class="pwds">
                                     <input type="password" class="form-control" placeholder="동일한 비밀번호를 한번 더 입력해주세요" style="width: 500px;" name="checkPwd" id="checkPwd">
+                                    <div class="eyes">
+	                                    <i class="fas fa-eye fa-lg"></i>
+	                                </div>
                                  	<div id="checkResult2" style="font-size:0.8em; display:none;"></div>	
                                 </td>
                             </tr>
@@ -174,6 +185,22 @@
                         </table>
                         
                         <script>
+	                        $(function() {
+	
+	                            // 눈 표시 클릭시 비밀번호가 보이도록
+	                            $(".eyes").on("click", function() {
+	                                
+	                                if($(this).siblings("input").attr("type") == "password") {
+	
+	                                    $(this).siblings("input").attr("type", "text");
+	                                } else {
+	
+	                                    $(this).siblings("input").attr("type", "password");
+	                                } 
+	
+	                            });
+	                        });
+                        
 					        /* 우편번호 검색 API */
 					        function getAddress() {
 					            new daum.Postcode({
@@ -206,7 +233,7 @@
                     </form>
 
                 </div>
-                <div style="height: 150px;"></div>
+                <div id="content_2_3"></div>
             </div>
             <div id="content_3"></div>
         </div>

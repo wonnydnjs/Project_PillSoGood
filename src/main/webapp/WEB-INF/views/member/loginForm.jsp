@@ -11,29 +11,48 @@
 <title>로그인</title>
 <style>
 
+	div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
+
+    .wrap {
+        width: 100%;
+        height: inherit;
+        margin : auto;
+    }
+    .wrap>div { width : 100%; }
+
+    #navigator2 { height: 100px; }
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
+    #content_2>div { width: 100%; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
+
     /* 여기는 내가 넣은 스타일 영역 */
     #loginFrom {
-        
         box-sizing: border-box;
         width: 400px;
         height: 100px;
         margin-top: 40px;
         margin-bottom: 40px;
-        color : rgb(40, 40, 40);
-
+        color : black;
     }
 
     #loginText {
-        font-size: 35px;
-        color : rgb(40, 40, 40);
         font-weight: bold;
-        padding-top: 20px;
+        text-align: center;
+        line-height: 115px;
+        color: black;
     }
 
-
-
 </style>
-
 </head>
 <body>
 
@@ -45,9 +64,10 @@
         <div id="content">
             <div id="content_1"></div>
             <div id="content_2">
-                <div style="height: 100px;"></div>
+                <div id="content_2_1">
+                	<h1 id="loginText">로그인</h1>
+                </div>
                 <div id="content_2_2">
-                    <div align="center" id="loginText">로그인</div>
                     <form action="login.me" method="post">
                         <table id="loginFrom" align="center">
                             <tr>
@@ -65,7 +85,7 @@
                         </table>
 
                         <div align="center">
-                            <button class="btn btn-secondary" style="width: 400px; height: 45px;">로그인</button>
+                            <button class="btn btn-primary" style="width: 400px; height: 45px;">로그인</button>
                         </div>
 
                     </form>
@@ -78,7 +98,7 @@
                     
 
                 </div>
-                <div style="height: 100px;"></div>
+                <div id="content_2_3"></div>
             </div>
             <div id="content_3"></div>
         </div>

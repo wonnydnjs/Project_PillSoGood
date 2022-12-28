@@ -5,52 +5,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
-    <title>후기</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
+<title>후기</title>
 <style>
 
-    div {
-		/* border: 1px solid #78C2AD; */
-        box-sizing : border-box;
-    }
+    div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        height: auto;
+        height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { height: auto; display: flex; }
-    #content_2>div { width: 100%; float: left; }
-    #content_2_1 { height: 115px; }
-    #content_2_2 { height: auto; }
-
-    #header { height: 130px; }
-
-	#content_2_1>div { height: 100%; float: left; }
-
-    #content_2_1>p {
-        font-size: 35px;
-        margin-top: 20px;
-        margin-left: 30px;
-		font-weight: bold;
-    }
-
-	p { margin: 0px; color: black; }
-
-    /* content 영역 */
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
     #content>div { height : 100%; float : left; }
+    
     #content_1 { width : 20%; }
     #content_2 { width : 60%; }
     #content_3 { width : 20%; }
+    
+    #content_2>div { width: 100%; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
+
+    #content_2_1>p {
+        font-size: 35px;
+        color: black;
+        margin-top: 20px;
+        margin-left: 30px;
+        font-weight: bold;
+    }
+
+	p { margin: 0px; color: black; }
 
 	#best3 { 
 		font-size: 25px;
@@ -61,7 +55,6 @@
 	#best3Review {
 		/* border: solid black; */
 		height: 410px;
-		
 	}
 
 	#best3Review>div {
@@ -106,32 +99,12 @@
 	#allA a { text-decoration: none; color: black; }
 	#allA a:hover { color: lightgray; }
     
-
-    
     #reviewTT { border-bottom: 1px solid lightgray;}
     #reviewTT th, #reviewTT td, table>thead { color: black; padding: 10px 10px; }
     #reviewTT:hover { cursor: pointer; }
 
-
-
     .bestReviewService { font-weight: bold; font-size: 14px; }
     .bestReviewContent, .bestReviewName { font-size: 12px; }
-
-    .page-item {
-		float: left;
-		padding: 0;
-    }
-
-    .paginationArea {
-        position: relative;
-        left: 35%;
-        padding-top: 70px;
-        padding-bottom: 100px;
-    }
-
-	#noticePagination {
-		margin-top: 50px;
-	}
 
 </style>
 </head>
@@ -299,9 +272,9 @@
 					</div>
 						
 					<!-- 페이지 -->
-					<div id="noticePagination">
+					<div style="margin-top: 80px;">
 						<nav aria-label="Page navigation">
-							<ul class="pagination  justify-content-center">
+							<ul class="pagination justify-content-center">
 								<c:choose>
 									<c:when test="${ pi.currentPage eq 1 }">
 										<li class="page-item disabled" ><a class="page-link">&lt;</a></li>
@@ -333,7 +306,7 @@
 						</nav>
 					</div>
                 </div>
-                <div style="height: 150px"></div>
+                <div id="content_2_3"></div>
 			</div>
             <div id="content_3"></div>
 		</div>

@@ -7,89 +7,59 @@
 <meta charset="UTF-8">
 <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
 <title>공지사항 작성</title>
-
 <style>
 	
-    div {
-        
-        box-sizing : border-box;
-    }
+	div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        height: 1530px;
+        height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { height: 1150px; }
-    #content_2>div { width: 100%; }
-    #content_2_1 { height: 10%; float: left; }
-    #content_2_2 { height: 80%; float: left; }
-    #content_2_3 { height: 10%; float: left; }
-
-    #header { height: 130px; }
-
-    #content_2_1>p {
-        font-size: 35px;
-        color: black;
-        margin-top: 20px;
-        margin-left: 30px;
-    }
-
-    /* content 영역 */
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
     #content>div { height : 100%; float : left; }
+    
     #content_1 { width : 20%; }
     #content_2 { width : 60%; }
     #content_3 { width : 20%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
-	
-
-    #noticeEnrollArea{ 
-
-        border: 1px solid gray;
-        border-radius: 10px;
-        width: 800px;
-        margin : auto;
-        margin-top : 50px;
-
-    }
-    #noticeEnrollForm th {
-        text-align: center;
-    }
-
-    #noticeEnrollForm {
-        margin : 20px;
-
-        
-    }
-
-    #noticeEnrollForm td>*  {
-        width : 690px;
-        box-sizing: border-box;
-        border-radius:5px
-    }
     
+    #content_2>div { width: 100%; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
+
     #content_2_1>p {
         font-size: 35px;
         color: black;
         margin-top: 20px;
         margin-left: 30px;
         font-weight: bold;
-    }
-    
-</style>
+    }	
 
+    #noticeEnrollArea{ 
+        border: 1px solid gray;
+        border-radius: 10px;
+        width: 800px;
+        margin : auto;
+        margin-top : 50px;
+    }
+    #noticeEnrollForm th { text-align: center; }
+    #noticeEnrollForm { margin : 20px; }
+
+    #noticeEnrollForm td>* {
+        width : 690px;
+        box-sizing: border-box;
+        border-radius:5px
+    }
+</style>
 </head>
 <body>
-
   <div class="wrap">
-     
      <div id="navigator2">
          <jsp:include page="../common/menubar.jsp" />
      </div>
@@ -98,9 +68,7 @@
          <div id="content_1"></div>
          <div id="content_2">
              <div id="content_2_1">
-                 <p>
-                     <img src="resources/images/Logo.PNG" width="200px" alt=""> 공지사항
-                 </p>    
+                 <p>공지사항 작성</p>    
              </div>
              <div id="content_2_2">
                  
@@ -129,8 +97,6 @@
                      
                  </form>
 
-
-
              </div>
 
              <div id="content_2_3"></div>
@@ -138,13 +104,7 @@
 
          <div id="content_3"></div>
      </div>
-
-
      <jsp:include page="../common/footer.jsp" />
-
-        
     </div>
-
-
 </body>
 </html>
