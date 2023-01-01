@@ -143,11 +143,11 @@
                                         </tr>
                                         <tr>
                                             <th>이름</th>
-                                            <td><input type="text" class="form-control" name="memberName" value="${loginUser.memberName}" required maxlength="6"></td>
+                                            <td><input type="text" class="form-control" name="memberName" value="${loginUser.memberName}" placeholder="이름(한글)을 입력해주세요" required maxlength="6"></td>
                                         </tr>
                                         <tr>
-                                            <th>휴대폰번호</th>
-                                            <td><input type="text" class="form-control" name="phone" value="${loginUser.phone}" placeholder="-제외" required maxlength="11"></td>
+                                            <th>휴대폰 번호</th>
+                                            <td><input type="text" class="form-control" name="phone" value="${loginUser.phone}" placeholder="휴대폰 번호를 - 없이 입력해주세요" required maxlength="11"></td>
                                         </tr>
                                         <tr>
                                             <th>이메일</th>

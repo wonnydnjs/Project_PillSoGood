@@ -158,7 +158,7 @@
                                 <td>
                                     <select class="form-select" style="width: 228px;" id="email2" required>
                                         <option value="naver.com">naver.com</option>
-                                        <option value="google.com">google.com</option>
+                                        <option value="gmail.com">gmail.com</option>
                                         <option value="kakao.com">kakao.com</option>
                                     </select>
                                 </td>

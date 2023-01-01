@@ -20,7 +20,6 @@
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-	#header { height: 130px; }
 	
     #content { display: flex; height: auto; }
     #content>div { height : 100%; float : left; }
@@ -41,7 +40,6 @@
         <div id="navigator2">
             <jsp:include page="menubar.jsp" />
         </div>
-        <div id="header"></div>
         <div id="content">
             <div id="content_1"></div>
             <div id="content_2">
