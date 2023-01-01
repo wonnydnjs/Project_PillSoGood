@@ -61,7 +61,7 @@
         bottom: 0;
         right: 0;
         cursor: pointer;
-        margin-right: 20px;
+        margin-right: 13px;
         line-height: 37px;
         color: #78C2AD;
     }
@@ -93,31 +93,29 @@
                             </tr>
                             <tr style="display: inline-block;">
                                 <td colspan="3">
-                                    <input class="form-control" type="text" placeholder="아이디를 입력해주세요" minlength="5" maxlength="20" style="width: 400px;" required name="memberId" id="memberId">
+                                    <input class="form-control" type="text" placeholder="영문(소문자), 숫자 포함 5 ~ 20자로 입력해주세요" minlength="5" maxlength="20" style="width: 400px;" required name="memberId" id="memberId">
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-primary" style="width:100px" name="idCheck" id="idCheckbtn">중복확인</button>
-
                                 </td>
-							<tr style="height: 20px!important;">
+							<tr style="height: 22px!important;">
 								 <td>
                                 	<div id="checkResult" style="font-size:0.8em; display:none; padding-left: 6px;"></div>
                                 </td>
-                                    
 							</tr>
                             <tr>
                                 <th colspan="3">비밀번호</th>
                             </tr>
                             <tr>
                                 <td colspan="3" class="pwds">
-                                    <input type="password" class="form-control" placeholder="특문,영문,숫자를 포함하여 8~20자 이하로 입력해주세요" minlength="8" maxlength="20" style="width:500px" required name="memberPwd" id="memberPwd">
+                                    <input type="password" class="form-control" placeholder="특문(!@#$%^), 영문(대소문자), 숫자 포함 8 ~ 20자로 입력해주세요" minlength="8" maxlength="20" style="width:500px" required name="memberPwd" id="memberPwd">
                                     <div class="eyes">
 	                                    <i class="fas fa-eye fa-lg"></i>
 	                                </div>
                                 </td>
                             </tr>
                             <tr>
-                                <th colspan="3">비밀번호 재확인</th>
+                                <th colspan="3">비밀번호 확인</th>
                             </tr>
                             <tr>
                                 <td colspan="3" class="pwds">
@@ -125,23 +123,27 @@
                                     <div class="eyes">
 	                                    <i class="fas fa-eye fa-lg"></i>
 	                                </div>
-                                 	<div id="checkResult2" style="font-size:0.8em; display:none;"></div>	
                                 </td>
                             </tr>
+                            <tr style="height: 22px!important;">
+								 <td>
+                                	<div id="pwdCheck" style="font-size:0.8em; display:none; padding-left: 6px;"></div>
+                                </td>
+							</tr>
                             <tr>
                                 <th colspan="3">이름</th>
                             </tr>
                             <tr>
                                 <td colspan="3">
-                                    <input type="text" class="form-control" placeholder="이름을 입력해주세요" style="width: 500px;" required name="memberName" id="memberName">
+                                    <input type="text" class="form-control" placeholder="이름(한글)을 입력해주세요" style="width: 500px;" required name="memberName" id="memberName">
                                 </td>
                             </tr>
                             <tr>
-                                <th colspan="3">휴대폰번호</th>
+                                <th colspan="3">휴대폰 번호</th>
                             </tr>
                             <tr>
                                 <td colspan="3"> 
-                                    <input type="tel" class="form-control" placeholder="휴대폰번호를 '-' 없이 입력해주세요" maxlength="11" style="width: 500px;" required name="phone" id="phone">
+                                    <input type="tel" class="form-control" placeholder="휴대폰 번호를 - 없이 입력해주세요" maxlength="11" style="width: 500px;" required name="phone" id="phone">
                                 </td>
                             </tr>
                             <tr>
@@ -228,7 +230,7 @@
 					    </script>
 
                         <div align="center" style="padding: 15px 0px; margin-top: 30px;">
-                            <button class="btn btn-secondary" id="enrollbtn" type="submit" style="width: 140px; height: 40px;" disabled onclick="return validate();">가입하기</button>
+                            <button class="btn btn-secondary" id="enrollbtn" type="submit" style="width: 170px; height: 40px;" disabled onclick="return validate();">가입하기</button>
                         </div>
                     </form>
 
@@ -247,52 +249,75 @@
    		
    		$idInput.keyup(function() {
    			
-   			$("#idCheckbtn").on("click", function() {
-   			
    			// 우선 최소 5글자 이상으로 아이디값이 입력되어 있을 때만 ajax 요청
    			// => 쿼리문의 갯수가 한정되어있을 수 있기 때문
    			if($idInput.val().length >= 5) {
    				
-   				// ajax 를 요청하여 중복체크
-   				$.ajax({
-   					url : "idCheck.me",
-   					data : {checkId : $idInput.val()},
-   					success : function(result) {
-   						
-   						// console.log(result);
-   						
-   						if(result == "NNNNN") { // 사용 불가능
-   							
-   							// 빨간색 메세지 출력
-   							$("#checkResult").show();
-   							$("#checkResult").css("color", "red").text("사용할 수 없는 아이디입니다.");
-   							
-   							// 버튼 비활성화
-   							$("#enrollForm button[type=submit]").attr("disabled", true);
-   							
-   						} else { // 사용 가능
-   							
-   							// 초록색 메세지 출력
-   							$("#checkResult").show();
-   							$("#checkResult").css("color", "green").text("사용하실 수 있는 아이디입니다.");
-   							
-   							// 버튼 활성화
-   							$("#enrollForm button[type=submit]").attr("disabled", false);
-   						}
-   					},
-   					error : function() {
-   						console.log("아이디 중복 체크용 ajax 통신 실패!");
-   					}
-   				});
+   				$("#checkResult").hide();
+   				
+   				$("#idCheckbtn").on("click", function() {
+   				
+   					// ajax 를 요청하여 중복체크
+	   				$.ajax({
+	   					url : "idCheck.me",
+	   					data : {checkId : $idInput.val()},
+	   					success : function(result) {
+	   						
+	   						// console.log(result);
+	   						
+	   						if(result == "NNNNN") { // 사용 불가능
+	   							
+	   							// 빨간색 메세지 출력
+	   							$("#checkResult").show();
+	   							$("#checkResult").css("color", "red").text("사용할 수 없는 아이디입니다.");
+	   							
+	   							// 버튼 비활성화
+	   							$("#enrollForm button[type=submit]").attr("disabled", true);
+	   							
+	   						} else { // 사용 가능
+	   							
+	   							// 초록색 메세지 출력
+	   							$("#checkResult").show();
+	   							$("#checkResult").css("color", "green").text("사용하실 수 있는 아이디입니다.");
+	   							
+	   							// 버튼 활성화
+	   							$("#enrollForm button[type=submit]").attr("disabled", false);
+	   						}
+	   					},
+	   					error : function() {
+	   						console.log("아이디 중복 체크용 ajax 통신 실패!");
+	   					}
+	   				});
+	   			});
+   			
    			} else { // 5글자 미만일 때 => 버튼 비활성화, 메세지 내용 숨기기
    				
    				$("#checkResult").show();
    				$("#checkResult").css("color", "red").text("5자 이상으로 입력해주세요.");
    				$("#enrollForm button[type=submit]").attr("disabled", true);
 			}
-   			
-   			});
    		});
+   		
+   		// 중복확인 후 아이디 수정할 경우
+   		if(!$("#enrollForm button[type=submit]").is("disabled")) {
+   			$idInput.keyup(function() {
+   				$("#enrollForm button[type=submit]").attr("disabled", true)
+   			});
+   		}
+   		
+   		// 비밀번호 일치 검사 (입력과 동시에)
+   		$("#checkPwd").keyup(() => {
+   			
+	   		if($("#memberPwd").val() != $("#checkPwd").val()) {
+	   			
+	   			$("#pwdCheck").show();
+	   			$("#pwdCheck").css("color", "red").text("비밀번호가 일치하지 않습니다.");
+	   		} else {
+	   			
+	   			$("#pwdCheck").hide();
+	   		}
+   		});	
+   		
    	});
    </script>
    
@@ -309,7 +334,7 @@
           var regExp = /^[a-z\d]{5,20}$/i;
           if(!regExp.test(memberId.value)) {
               
-        	  alert("영문(소문자), 숫자를  포함하여 5자 이상 20자 이하로만 입력해주세요.");
+        	  alert("영문(소문자), 숫자를 포함하여 5자 이상 20자 이하로 입력해주세요.");
               memberId.select(); // 재입력 유도
               
               return false;
@@ -318,7 +343,7 @@
          regExp = /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,20}$/;
          if(!regExp.test(memberPwd.value)) {
              
-        	  alert("특문(!@#$%^), 영문(대소문자), 숫자 포함하여 8자 이상 20자 이하로 총 12~20자로 입력해주세요.");
+        	  alert("특문(!@#$%^), 영문(대소문자), 숫자를 포함하여 8자 이상 20자 이하로 입력해주세요.");
              
         	  memberPwd.value = "";
               memberPwd.focus(); // 재입력 유도
@@ -337,7 +362,7 @@
           
           if(!regExp.test(memberName.value)) {
               
-        	  alert("한글로 된 2~6자리 이름을 입력해주세요.");
+        	  alert("한글로 된 2 ~ 6자리 이름을 입력해주세요.");
               memberName.select(); // 재입력 유도
              
               return false;
@@ -347,7 +372,7 @@
           
           if(!regExp.test(phone.value)) {
              
-        	  alert("-빼고 유효한 전화번호를 입력해주세요.");
+        	  alert("- 빼고 유효한 전화번호를 입력해주세요.");
               phone.select(); // 재입력 유도
               
               return false;
