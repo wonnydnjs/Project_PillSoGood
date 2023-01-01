@@ -47,6 +47,11 @@ public class MemberDao {
 		
 		return sqlSession.update("memberMapper.changePwdMember", m);
 	}
+	
+	// 비밀번호 초기화
+	public int checkInitPwdMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.checkInitPwdMember", m);
+	}
 
 }
 

@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
-<title>아이디 찾기</title>
+<title>비밀번호 초기화</title>
 <style>
 
     div { box-sizing : border-box; }
@@ -35,7 +33,7 @@
     #content_2_2 { height: auto; color: black; }
 
     /* 여기부터는 내가 준 스타일 영역 */
-    #idFindTitle {
+    #pwdInitTitle {
         font-weight: bold;
         text-align: center;
         line-height: 115px;
@@ -46,7 +44,7 @@
     	font-size: 50px;
     }
 
-    #findIdArea {
+	#initPwdArea {
         background-color: #78c2ad36;
         border-radius: 10px;
         width: 400px;
@@ -62,7 +60,7 @@
 <body>
 
     <div class="wrap">
-    	<div id="navigator2">
+        <div id="navigator2">
         	<jsp:include page="../common/menubar.jsp" />
         </div>
         <div id="header"></div>
@@ -70,16 +68,17 @@
             <div id="content_1"></div>
             <div id="content_2">
                 <div id="content_2_1">
-                	<h1 id="idFindTitle">아이디 찾기</h1>
+                	<h1 id="pwdInitTitle">비밀번호 초기화</h1>
                 </div>
                 <div id="content_2_2">
                     <div align="center">
                     	<i class="fa-sharp fa-solid fa-circle-check" id="checkicon"></i>
                     	<br><br>
-                        입력하신 정보와<br>일치하는 아이디를 찾았습니다.
+                        ${ m.memberId } 님의 비밀번호가 초기화되었습니다.<br>
+                        초기화된 비밀번호로 로그인하신 후 반드시 비밀번호를 변경해주세요.
                     </div>
                     
-                    <div id="findIdArea">${ findId }</div>
+                    <div id="initPwdArea">${ m.memberPwd }</div>
 
                     <div align="center">
                         <button class="btn btn-primary" style="width: 400px; height: 50px; margin-top: 30px;" onclick="location.href='loginForm.me'">로그인</button>

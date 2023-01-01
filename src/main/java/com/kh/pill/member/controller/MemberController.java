@@ -44,7 +44,6 @@ public class MemberController {
 		return "member/myPage_DeleteForm";
 	}
 	
-	
 	@RequestMapping("login.me")
 	public ModelAndView loginMember(Member m, ModelAndView mv, HttpSession session, HttpServletResponse response) {
 		
@@ -70,8 +69,6 @@ public class MemberController {
 		return mv;
 	}
 	
-
-	
 	@RequestMapping("logout.me")
 	public String logoutMember(HttpSession session) {
 		
@@ -81,7 +78,6 @@ public class MemberController {
 		// 메인페이지로 url 요청
 		return "redirect:/";
 	}
-	
 	
 	@RequestMapping("enrollForm.me")
 	public String enrollForm() {
@@ -104,13 +100,13 @@ public class MemberController {
 		if(result > 0) { // 성공
 			
 			// 일회성 알람 문구
-			session.setAttribute("alertMsg", "성공적으로 회원가입이 되었습니다.");
+			session.setAttribute("alertMsg", "회원가입에 성공했습니다.\nPillSoGood 회원이 되신 걸 환영합니다.");
 
 			return "member/memberEnrollFormCongrats";
 		}
 		else { 
 			
-			model.addAttribute("errorMsg", "회원가입 실패");
+			model.addAttribute("errorMsg", "회원가입에 실패했습니다.");
 			
 			return "common/errorPage";
 		}
@@ -227,7 +223,6 @@ public class MemberController {
 		}
 	}
 	
-	
 	@ResponseBody
 	@RequestMapping(value="idCheck.me", produces="text/html; charset=UTF-8")
 	public String idCheck(String checkId) {
@@ -243,26 +238,20 @@ public class MemberController {
 		return "member/idFindForm";
 	}
 
-
 	@RequestMapping(value="idFind.me")
 	public String idFind(String memberName, String email, HttpSession session, Model model) {
 		
-		//System.out.println(memberName);
-		//System.out.println(email);
 		HashMap <String, String> map = new HashMap<>();
 		map.put("memberName", memberName);
 		map.put("email", email);
 		
-		
-		//System.out.println(map);
 		String findId = memberService.findId(map);
-		//System.out.println(findId);
 			
 		if (findId == null) {
 			
-			session.setAttribute("alertMsg", "입력하신 정보의 해당 아이디가 없습니다. 다시 입력해주세용.");
+			session.setAttribute("alertMsg", "입력하신 정보에 해당하는 아이디가 없습니다. 다시 입력해주세요.");
 			
-			return "member/idFindForm";
+			return "redirect:/idFindForm.me";
 			
 		} else {
 			
@@ -273,7 +262,52 @@ public class MemberController {
 		}
 
 	}
-
+	
+	// 비밀번호 초기화
+	@RequestMapping("pwdInitForm.me")
+	public String initPwd() {
+		return "member/pwdInitForm";
+	}
+	
+	@RequestMapping(value="pwdInit.me")
+	public String pwdInit(Member m, HttpSession session, Model model) {
+		
+		// 해당 정보에 해당하는 회원이 있는지 검사
+		int count = memberService.checkInitPwdMember(m);
+		
+		if(count > 0)	{
+			
+			// 비밀번호 변경 쿼리문 재사용
+			// 초기화 비밀번호를 객체에 담아 전달
+			int random = (int)(Math.random() * 9999) + 1000;
+			String initPwd = "PSG1223#" + random;
+			
+			String initPwdEnc = bcryptPasswordEncoder.encode(initPwd);
+			m.setMemberPwd(initPwdEnc);
+			
+			int result = memberService.changePwdMember(m);
+			
+			if(result > 0) {
+				
+				m.setMemberPwd(initPwd);
+				model.addAttribute("m", m);
+				
+				return "member/pwdInitFormCongrats";
+				
+			} else {
+				
+				session.setAttribute("alertMsg", "비밀번호 초기화에 실패했습니다.");
+				
+				return "redirect:/pwdInitForm.me";
+			}
+			
+		} else {
+			
+			session.setAttribute("alertMsg", "입력하신 정보에 해당하는 회원이 없습니다. 다시 입력해주세요.");
+			
+			return "redirect:/pwdInitForm.me";
+		}
+	}
 }
 
 

@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
-<title>아이디 찾기</title>
+<title>비밀번호 초기화</title>
 <style>
 
     div { box-sizing : border-box; }
@@ -35,16 +33,16 @@
     #content_2_2 { height: auto; color: black; }
 
     /* 여기부터는 내가 준 스타일 영역 */
-    #idFindTitle {
+    #pwdInitTitle {
         font-weight: bold;
         text-align: center;
         line-height: 115px;
         color: black;
     }
 
-    #searchId tr { height: 50px; }
+    #pwdInit tr { height: 50px; }
     
-    #idFindBtn {
+    #pwdInitBtn {
     	width: 403px;
     	height: 50px;
     	margin-top: 30px;
@@ -63,21 +61,24 @@
             <div id="content_1"></div>
             <div id="content_2">
                 <div id="content_2_1">
-                	<h1 id="idFindTitle">아이디 찾기</h1>
+                	<h1 id="pwdInitTitle">비밀번호 초기화</h1>
                 </div>
                 <div id="content_2_2">
                     <div align="center">
-                    	회원가입시 등록하신 이름과 이메일을 입력해주세요
+                    	비밀번호가 기억나지 않으실 경우<br>
+                    	비밀번호를 임의로 초기화할 수 있습니다<br>
+                    	<br>
+                    	회원가입시 등록하신 아이디와 이메일을 입력해주세요
                     </div>
                     <br clear="both">
                     
-                    <form action="idFind.me" method="post">
-                        <div id="searchId" >
+                    <form action="pwdInit.me" method="post">
+                        <div id="pwdInit">
                             <table align="center">
                                 <tr>
-                                    <th width="80px">이름</th>
+                                    <th width="80px">아이디</th>
                                     <td>
-                                        <input class="form-control" type="text" placeholder="이름을 입력해주세요" maxlength="10" size="30" name="memberName" required>
+                                        <input class="form-control" type="text" placeholder="아이디를 입력해주세요" maxlength="20" size="30" name="memberId" required>
                                     </td>
                                 </tr>
                                 <tr>
@@ -90,7 +91,7 @@
                         </div>
 
                         <div align="center">
-                            <button class="btn btn-secondary" id="idFindBtn">다음</button>
+                            <button class="btn btn-secondary" id="pwdInitBtn">다음</button>
                         </div>
 
 					 </form>

@@ -90,12 +90,13 @@
 
                     </form>
 
-                    <div align="center" style="padding: 20px; margin-top: 15px;">
-                        <a href="idFindForm.me" style="text-decoration:none; color:black;">ID 찾기</a>
+                    <div align="center" style="margin: 50px 0px 30px 0px;">
+                        <a href="idFindForm.me" style="text-decoration:none; color:black;">아이디 찾기</a>
+                        &ensp; | &ensp;
+                        <a href="pwdInitForm.me" style="text-decoration: none; color: black;">비밀번호 초기화</a>
                         &ensp; | &ensp;
                         <a href="enrollForm.me" style="text-decoration:none; color:black;">회원가입</a>
                     </div>
-                    
 
                 </div>
                 <div id="content_2_3"></div>

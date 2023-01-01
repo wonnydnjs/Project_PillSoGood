@@ -29,4 +29,7 @@ public interface MemberService {
 	
 	// 비밀번호 변경 (update)
 	int changePwdMember(Member m);
+	
+	// 비밀번호 초기화
+	int checkInitPwdMember(Member m);
 }

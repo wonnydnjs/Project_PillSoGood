@@ -64,6 +64,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.changePwdMember(sqlSession, m);
 	}
 
+	// 비밀번호 초기화
+	@Override
+	public int checkInitPwdMember(Member m) {
+		return memberDao.checkInitPwdMember(sqlSession, m);
+	}
+
 
 
 }

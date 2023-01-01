@@ -82,7 +82,7 @@
     }
     /* 사이즈 정렬 */
     .pwds>b { display: inline-block; width: 20%; }
-    .pwds>input { display: inline-block; width: 60%; }
+    .pwds>input { display: inline-block; width: 63%; }
 
     /* 눈 아이콘 위치 지정 */
     .eyes {
@@ -91,7 +91,7 @@
         bottom: 0;
         right: 0;
         cursor: pointer;
-        margin-right: 170px;
+        margin-right: 150px;
         line-height: 37px;
         color: #78C2AD;
     }
@@ -158,7 +158,7 @@
                             
                             <div class="pwds">
                                 <b>새 비밀번호</b>
-                                <input type="password" class="form-control" name="changePwd" placeholder="영문, 숫자, 특수문자 포함 8 ~ 20자" required id="memberPwd">
+                                <input type="password" class="form-control" name="changePwd" placeholder="특문(!@#$%^), 영문(대소문자), 숫자 포함 8 ~ 20자로 입력해주세요" required id="changePwd">
                                 <div class="eyes">
                                     <i class="fas fa-eye fa-lg"></i>
                                 </div>
@@ -166,7 +166,7 @@
 
                             <div class="pwds">
                                 <b>비밀번호 확인</b>
-                                <input type="password" class="form-control" name="checkPwd" placeholder="동일한 비밀번호 입력" required id="checkPwd">
+                                <input type="password" class="form-control" name="checkPwd" placeholder="동일한 비밀번호를 한번 더 입력해주세요" required id="checkPwd">
                                 <div class="eyes">
                                     <i class="fas fa-eye fa-lg"></i>
                                 </div>

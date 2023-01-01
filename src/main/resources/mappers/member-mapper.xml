@@ -88,6 +88,12 @@
 		 AND MEMBER_STATUS = 'Y'
 	</select>
 	
+	<select id="checkInitPwdMember" parameterType="member" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+		  AND EMAIL = #{email}
+	</select>
 	
 	<!-- 관리자 회원 리스트 수 조회 -->
 	<select id="adminSelectListCount" resultType="_int">
