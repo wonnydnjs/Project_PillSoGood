@@ -73,7 +73,7 @@
                 </div>
                 <div id="content_2_2">
                    <form id="enrollForm" action="insert.ev" method="post" enctype="multipart/form-data">
-                        <table class="table" id="eventModifyForm" align="center">
+                        <table class="table" align="center">
                             <tr>
                                 <th width="10%">제목</th>
                                 <td colspan="3">
@@ -133,7 +133,7 @@
 						
 						<br><br>
                        <div align="center"> 
-                           <button class="btn btn-primary" type="submit">등록</button> &nbsp;
+                           <button class="btn btn-primary" type="submit">등록</button>
                            <button class="btn btn-secondary" type="button" onclick="history.back();">취소</button>
                        </div>
                    </form>

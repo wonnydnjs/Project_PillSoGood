@@ -42,6 +42,8 @@
         font-weight: bold;
     }
     
+    /* ---------------------- */
+    
     .eventTable * { border : none; }
     .eventStatus { margin-left : 15px; }
     .eventContent { font-size: 0.9em; }
@@ -69,15 +71,16 @@
             <div id="content_2">
                 <div id="content_2_1">
                     <p>이벤트</p>
-
-                    <!-- 관리자일 경우에만 보여지는 등록 버튼 -->
-                    <c:if test="${ loginUser.memberId.equals('admin') }" >
-                        <button onclick="location.href='enrollForm.ev'" style="float:right; margin-right: 20px; margin-top: 10px;" class="btn btn-primary btn-primary">
-                            등록
-                        </button>
-                    </c:if>
                 </div>
                 <div id="content_2_2">
+                	
+                	<!-- 관리자일 경우에만 보여지는 등록 버튼 -->
+                	<c:if test="${ loginUser.memberId eq 'admin' }">
+               			<div style="margin-bottom: 40px;">
+	               			<button type="button" class="btn btn-primary" style="float:right; margin-right: 25px;" onclick="location.href='enrollForm.ev'">등록</button>
+	               			<br clear="both">
+                       	</div>
+               		</c:if>
 
                     <c:set var="today" value="<%=new java.util.Date()%>" />
                     <c:forEach var="e" items="${ list }">

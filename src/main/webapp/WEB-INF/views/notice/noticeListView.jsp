@@ -40,6 +40,8 @@
         margin-left: 30px;
         font-weight: bold;
     }
+    
+    /* ---------------------- */
 	
 	#noticeTable>tbody *:hover { cursor : pointer; }
 	
@@ -63,20 +65,21 @@
             <div id="content_1"></div>
             <div id="content_2">
                 <div id="content_2_1">
-                    <p>공지사항
-                    	<c:choose>
-                    		<c:when test="${ loginUser.memberId eq 'admin' }">
-                    			<button style="float:right; margin-right: 20px;" onclick="location.href='enrollForm.no'" class="btn btn-primary btn-primary btn-lg">등록</button>	
-                    		</c:when>
-                    	</c:choose>
-                    </p>
+                    <p>공지사항</p>
                 </div>
                 <div id="content_2_2">
+                
+                    <c:if test="${ loginUser.memberId eq 'admin' }">
+               			<div style="margin-bottom: 40px;">
+	               			<button type="button" class="btn btn-primary" style="float:right; margin-right: 25px;" onclick="location.href='enrollForm.no'">등록</button>
+	               			<br clear="both">
+                       	</div>
+               		</c:if>
 
                     <table class="table table-hover" id="noticeTable" style="color: black;">
                         <tbody>
                         	<c:forEach var="n" items="${ list }">
-                        		<tr align="center" width="100%">
+                        		<tr align="center">
                         			<td width="10%">${ n.noticeNo }</td>
                         			<td width="70%">${ n.noticeTitle }</td>
                         			<td width="20%">${ n.noticeDate }</td>

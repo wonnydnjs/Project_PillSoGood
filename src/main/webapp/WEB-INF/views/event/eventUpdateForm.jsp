@@ -100,7 +100,6 @@
                                	<c:if test="${ not empty e.evtImgName }">
                                		<img src="${ e.evtImgName }" width="300px" height="300px" style="margin-top: 10px;">
                                		<input type="hidden" name="evtImgName" value="${ e.evtImgName }">
-                  
                                	</c:if>
                                </td>
                            </tr>

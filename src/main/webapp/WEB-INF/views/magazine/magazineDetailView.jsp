@@ -49,11 +49,8 @@
         margin-left: 30px;
         font-weight: bold;
     }
-
-    .btnArea {
-        margin-left: 88%;
-        padding-bottom:20px;
-    }
+    
+    /* ---------------------- */
 
     .thumbnailArea>p {
         font-size: 40px;
@@ -143,10 +140,11 @@
                 <div id="content_2_2">
                     <!-- 삭제 수정 버튼 영역 -->
                     <c:if test="${ loginUser.memberId eq 'admin' }">
-                    <div class="btnArea">
-                    	<button type="button" class="btn btn-warning" onclick="magazineFormSubmit(1);">수정</button>
-                        <button type="button" class="btn btn-danger" onclick="magazineFormSubmit(2);">삭제</button>
-                    </div>
+                    <div style="margin-bottom: 40px;">
+             			<button type="button" class="btn btn-danger" style="float:right;" onclick="magazineFormSubmit(2);" >삭제</button>
+                     	<button type="button" class="btn btn-warning" style="float:right; margin-right: 5px;" onclick="magazineFormSubmit(1);">수정</button>	
+                     	<br clear="both">
+                   	</div>
                     </c:if>
                     
                     <form id="magazineForm" method="post">

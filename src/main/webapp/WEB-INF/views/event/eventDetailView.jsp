@@ -78,16 +78,17 @@
             <div id="content_1"></div>
             <div id="content_2">
                 <div id="content_2_1">
-                    <p>이벤트
-                    	<c:if test="${ loginUser.memberId.equals('admin') }" >
-                        	<button style="float:right; margin-right: 20px;" class="btn btn-primary btn-danger" onclick="location.href='delete.ev?eno=${ e.evtNo }&evtImgName=${ e.evtImgName }'">삭제</button>
-                        	<button style="float:right; margin-right: 5px;" class="btn btn-primary btn-warning" onclick="location.href='updateForm.ev?eno=${ e.evtNo }&evtImgName=${ e.evtImgName }'">수정</button>
-                    	</c:if>
-                    </p>
+                    <p>이벤트</p>
                 </div>
                 <div id="content_2_2">
-                    
-                    <br clear="both"/>
+                
+                	<c:if test="${ loginUser.memberId eq 'admin' }">
+               			<div style="margin-bottom: 40px;">
+	               			<button type="button" class="btn btn-danger" style="float:right;" onclick="location.href='delete.ev?eno=${ e.evtNo }&evtImgName=${ e.evtImgName }">삭제</button>
+	                       	<button type="button" class="btn btn-warning" style="float:right; margin-right: 5px;" onclick="location.href='updateForm.ev?eno=${ e.evtNo }&evtImgName=${ e.evtImgName }'">수정</button>	
+	                       	<br clear="both">
+                       	</div>
+               		</c:if>
 					
 					<!-- 이벤트 제목 부분 -->
                     <div>
@@ -458,7 +459,7 @@
 										
 										url : "insert.el",
 										data : { evtNo : ${e.evtNo},
-											     memberNo : ${loginUser.memberNo}
+											     memberNo : "${loginUser.memberNo}"
 										},
 										success : function (result) {
 											console.log("좋아요 성공");
@@ -484,7 +485,7 @@
 										
 										url : "delete.el",
 										data : { evtNo : ${e.evtNo},
-											     memberNo : ${loginUser.memberNo}},
+											     memberNo : "${loginUser.memberNo}"},
 										success : function (result) {
 											console.log("좋아요 삭제 성공");
 											

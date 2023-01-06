@@ -41,8 +41,8 @@
         font-weight: bold;
     }
     
-    #noticeModify { margin-right : 20px; }
-
+    /* ---------------------- */
+    
     #noticeContent {
         width : 100%;
         height : 695px;
@@ -73,47 +73,46 @@
             <div id="content_1"></div>
             <div id="content_2">
                 <div id="content_2_1">
-                    <p>공지사항
-                   		<c:choose>
-	                   		<c:when test="${ loginUser.memberId eq 'admin' }">
-	                   			<button style="float:right;" class="btn btn-primary btn-danger" onclick="postFormSubmit(2);" >삭제</button>
-                            	<button style="float:right;" class="btn btn-primary btn-warning" onclick="postFormSubmit(1);" id="noticeModify">수정</button>	
-	                   		</c:when>
-                    	</c:choose>
-                    </p>
-                <form id="postForm" action="" method="post">
-	            	<input type="hidden" name="nno" value="${ n.noticeNo }">
-	            </form>
-	            
-	            <script>
-	            	function postFormSubmit(num) {
-	            		
-	            		if(num == 1) { // 수정하기 버튼 클릭 시 num == 1 : updateForm.bo
-	            			
-	            			$("#postForm").attr("action", "updateForm.no").submit();
-	            		
-	            		} else { // 삭제하기 버튼 클릭 시 num == 2 : delete.bo
-	            			
-	            			$("#postForm").attr("action", "delete.no").submit();
-	            			
-	            		}
-	            	}
-	            </script>
-                    
+                    <p>공지사항</p>
                 </div>
                 <div id="content_2_2">
-                    <br clear="both"/>
-
+               		<c:if test="${ loginUser.memberId eq 'admin' }">
+               			<div style="margin-bottom: 40px;">
+	               			<button type="button" class="btn btn-danger" style="float:right;" onclick="postFormSubmit(2);">삭제</button>
+	                       	<button type="button" class="btn btn-warning" style="float:right; margin-right: 5px;" onclick="postFormSubmit(1);">수정</button>	
+	                       	<br clear="both">
+                       	</div>
+               		</c:if>
+               		
+               		<form id="postForm" action="" method="post">
+		            	<input type="hidden" name="nno" value="${ n.noticeNo }">
+		            </form>
+		            
+		            <script>
+		            	function postFormSubmit(num) {
+		            		
+		            		if(num == 1) { // 수정하기 버튼 클릭 시 num == 1 : updateForm.bo
+		            			
+		            			$("#postForm").attr("action", "updateForm.no").submit();
+		            		
+		            		} else { // 삭제하기 버튼 클릭 시 num == 2 : delete.bo
+		            			
+		            			$("#postForm").attr("action", "delete.no").submit();
+		            			
+		            		}
+		            	}
+		            </script>
+                
                     <div>
-                         <table class="table">
-                            <tbody>
-                                <tr align="center">
-                                    <td>${ n.noticeNo }</td>
-                                    <td width="70%">${ n.noticeTitle }</td>
-                                    <td align="right">${ n.noticeDate }</td>
-                                </tr>
-                            </tbody>
-                         </table>
+                       <table class="table">
+                          <tbody>
+                              <tr align="center">
+                                  <td>${ n.noticeNo }</td>
+                                  <td width="70%">${ n.noticeTitle }</td>
+                                  <td align="right">${ n.noticeDate }</td>
+                              </tr>
+                          </tbody>
+                       </table>
                     </div>
                     <br>
 

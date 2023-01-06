@@ -45,6 +45,8 @@
         margin-left: 30px;
         font-weight: bold;
     }
+    
+    /* ---------------------- */
 
 	/* 매거진 썸네일/제목/해시태그 영역 */
 	.thumbnailAll{
@@ -171,15 +173,18 @@
             <div id="content_2">
                 <div id="content_2_1">
 					<p>매거진</p>
-
-					<!-- 관리자로 로그인 했을 때 보이는 등록 버튼 -->
-					<c:if test="${ loginUser.memberId eq 'admin' }" >
-						<button class="btn btn-primary" style="float:right; margin-right: 25px;" id="enrollFormBtn" onclick="location.href='enrollForm.mag'">등록</button>
-					</c:if>
 				</div>
 
                 <!-- 실제 작업할 영역 -->
                 <div id="content_2_2">
+                
+                	<!-- 관리자로 로그인 했을 때 보이는 등록 버튼 -->
+					<c:if test="${ loginUser.memberId eq 'admin' }" >
+						<div style="margin-bottom: 10px;">
+							<button class="btn btn-primary" style="float:right; margin-right: 25px;" id="enrollFormBtn" onclick="location.href='enrollForm.mag'">등록</button>
+							<br clear="both">
+						</div>
+					</c:if>
                 
                 	<!-- 카테고리 영역 -->
 					<div class="magazineSelect" style="margin-left: 25px;">
