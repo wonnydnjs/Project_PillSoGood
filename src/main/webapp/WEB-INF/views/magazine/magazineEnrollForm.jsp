@@ -58,9 +58,11 @@
 		border-radius: 15px;
 		padding: 50px;
 	}
-
-	#enrollForm>table { width: 100%; }
-	#enrollForm>table tr { height: 50px; }
+	
+	.table th {
+		color: black;
+		vertical-align: middle;
+	}
 	
 	.tagify {
 		width: 100%;
@@ -90,10 +92,10 @@
 				</div>
               <div id="content_2_2">
                   <form id="enrollForm" method="post" action="enroll.mag" enctype="multipart/form-data">
-                      <table align="center">
+                      <table class="table" align="center">
                         <tr>
-                            <th width=10%;><label for="magazineTitle">제목</label></th>
-                            <td width=90%;><input type="text" id="magazineTitle" class="form-control" name="magazineTitle" placeholder="제목을 입력해주세요 (30자 이내)" required maxlength="30"></td>
+                            <th width="10%"><label for="magazineTitle">제목</label></th>
+                            <td width="90%"><input type="text" id="magazineTitle" class="form-control" name="magazineTitle" placeholder="제목을 입력해주세요 (30자 이내)" required maxlength="30"></td>
                         </tr>
                         <tr>
                           <th>카테고리</th>
@@ -105,7 +107,7 @@
                               </select>
                           </td>
                         </tr>
-                        <tr style="height: 485px;">
+                        <tr>
                           <th><label for="magazineContent">내용</label></th>
                           <td><textarea id="magazineContent" class="form-control h-25" rows="19" style="resize:none;" placeholder="내용을 입력해주세요 (1000자 이내)" name="magazineContent" required maxlength="1000"></textarea></td>
                         </tr>

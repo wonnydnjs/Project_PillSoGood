@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <% pageContext.setAttribute("newLine", "\n"); %>
+<% response.setHeader("Access-Control-Allow-Origin","*"); %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,6 +43,8 @@
         margin-left: 30px;
         font-weight: bold;
     }
+    
+    /* ---------------------- */
 
     table { color: black; width: 100%; }
 
@@ -59,6 +62,8 @@
     }
     
     #replyTable { width: 100%; }
+    
+    .replyContents img { width: 300px; }
 
 </style>
 </head>

@@ -126,7 +126,7 @@
                    	<ul class="pagination  justify-content-center">
                     	<c:choose> 
                     		<c:when test="${ pi.currentPage eq 1 }">
-                    			<li class="page-item"><a class="page-link" href="#">&lt;</a></li>
+                    			<li class="page-item disabled"><a class="page-link" href="#">&lt;</a></li>
                     		</c:when>
                     		<c:otherwise>
                     			<li class="page-item"><a class="page-link" href="list.ev?cpage=${ pi.currentPage - 1 }">&lt;</a></li>
@@ -134,12 +134,19 @@
                     	</c:choose>
                     	
                     	<c:forEach var="e" begin="${ pi.startPage }" end="${ pi.endPage }">
-                    		<li class="page-item"><a class="page-link" href="list.ev?cpage=${ e }">${ e }</a></li>
+                    		<c:choose>
+                    			<c:when test="${ pi.currentPage eq e }">
+                    				<li class="page-item disabled"><a class="page-link" href="#">${ e }</a></li>
+                    			</c:when>
+                    			<c:otherwise>
+                    				<li class="page-item"><a class="page-link" href="list.ev?cpage=${ e }">${ e }</a></li>
+                    			</c:otherwise>
+                    		</c:choose>
                     	</c:forEach>
                     	
                     	<c:choose>
                     		<c:when test="${pi.currentPage eq pi.maxPage }">
-                    			<li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+                    			<li class="page-item disabled"><a class="page-link" href="#">&gt;</a></li>
                     		</c:when>
                     		<c:otherwise>
                     			<li class="page-item"><a class="page-link" href="list.ev?cpage=${ pi.currentPage + 1 }">&gt;</a></li>

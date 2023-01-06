@@ -59,8 +59,10 @@
 		padding: 50px;
 	}
 
-	#updateForm>table { width: 100%; }
-	.enter { height: 10px; }
+	.table th {
+		color: black;
+		vertical-align: middle;
+	}
 	
 	.tagify {
 		width: 100%;
@@ -90,13 +92,12 @@
 				</div>
               <div id="content_2_2">
                   <form id="updateForm" method="post" action="update.mag" enctype="multipart/form-data">
-                      <table align="center">
+                      <table class="table" align="center">
                         <input type="hidden" name="magazineNo" value="${ mag.magazineNo }" >
                         <tr>
-                            <th><label for="magazineTitle">제목</label></th>
-                            <td><input type="text" id="magazineTitle" class="form-control" name="magazineTitle" value="${ mag.magazineTitle }" placeholder="제목을 입력해주세요 (30자 이내)" required maxlength="30"></td>
+                            <th width="10%"><label for="magazineTitle">제목</label></th>
+                            <td width="90%"><input type="text" id="magazineTitle" class="form-control" name="magazineTitle" value="${ mag.magazineTitle }" placeholder="제목을 입력해주세요 (30자 이내)" required maxlength="30"></td>
                         </tr>
-                        <tr class="enter"></tr>
                         
                         <tr>
                           <th>카테고리</th>
@@ -106,13 +107,11 @@
                                  <option value="3" data-sub="이슈">이슈</option>
                           </select></td>
                         </tr>
-                        <tr class="enter"></tr>
                         
                         <tr>
                           <th><label for="magazineContent">내용</label></th>
                           <td><textarea id="magazineContent" class="form-control h-25" rows="22" style="resize:none;" placeholder="내용을 입력해주세요 (1000자 이내)" name="magazineContent" required maxlength="1000">${ mag.magazineContent }</textarea></td>
                         </tr>
-                        <tr class="enter"></tr>
                         
                         <tr>
                           <th><label for="reupfile">사진</label></th>
@@ -125,7 +124,6 @@
                               
                           </td>
                         </tr>
-                        <tr class="enter"></tr>
 
                         <tr>
 	                     <th><label for="hashtag">해시태그</label></th>

@@ -41,20 +41,20 @@
         font-weight: bold;
     }
     
-    #eventModifyArea{ 
-        width: 100%;
-        border: 1px solid gray;
-        border-radius: 30px;
-        margin: auto;
-
-    }
-    #eventModifyForm th { text-align: left; }
-
-    #eventModifyForm td>*  {
-        /* width : 690px; */
-        box-sizing: border-box;
-        border-radius:5px
-    }
+    /* ---------------------- */
+    
+    #updateForm {
+		width: 95%;
+		margin: auto;
+		border: 2px solid black;
+		border-radius: 15px;
+		padding: 50px;
+	}
+	
+	.table th {
+		color: black;
+		vertical-align: middle;
+	}
 
 </style>
 </head>
@@ -72,57 +72,78 @@
                     <p>이벤트 수정</p>    
                 </div>
                 <div id="content_2_2">
-                        <div id="eventModifyArea">
-                            <form action="update.ev" method="post" enctype="multipart/form-data">
-                            	<input type="hidden" name="evtNo" value="${ e.evtNo }">
-                                <div style="padding: 20px;">
-                                    <table class="table" id="eventModifyForm" width="100%" align="center">
-                                        <tr>
-                                            <th>제목</th>
-                                            <td colspan="3">
-                                                <input class="form-control" type="text" name="evtTitle" value="${ e.evtTitle }">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>시작일</th>
-                                            <td>
-                                                <input class="form-control" name="evtStart" style="width:250px" type="date" required value="${ e.evtStart }">
-                                            </td>
-                                            <th>마감일</th>
-                                            <td>
-                                                <input class="form-control" name="evtDew" style="width:250px" type="date" required value="${ e.evtDew }">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>첨부파일</th>
-                                            <td colspan="100%">
-                                            	<!-- 파일 선택하는 버튼 -->
-                                            	<input type="file" id="upfile" name="reupfile" class="form-control"> 
-                                            	
-                                            	<c:if test="${ not empty e.evtImgName }">
-                                            		현재 업로드 된 파일 : 
-                                            		<p>${ e.evtImgName.substring(24) }</p>
-                                            		
-                                            		<input type="hidden" name="${ e.evtImgName }">
-                               
-                                            	</c:if>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>내용</th>
-                                            <td colspan="100%">
-                                                <textarea class="form-control" name="evtContent" id="evtContent" cols="40" rows="20" style="resize:none;">${ e.evtContent }</textarea>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
+                   <form id="updateForm" action="update.ev" method="post" enctype="multipart/form-data">
+                   	<input type="hidden" name="evtNo" value="${ e.evtNo }">
+                       <table class="table" align="center">
+                           <tr>
+                               <th width="10%">제목</th>
+                               <td colspan="3">
+                                   <input class="form-control" type="text" name="evtTitle" value="${ e.evtTitle }" placeholder="제목을 입력해주세요 (30자 이내)" maxlength="30" required>
+                               </td>
+                           </tr>
+                           <tr>
+                               <th>시작일</th>
+                               <td>
+                                   <input class="form-control" name="evtStart" style="width:250px" type="date" required value="${ e.evtStart }">
+                               </td>
+                               <th width="10%">마감일</th>
+                               <td>
+                                   <input class="form-control" name="evtDew" style="width:250px" type="date" required value="${ e.evtDew }">
+                               </td>
+                           </tr>
+                           <tr>
+                               <th>첨부파일</th>
+                               <td colspan="3">
+                               	<!-- 파일 선택하는 버튼 -->
+                               	<input type="file" id="upfile" name="reupfile" class="form-control" onchange="checkFile();"> 
+                               	
+                               	<c:if test="${ not empty e.evtImgName }">
+                               		<img src="${ e.evtImgName }" width="300px" height="300px" style="margin-top: 10px;">
+                               		<input type="hidden" name="evtImgName" value="${ e.evtImgName }">
+                  
+                               	</c:if>
+                               </td>
+                           </tr>
+                           <tr>
+                               <th>내용</th>
+                               <td colspan="3">
+                                   <textarea class="form-control" name="evtContent" id="evtContent" rows="20" style="resize:none;" placeholder="내용을 입력해주세요 (1000자 이내)" maxlength="1000">${ e.evtContent }</textarea>
+                               </td>
+                           </tr>
+                       </table>
+                       
+                       <script>
+					    	function checkFile() {
+					    		
+					    		var file = $("input[type=file]");
+					    		
+					    		if(file.val() != "") {
+					    			
+						    		var maxSize = 10 * 1024 * 1024;
+						    		var fileSize = file[0].files[0].size;
+						    		
+						    		if(fileSize > maxSize) {
+						    			alert('10MB 이하의 파일만 등록할 수 있습니다.');
+						    			file.val("");
+						    			return;
+						    		}
+						    		
+						    		var ext = file.val().substring(file.val().lastIndexOf(".")).toLowerCase();
+						    		
+						    		if($.inArray(ext, ['.jpg', '.jpeg', '.gif', '.png']) == -1) {
+						    			alert('jpg, jpeg, gif, png 파일만 업로드 할 수 있습니다.');
+						    			file.val("");
+						    			return;
+						    		}
+					    		}
+					    	}
+					    </script>
 
-                            <div align="center" style="padding-bottom: 30px;">
-                                <button class="btn btn-primary btn-lg" type="submit">등록</button> &nbsp;
-                                <button class="btn btn-light btn-lg" type="reset">취소</button>
-                            </div>
-                        </form>
+                    <div align="center"> 
+                        <button class="btn btn-primary" type="submit">등록</button>
+                        <button class="btn btn-secondary" type="button" onclick="history.back();">취소</button>
                     </div>
+                </form>
 
                 </div>
                 <div id="content_2_3"></div>
