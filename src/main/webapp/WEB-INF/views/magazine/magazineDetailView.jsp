@@ -19,7 +19,7 @@
 <style>
 
 	div { box-sizing : border-box; }
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
+    body, span { font-family: 'Noto Sans KR', sans-serif !important; }
 
     .wrap {
         width: 100%;
@@ -84,12 +84,12 @@
         margin: auto;
     }
 
-    .magazineContent { width: 1000px; margin: auto; }
+    .magazineContent { width: 70%; margin: auto; }
 
     .magazineContent>p {
         margin: 0px;
-        padding: 20px 0px;
-        text-align: center;
+        padding: 40px 0px 20px 0px;
+        text-align: left;
         font-size: 18px;
     }
 
@@ -144,8 +144,8 @@
                     <!-- 삭제 수정 버튼 영역 -->
                     <c:if test="${ loginUser.memberId eq 'admin' }">
                     <div class="btnArea">
-                        <button type="submit" class="btn btn-secondary" onclick="magazineFormSubmit(1);">삭제</button>
-                        <button type="reset" class="btn btn-light" onclick="magazineFormSubmit(2);">수정</button>
+                    	<button type="button" class="btn btn-warning" onclick="magazineFormSubmit(1);">수정</button>
+                        <button type="button" class="btn btn-danger" onclick="magazineFormSubmit(2);">삭제</button>
                     </div>
                     </c:if>
                     
@@ -157,7 +157,7 @@
                     <script>
                         function magazineFormSubmit(num) {
 
-                            if(num == 2) { 
+                            if(num == 1) { 
                                 
                                 $("#magazineForm").attr("action", "updateForm.mag").submit();
                             
@@ -197,8 +197,12 @@
                         </div>
                     </c:if>
 
-                    <div class="hashtagArea"><span class="badge bg-light">${mag.magazineHashtag}</span></div>
-           
+                    <div>
+                    	<c:forTokens var="h" items="${ mag.magazineHashtag }" delims=" ">
+                    		<span class="btn btn-light btn-sm disabled" style="font-weight: bold;">${ h }</span>
+                    	</c:forTokens>
+                    </div>
+                    
                     <div class="pageContent" style="padding: 20px 0px;">
                         <table class="pageContentTable">
                             <tr>

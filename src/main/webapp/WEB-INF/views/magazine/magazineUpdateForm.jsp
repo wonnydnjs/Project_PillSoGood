@@ -11,8 +11,7 @@
 <title>매거진 수정</title>
 <!-- hashtag 소스 다운 -->
 <script src="https://unpkg.com/@yaireo/tagify"></script>
-<!-- hashtag 폴리필 (구버젼 브라우저 지원) -->
-<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+<script src='https://unpkg.com/@yaireo/dragsort'></script>
 <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />    
 <link rel='stylesheet' href='https://unpkg.com/@yaireo/tagify/dist/tagify.css'>
 <link rel='stylesheet' href='https://unpkg.com/@yaireo/dragsort/dist/dragsort.css'>
@@ -49,105 +48,55 @@
         margin-left: 30px;
         font-weight: bold;
     }
+    
+   	/* ---------------------- */
 	
-	.innerContent { 
-		display: flex;
-		float: left;
-		left: 1000px;
-		position:relative;
-		top: 5%;
-		left: 5%;
-		margin-top: 10px;
-		margin-bottom: 10px;
-	}
-	
-	.innerContent {
-		padding: 40px;
-		padding-top: 60px;
+	#updateForm {
+		width: 95%;
+		margin: auto;
+		border: 2px solid black;
 		border-radius: 15px;
-		border-color: rgba(128, 126, 126, 0.541);
+		padding: 50px;
 	}
-	
-	#title {
-		width: 900px;
-		box-sizing: border-box;
-		margin-top: 10px;
-		margin-bottom: 10px;
-	}
-	
-	#hashtag {
-		margin-top: 10px;
-		margin-bottom: 10px;
-	}
-	
-	#content {
-		margin-top: 10px;
-		margin-bottom: 10px;
-	}
-	
-	th { 
-		padding-left: 10px;
-		padding-right: 20px;
-	}
-	
-	#select { width: 200px; }
-	
-	.btnArea {
-		padding-top: 80px;
-		padding-bottom: 40px;
-	}
-	
-	.logoArea>p {
-		position:relative;
-		margin-left:-270px;
-		padding-top:-100px;
-	}
+
+	#updateForm>table { width: 100%; }
+	.enter { height: 10px; }
 	
 	.tagify {
-		--tag--max-width: 250px;
 		width: 100%;
-		max-width: 600px;
+		max-width: 880px;
+	}
+	.tagify__tag-text .tagify__tag>div {
+		white-space: nowrap;
+		background-color: #E5E5E5!important;
 	}
 	
-	.tagify .tagify__tag-text { white-space: nowrap; }
-	
-	.logoArea {
-		padding-left:29%;
-		padding-top:80px;
-	}
-	
-	.tagify { max-width: 900px; }
+	.tagify--hasMaxTags>.tagify__input { display:none }
              
 </style>
 </head>
 <body>
 
     <div class="wrap">
-      <jsp:include page="../common/menubar.jsp" />
-        <div id="navigator2"></div>
+        <div id="navigator2">
+			<jsp:include page="../common/menubar.jsp" />
+		</div>
         <div id="header"></div>
         <div id="content">
-            <div id="content_1">
-            	<p>매거진</p>
-            </div>
+            <div id="content_1"></div>
             <div id="content_2">
-              <div id="content_2_1">
-                <!-- 로고 영역 -->
-                <div class="logoArea">
-                    <p style="display: inline; font-size: 20px;">PillSoGood Magazine</p>
-                </div>
-              </div>
-
+                <div id="content_2_1">
+					<p>매거진 수정</p>
+				</div>
               <div id="content_2_2">
-                <div class="innerContent" style="border: 2px solid;">
                   <form id="updateForm" method="post" action="update.mag" enctype="multipart/form-data">
-                    <fieldset>
                       <table align="center">
                         <input type="hidden" name="magazineNo" value="${ mag.magazineNo }" >
                         <tr>
-                            <th><label for="title">제목</label></th>
-                            <td><input type="text" id="title" class="form-control" name="magazineTitle" value="${ mag.magazineTitle }" required maxlength="100"></td>
+                            <th><label for="magazineTitle">제목</label></th>
+                            <td><input type="text" id="magazineTitle" class="form-control" name="magazineTitle" value="${ mag.magazineTitle }" placeholder="제목을 입력해주세요 (30자 이내)" required maxlength="30"></td>
                         </tr>
+                        <tr class="enter"></tr>
                         
                         <tr>
                           <th>카테고리</th>
@@ -157,104 +106,115 @@
                                  <option value="3" data-sub="이슈">이슈</option>
                           </select></td>
                         </tr>
+                        <tr class="enter"></tr>
                         
-                        <script>
-                        	$(function() {
-                        		
-                        		var categoryOptions = $("#magazineSelectOpt>option"); // [option, option, option]
-                        		
-                        		categoryOptions.each(function() {
-                        			
-                        			if($(this).text() == "${ mag.categoryNo }") {
-                        				$(this).attr("selected", true);
-                        			}
-                        		});
-                        	});
-                        </script>
-							
                         <tr>
-                          <th><label for="content">내용</label></th>
-                          <td><textarea id="Magazinecontent" class="form-control h-25" rows="20" style="resize:none;" name="magazineContent" required maxlength="3000">${ mag.magazineContent }</textarea></td>
+                          <th><label for="magazineContent">내용</label></th>
+                          <td><textarea id="magazineContent" class="form-control h-25" rows="22" style="resize:none;" placeholder="내용을 입력해주세요 (1000자 이내)" name="magazineContent" required maxlength="1000">${ mag.magazineContent }</textarea></td>
                         </tr>
-
+                        <tr class="enter"></tr>
+                        
                         <tr>
                           <th><label for="reupfile">사진</label></th>
-                          <td><input multiple="multiple" type="file" id="reupfile" class="form-control-file border" name="reupfile" maxlength="1000">
+                          <td><input multiple="multiple" type="file" id="reupfile" class="form-control" name="reupfile" onchange="checkFile();">
                           	  
                           	  <c:if test="${ not empty mag.magazineImgName }">
-                          	  
-                          	  	<img src="${ mag.magazineImgName }" width="600px" height="400px">
+                          	  	<img src="${ mag.magazineImgName }" width="500px" height="300px" style="margin-top: 10px;">
                           	  	<input type="hidden" name="magazineImgName" value="${ mag.magazineImgName }">
                               </c:if>
                               
                           </td>
-                        </tr>  
+                        </tr>
+                        <tr class="enter"></tr>
 
                         <tr>
-                     <th><label for="hashtag">해시태그</label></th>
-                     <td><input type="text" id="hashtag" class="form-control" name="magazineHashtag" value="${ mag.magazineHashtag }" maxlength="20">
-                                             <script src='https://unpkg.com/@yaireo/tagify'></script>
-      				<script src='https://unpkg.com/@yaireo/dragsort'></script>
-      				<script>
-                    // This demo is using "dragsort" lib (by myself)
-                    // https://github.com/yairEO/dragsort
-			        
-
-                    // The DOM element you wish to replace with Tagify
-                    var input = document.querySelector('input[name=magazineHashtag]');
-
-                    // initialize Tagify on the above input node reference
-                    
-                    var tagify = new Tagify(input, {
-                      originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(' ')
-                    })
-
-                    // bind "DragSort" to Tagify's main element and tell
-                    // it that all the items with the below "selector" are "draggable"
-                    var dragsort = new DragSort(tagify.DOM.scope, {
-                        selector: '.'+tagify.settings.classNames.tag,
-                        callbacks: {
-                            dragEnd: onDragEnd
-                        }
-                    })
-
-                    // must update Tagify's value according to the re-ordered nodes in the DOM
-                    function onDragEnd(elm){
-                        tagify.updateValueByDOMTags()
-                    }
-
-                    // listen to tagify "change" event and print updated value
-                    tagify.on('change', e => console.log(e.detail.value))
-                	</script>
-	                          
-                          </td>
+	                     <th><label for="hashtag">해시태그</label></th>
+	                     <td><input type="text" id="hashtag" placeholder="#해시태그 (10자 이내, 최대 3개)" class="form-control" name="magazineHashtag" pattern='^#.{1,9}$'></td>
                         </tr>
-                    </table>  
-                    <div align="center" class="btnArea">
-                          <button type="submit" class="btn btn-secondary">수정</button>
-                          <button type="button" class="btn btn-light" onclick="javascript:history.go(-1);">취소</button>
+                    </table>
+                    
+                    <script>
+                    	$(function() {
+                    		
+                    		var categoryOptions = $("#magazineSelectOpt>option"); // [option, option, option]
+                    		
+                    		categoryOptions.each(function() {
+                    			
+                    			if($(this).text() == "${ mag.categoryNo }") {
+                    				$(this).attr("selected", true);
+                    			}
+                    		});
+                    	});
+                    	
+						function checkFile() {
+				    		
+				    		var file = $("input[type=file]");
+				    		
+				    		if(file.val() != "") {
+				    			
+					    		var maxSize = 10 * 1024 * 1024;
+					    		var fileSize = file[0].files[0].size;
+					    		
+					    		if(fileSize > maxSize) {
+					    			alert('10MB 이하의 파일만 등록할 수 있습니다.');
+					    			file.val("");
+					    			return;
+					    		}
+					    		
+					    		var ext = file.val().substring(file.val().lastIndexOf(".")).toLowerCase();
+					    		
+					    		if($.inArray(ext, ['.jpg', '.jpeg', '.gif', '.png']) == -1) {
+					    			alert('jpg, jpeg, gif, png 파일만 업로드 할 수 있습니다.');
+					    			file.val("");
+					    			return;
+					    		}
+				    		}
+				    	}
+                    </script>
+                    
+                    <script>
+	                    var input = document.querySelector('input[name=magazineHashtag]');
+	                    
+	                    var hashtagArr = '${ mag.magazineHashtag }'.split(" ");
+	                    // console.log(hashtagArr);
+	                    
+	                    var tagify = new Tagify(input, {
+	                    	pattern: /^#.{1,9}$/,
+	                    	maxTags: 3
+	                    })
+	                    
+	                    tagify.addTags(hashtagArr);
+	                    
+	                    var dragsort = new DragSort(tagify.DOM.scope, {
+	                    	selector: '.' + tagify.settings.classNames.tag,
+	                    	callbacks: {
+	                    		dragEnd : onDragEnd
+	                    	}
+	                    })
+	                    
+	                    function onDragEnd() {
+	                    	tagify.updateValueByDOMTags()
+	                    }
+	                    
+	                    tagify.on('remove', function(e) {
+	                    	document.getElementsByClassName('tagify__input')[0].focus();
+	                    });
+                	</script>
+                	
+                	<br><br>
+                    <div align="center">
+                          <button type="submit" class="btn btn-primary">수정</button>
+                          <button type="button" class="btn btn-secondary" onclick="history.back();">취소</button>
                     </div>
-                  </fieldset>
                 </form>
-              </div>
        		</div>
            <div id="content_2_3"></div>
         </div>
+        <br clear="both">
         <div id="content_3"></div>
         </div>
         <jsp:include page="../common/footer.jsp" />
     </div>
-    
-    <script>
-    	var input = document.querySelector('input[name=magazineHashtag]')
-    
-    	new Tagify(input)
-    	
-    	$(function() {
-    		
-    	})
-    	
-    </script>
     
 </body>
 </html>

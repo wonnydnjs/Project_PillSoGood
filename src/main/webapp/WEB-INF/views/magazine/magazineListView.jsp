@@ -56,8 +56,8 @@
 	}
 
 	.thumbnail {
-		width: 30%;
-		margin-bottom: 10px; 
+		width: 32%;
+		margin-bottom: 30px; 
 		text-align: center;
 	}
 
@@ -83,8 +83,8 @@
 	#magazineTitle { /* 게시글 제목 */
 		font-size: 18px; 
 		font-weight: bold; 
-		margin: 0px;
-		padding: 6px 0px;
+		margin: 30px 0px 0px 0px;
+		height: 50px;
 	}
 
 	.hashtagArea { width: 300px; }
@@ -174,16 +174,15 @@
 
 					<!-- 관리자로 로그인 했을 때 보이는 등록 버튼 -->
 					<c:if test="${ loginUser.memberId eq 'admin' }" >
-						<button class="btn btn-primary" style="float:right; margin-right: 20px; margin-top: 10px;" id="enrollFormBtn" onclick="location.href='enrollForm.mag'">등록</button>
+						<button class="btn btn-primary" style="float:right; margin-right: 25px;" id="enrollFormBtn" onclick="location.href='enrollForm.mag'">등록</button>
 					</c:if>
 				</div>
-                   
 
                 <!-- 실제 작업할 영역 -->
                 <div id="content_2_2">
                 
                 	<!-- 카테고리 영역 -->
-					<div class="magazineSelect">
+					<div class="magazineSelect" style="margin-left: 25px;">
 						<article class="cont-select">
 							<button class="btn btn-outline-secondary btn-select">
 								<c:choose>
