@@ -43,8 +43,10 @@
         margin-left: 30px;
         font-weight: bold;
     }
+    
+    /* ---------------------- */
 
-	p { margin: 0px; color: black; }
+	#content_2_2 p { margin: 0px; color: black; }
 
 	#best3 { 
 		font-size: 25px;
@@ -94,7 +96,7 @@
         margin-top: 15px;
 	}
 
-	table { width: 100%; }
+	#content_2_2 table { width: 100%; }
 
 	#allA a { text-decoration: none; color: black; }
 	#allA a:hover { color: lightgray; }
@@ -169,9 +171,9 @@
 							</c:choose>
 						</div>
 					</div>
-					<div style="height: 80px;">
+					<div style="margin: 50px 0px;">
 						<form method="post" action="enrollForm.re" >
-							<div align="right" style="margin-top:18px">
+							<div align="right">
 		           				<c:choose>
 					            	<c:when test="${ not empty loginUser }">
 					            		<input type="hidden" name="memberNo" class="form-control" value="${ loginUser.memberNo }"> 
@@ -184,14 +186,15 @@
 					<div>
 						<table id="allA">
 							<tr>
-								<td width="88%;" id="allR">총 <span style="color: #78C2AD;">${ pi.listCount }</span>건</td>
-								<td width="6%;"><a href="list.re?cpage=1&order=new">최신순</a>&ensp;|&ensp;</td>
-								<td width="6%;"><a href="list.re?cpage=1&order=hot">조회순</a></td>
+								<td width="91%" id="allR">총 <span style="color: #78C2AD;">${ pi.listCount }</span>건</td>
+								<td width="4%"><a href="list.re?cpage=1&order=new">최신순</a></td>
+								<td width="1%">&ensp;|&ensp;</td>
+								<td width="4%"><a href="list.re?cpage=1&order=hot">조회순</a></td>
 							</tr>
 						</table>
-					</div>	
+					</div>
+					<hr>
 	            	<div>
-	            	
 	            		<c:choose>
 	                        <c:when test="${list.size() ne 0}">
 								<c:forEach var="i" begin="0" end="${ list.size()-1 }"><!-- 일반 리뷰 -->
@@ -200,7 +203,7 @@
 											<tr>
 												<input type="hidden" value="${ list[i].reviewNo }">
 												<td width="88%" style="font-size: 20px; padding: 10px 10px;"><b>${ list[i].reviewTitle }</b></td>
-												<td align="center">
+												<td align="right" style="padding-right: 10px;">
 													<c:choose>
 														<c:when test="${ not empty loginUser }">
 															<c:choose>
@@ -225,7 +228,7 @@
 														</c:forEach>
 													</span>
 												</td>
-												<td align="center">${ list[i].reviewDate }</td>
+												<td align="right">${ list[i].reviewDate }</td>
 											</tr>
 											<tr>
 												<c:choose>

@@ -162,10 +162,9 @@
 					</script>
                     </div>
                     
-                    <div class="col text-center" style="height:100px; margin-top: 80px;">
-                        <button class="btn btn-primary" onclick="location.href='list.no'">목록으로</button>
+                    <div align="center" style="margin-top: 50px;">
+                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='list.no';" style="width:140px">목록으로</button>
                     </div>
-
                 </div>
                 <div id="content_2_3"></div>
             </div>

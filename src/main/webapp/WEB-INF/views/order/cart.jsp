@@ -41,14 +41,17 @@
         margin-left: 30px;
         font-weight: bold;
     }
+    
+    /* ---------------------- */
 
     #content_2_2 div>table>thead tr { border-bottom: solid lightgray; }
     #content_2_2 div>table { width: 90%; }
 
-    table { color: black; }
+    #content_2_2 table { color: black; }
 
     #content_2_2>div { width: 100%; height: auto; }
-
+	
+	#choice { width: 90%!important; }
     #choice>div { height: 140px; width: 50%; float: left; padding: 15px; }
     #choiceA>div, #choiceB>div { height: 100%; width: 100%; border-radius: 10px; } 
 
@@ -78,7 +81,8 @@
         padding-top: 5px;
         font-size: 15px;
     }
-
+	
+	#btnss { width: 90%!important; }
     #btnss>div { width: 50%; float: left; }
 
 </style>
@@ -134,7 +138,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div id="btns" style="margin-top: 10px;">
+                    <div id="btns" style="margin-top: 20px;">
                         <button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='list.pr'">+ 제품 추가</button>
                     </div>
                     <div style="height: 200px;"></div>
@@ -149,6 +153,7 @@
                             </tr>
                         </table>
                     </div>
+                    <br><br>
                     <div id="choice">
                         <div id="choiceA">
                             <div style="border: 1px solid #78C2AD;">
@@ -179,10 +184,12 @@
                             </div>
                         </div>
                     </div>
+                    <br clear="both">
                     <div id="btnss">
                         <div><button type="button" class="btn btn-primary btn-lg" onclick="postPaySubmit(1)">정기구독</button></div>
                         <div><button type="button" class="btn btn-secondary btn-lg" onclick="postPaySubmit(2);">단품결제</button></div>
                     </div>
+                    <br clear="both">
                     
                     <form id="postForm" action="pay.or" method="post">
                     	<input type='hidden' name='num' value=''>
@@ -206,7 +213,7 @@
                     	</c:otherwise>
                     </c:choose>
                 </div>
-                <div style="height: 150px;"></div>
+                <div id="content_2_3"></div>
             </div>
             
             <div id="content_3"></div>

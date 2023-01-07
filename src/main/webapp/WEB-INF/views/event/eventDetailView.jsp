@@ -202,8 +202,8 @@
                     <div id="replyArea" align="center"></div>
                     
                     <div align="center" style="margin-top: 50px;">
-                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='list.ev';">목록으로</button>
-                    </div> 
+                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='list.ev';" style="width:140px">목록으로</button>
+                    </div>
 
                     <script>
 

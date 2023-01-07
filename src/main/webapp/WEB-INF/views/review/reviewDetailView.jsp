@@ -44,6 +44,8 @@
         font-weight: bold;
     }
 	
+	/* ---------------------- */
+	
 	#select { width: 200px; }
 	i { cursor: pointer; }
 	
@@ -131,8 +133,6 @@
         left: 1050px;
     }
 
-    .listBtnArea { margin-top: 50px; }
-    
     .replyContent { color: black; }
 
     #rep, #rep2 {
@@ -142,7 +142,7 @@
         margin-top: 15px;
     }
 
-    table { width: 100%; color: black; }
+    #content_2_2 table { width: 100%; color: black; }
 
     #memRev, #morePro { width: 50%; float: left; }
 
@@ -221,6 +221,11 @@
         object-fit: contain;
         margin: auto;
 	}
+	
+	.reviewDetail pre {
+		margin: 0px;
+		font-size: 15px;
+	}
     
 </style>
 </head>
@@ -254,9 +259,9 @@
 
                     <!-- 리뷰 상세 본문 -->
                     <div class="reviewDetailArea">
-                        <table class="reviewDetail" style="border-top: 1px solid lightgray;">
+                        <table class="reviewDetail" >
                             <tr>
-                            	<td><p style="font-size: 25px; margin-top: 10px;"><b>${r.reviewTitle}</b></p></td>
+                            	<td colspan="2"><p style="font-size: 25px;"><b>${r.reviewTitle}</b></p></td>
                             </tr>
                             <tr height="50px">
                                 <td>
@@ -274,7 +279,7 @@
                                             </c:forEach>
                                     </span>                                     
                                 </td>
-                                <td width="10%">${r.reviewDate}</td>
+                                <td width="10%" align="right">${r.reviewDate}</td>
                             </tr>
                             <tr height="50px">
                                 <c:choose>
@@ -295,7 +300,7 @@
                                 <td></td>
                             </tr>
                             <tr height="100px">
-                                <td><pre style="white-space: pre-line;">${ r.reviewContent }</pre></td>
+                                <td><pre style="white-space: pre-line;"><br>${ r.reviewContent }<br><br></pre></td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -438,9 +443,9 @@
                         <tbody></tbody>
                     </table>
                     
-                    <div class="listBtnArea" align="center">
-                        <button type="button" class="btn btn-outline-secondary" id="listBtn" onclick="location.href='list.re';" style="width:140px">목록으로</button>
-                    </div>    
+                    <div align="center" style="margin-top: 50px;">
+                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='list.re';" style="width:140px">목록으로</button>
+                    </div>
                 </div>
                 <div id="content_2_3"></div>
             </div>

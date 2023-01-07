@@ -85,7 +85,7 @@
 
     .magazineContent>p {
         margin: 0px;
-        padding: 40px 0px 20px 0px;
+        padding: 50px 0px;
         text-align: left;
         font-size: 18px;
     }
@@ -119,8 +119,6 @@
         border-top: 2px solid black;
         border-bottom: 2px solid black;
     }
-    
-    .listBtnArea { margin-top: 50px; }
     
 </style>
 </head>
@@ -184,12 +182,12 @@
                                 <c:when test="${ loginUser.memberNo eq magL.memberNo  }"> 
                                     <img src="resources/images/Like.png" width="30" class="likeControl" id="magazineLike" style="cursor: pointer;" >
                                     <img src="resources/images/Unlike.png" width="30" style="display:none" class="likeControl" id="magazineUnLike" style="cursor: pointer;">
-                                    <span id="magazineLikeCount" name="magazineLikeCount"></span>
+                                    <span id="magazineLikeCount"></span>
                                 </c:when>
                                 <c:otherwise>
                                     <img src="resources/images/Unlike.png" width="30" alt="" class="likeControl" id="magazineUnLike" style="cursor: pointer;">
                                     <img src="resources/images/Like.png" width="30" class="likeControl" style="display:none" id="magazineLike" style="cursor: pointer;">
-                                    <span id="magazineLikeCount" name="magazineLikeCount"></span>
+                                    <span id="magazineLikeCount"></span>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -236,8 +234,9 @@
                         </table>
                     </div>
 
-                    <div align="center" class="listBtnArea"><button class="btn btn-primary" onclick="list()">목록으로</button></div>
-
+                    <div align="center" style="margin-top: 50px;">
+                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='list.mag';" style="width:140px">목록으로</button>
+                    </div>
                 </div>
                 <div id="content_2_3"></div>
             </div>
@@ -247,11 +246,6 @@
     </div>
 
     <script>
-        function list() {
-            
-            location.href = "list.mag";
-        }
-        
         function selectLikeCount() {
             
             $.ajax({
