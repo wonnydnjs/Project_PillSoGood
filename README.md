@@ -6,6 +6,18 @@
 
 <br>
 
+### 담당 기능
+- 장바구니 -> 주문 및 결제 처리
+- 결제 REST API 연동 (Iamport)
+- 주문(ORDER)
+  - 사용자 CRUD : 전체조회, 상세조회, 주문하기, 주문취소
+  - 관리자 CRUD : 전체조회, 상세조회, 주문정보 수정, 주문취소
+- 1대1 문의(QUESTION)
+  - 사용자 CRUD : 전체조회, 상세조회, 문의작성, 문의수정, 문의삭제 (+ 사진첨부)
+  - 관리자 CRUD : 전체조회, 상세조회, 문의삭제, 답변작성, 답변수정, 답변삭제 (답변댓글 AJAX)
+
+<br>
+
 ## 1. 기획 의도
 <div align="center"><img src="https://github.com/wonnydnjs/Project_PillSoGood/blob/master/planning.png" alt="planning" width="70%"/></div>
 
