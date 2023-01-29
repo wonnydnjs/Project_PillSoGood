@@ -112,7 +112,7 @@
                             <c:if test="${ not empty q.questionImage }">
                             	<img id="question_image" src="${ q.questionImage }" width="200px" height="200px">
                             	<input type="hidden" name="questionImage" value="${ q.questionImage }">
-                            	<br><br>
+                            	<br>
                             	<div style="vertical-align: top; width: 200px;" id="checkbox" align="center">
                             		<input type="checkbox" class="form-check-input" name="imageCheck" value="check" class="form-control" id="imageCheck"> <label for="imageCheck" class="form-check-label">기존 사진 삭제</label>
                             	</div>
@@ -124,6 +124,7 @@
                         <div id="update_btn">
                             <br><br>
                             <button type="submit" class="btn btn-primary">수정하기</button>
+                            <button type="button" class="btn btn-secondary" onclick="location.href='list.qu'">뒤로가기</button>
                         </div>
 
                     </form>

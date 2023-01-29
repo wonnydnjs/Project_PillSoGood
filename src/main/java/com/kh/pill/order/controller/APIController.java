@@ -41,7 +41,6 @@ public class APIController {
 	
 	public static final String IMP_KEY = "1727133848405455";
 	public static final String IMP_SECRET = "OCjfwc1lxL1LMNxWqq38WJceT8I24xn8k1e6UGT23s9nxtmFtMouX70Sk09YOR2S3OXI578aeko6jxIB";
-	public static final String TOKEN_URL = "https://api.iamport.kr/users/getToken";
 	
 	private IamportClient client = new IamportClient(IMP_KEY, IMP_SECRET);
 	
@@ -126,8 +125,6 @@ public class APIController {
 			
 			ObjectMapper mapper = new ObjectMapper();
 			String response = mapper.writeValueAsString(p);
-			
-			// System.out.println(response);
 			
 			JSONObject customData = (JSONObject)(new JSONParser().parse(p.getCustomData()));
 			

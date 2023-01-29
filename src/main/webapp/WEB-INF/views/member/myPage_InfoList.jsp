@@ -10,7 +10,7 @@
 <style>
 
 	div { box-sizing : border-box; }
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
+    body, button { font-family: 'Noto Sans KR', sans-serif !important; }
 
     .wrap {
         width: 100%;
@@ -81,11 +81,11 @@
     /* 비밀번호 변경 버튼 */
     #change_pwd>button {
         width: 100%;
-        height: 50px;
+        height: 60px;
         background-color: #78c2ad36;
         text-align: left;
         color: black;
-        line-height: 36px;
+        line-height: 46px;
         border: none;
     }
 
@@ -169,8 +169,8 @@
                                             <th>성별</th>
                                             <td>
                                                 <select class="form-select" name="gender">
-                                                    <option value="M" name="gender">남성</option>
-                                                    <option value="F" name="gender">여성</option>
+                                                    <option value="M">남성</option>
+                                                    <option value="F">여성</option>
                                                 </select>
                                                 <!-- loginUser 의 성별을 selected 하도록 -->
                                             </td>
@@ -178,16 +178,7 @@
                                         <tr>
                                         	<!-- loginUser 의 출생연도를 selected 하도록 -->
                                             <th>출생일</th>
-                                            <td>
-                                            <input type="date" class="form-control" name="memberBirthYear" value="${loginUser.memberBirthYear}">
-                                                <%-- <select class="form-select" name="year">
-                                                    <c:forEach var="i" begin="0" end="${2022-1900}">
-														<c:set var="yearOption" value="${2022-i}" />
-														<option value="${yearOption}">${yearOption}</option>
-													</c:forEach>	
-                                               </select> --%>
-                                                
-                                            </td>
+                                            <td><input type="date" class="form-control" name="memberBirthYear" value="${loginUser.memberBirthYear}"></td>
                                         </tr>
                                         <tr>
                                             <th>키</th>
@@ -218,23 +209,10 @@
                         <hr>
                         <div id="change_pwd">
                          <!--비밀번호 변경  -->
-                            <button type="button" class="btn btn-primary" style="font-family: 'Noto Sans KR', sans-serif !important;" onclick="changePwdForm();">비밀번호 변경 <p style="float: right;">&gt;</p></button>
+                            <button type="button" class="btn btn-primary" onclick="location.href='changePwdForm.me'">비밀번호 변경 <p style="float: right;">&gt;</p></button>
                         </div>
                         <br>
-    					<button type="button" class="btn btn-outline-secondary btn-sm" style="float: right;" onclick="deleteForm()">회원탈퇴</button>
-					    <script>			    
-						    function changePwdForm() {
-						    	
-						    	location.href = "changePwdForm.me";
-						    
-						    }
-						    
-						    function deleteForm() {
-						    	
-						    	location.href = "deleteForm.me"
-						    }
-					    </script>
-         
+    					<button type="button" class="btn btn-outline-secondary btn-sm" style="float: right;" onclick="location.href='deleteForm.me'">회원탈퇴</button>
                     </div>
                 </div>
 

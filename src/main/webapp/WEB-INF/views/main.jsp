@@ -486,8 +486,7 @@
                             </tr>
                         </table>
 
-                        <table style="width: 1000px;" align="center" id="content6_Table" >
-                        </table>
+                        <table style="width: 1000px;" align="center" id="content6_Table"><tbody></tbody></table>
 
                     </div>
                     <div id="content6_3" style="width: 10%; float: left;">&ensp;</div>
@@ -495,10 +494,6 @@
 
              </div>
             </div>
-
-            <script> 
-                AOS.init(); // 스크롤 애니메이션 
-            </script>
 
             <script>
             
@@ -578,8 +573,6 @@
             			url : "latestMagazine.main",
             			success : function(result) {
             				
-            				// console.log(result);
-            				
             				var resultStr ="";
             				
             				
@@ -600,7 +593,7 @@
 		                                			+ "</td>"
 	                            				+ "</tr>";
             						
-            					}else {
+            					} else {
             						
             						resultStr += "<tr>"
 				                                    + "<td style='width: 100%; height: 200px; vertical-align: top; padding-top: 30px;'>"
@@ -614,7 +607,6 @@
 				                                         + "<a href=detail.mag?magazineNo="+ result[i].magazineNo+" style='text-decoration: none; color:rgb(40, 40, 40);'><b style='display: block; padding-top: 20px;'>"+ result[i].magazineTitle +"</b></a>"
 				                                     +"</td>"
 				                                 +"</tr>";
-            						
             					}
             					
             				}
@@ -654,7 +646,11 @@
                 });
                 
             </script>
-
+	
+	<script> 
+    	AOS.init(); // 스크롤 애니메이션 
+    </script>
+	
     <jsp:include page="/WEB-INF/views/common/footer.jsp" /> 
 
 </body>

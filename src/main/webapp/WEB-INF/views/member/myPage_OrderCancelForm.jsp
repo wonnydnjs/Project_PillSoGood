@@ -249,6 +249,7 @@
     </div>
     
     <script>
+    
     	function refund() {
     		
     		if(confirm("주문을 취소하시겠습니까?")) {
@@ -260,7 +261,6 @@
     					merchant_uid: "${ o.orderNo }"
     				}
     			}).done(data => {
-    				// console.log(data);
     				
     				if(data.response.status == 'cancelled') {
     					
@@ -299,7 +299,6 @@
     					customer_uid: "${ o.customerUid }"
     				}
     			}).done(data => {
-    				console.log(data);
     				
 					if(data.code == 0) {
 						
@@ -344,7 +343,6 @@
     						        	    					location.href = 'myPage.or';
     						    							}
     						    						}
-    						    						
     						    					});
     						    				}
     						    			});
@@ -361,6 +359,7 @@
     			});
     		}
     	}
+    	
     </script>
 
 </body>

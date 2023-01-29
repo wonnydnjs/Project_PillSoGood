@@ -12,29 +12,34 @@
 <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
 <title>건강설문 결과</title>
 <style>
+	
+	div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    div {
-        /*border : 1px solid #78C2AD; */
-        box-sizing : border-box;
-    }
-
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        height: 1830px;
+        height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { height: 1590px; }
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
+    #content_2_1, #content_2_3 { height: 115px; }
+
+    /* ---------------------- */
+
     #content_2_1 { height: 230px; float: left; }
     #content_2_2 { height: auto; float: left; }
-
-    #header { height: 130px; }
 
     #content_2_1>div { width: 100%; height: 100%; background-color: rgba(120, 194, 173, 0.25);}
 
@@ -52,7 +57,6 @@
     #content_2_2>div { width: 100%; }
     #icons { height: 200px; }
     #icons>div {  height: 100%; float: left; min-width: 500px;  }
-
 
     #icon_1>div { width: 100%; }
     #iconn { height: 40%; }
@@ -134,15 +138,6 @@
     #content_2_2>div>table { width: 60%; }
     #content_2_2>div table { color: black; }
 
-
-    /* content 영역 */
-    #content>div { height : 100%; float : left; }
-    #content_1 { width : 20%; }
-    #content_2 { width : 60%; }
-    #content_3 { width : 20%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
-
 </style>
 </head>
 <body>
@@ -205,40 +200,33 @@
                             </div>
                         </div>
                         <c:if test="${ count ne 10 }">
-                        
-                        
-                        	<div id="icon_2" >
-                            <div id="iconn">
-                                <div id="icon2_btn" class="btnn"><div><button type="button" class="btn btn-outline-danger">권장</button></div></div>
-                                <div id="icon2_text" class="textt" ><p style="color : #FF7852;">관심을 가져주세요.</p></div>
-                            </div>
-
-                            <div id="picto">
-                                <div>
-                                    <div class="container-fluid">
-                                        <div class="d-flex"> <!-- 반복 돌렸을 때 옆으로 배치되게 바꾸기 -->
-                                        	<c:forEach var="i" begin="0" end="${ prlist.size() -1 }">
-                                        		
-                                        		<c:if test="${ prlist[i].pollLevel eq 2 }">
-                                        			<div style="margin-right : 10px;">
-		                                                <div id="icon2_circle"><img src="${ prlist[i].productEffectPath }"></div>
-		                                                <div id="icon2_pictoT"><p>${ prlist[i].productEffect }</p></div>
-		                                            </div>	
-                                        		</c:if>
-                                        	</c:forEach>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        
-                        
-                        
+	                       	<div id="icon_2" >
+	                            <div id="iconn">
+	                                <div id="icon2_btn" class="btnn"><div><button type="button" class="btn btn-outline-danger">권장</button></div></div>
+	                                <div id="icon2_text" class="textt" ><p style="color : #FF7852;">관심을 가져주세요.</p></div>
+	                            </div>
+	
+	                            <div id="picto">
+	                                <div>
+	                                    <div class="container-fluid">
+	                                        <div class="d-flex"> <!-- 반복 돌렸을 때 옆으로 배치되게 바꾸기 -->
+	                                        	<c:forEach var="i" begin="0" end="${ prlist.size() -1 }">
+	                                        		
+	                                        		<c:if test="${ prlist[i].pollLevel eq 2 }">
+	                                        			<div style="margin-right : 10px;">
+			                                                <div id="icon2_circle"><img src="${ prlist[i].productEffectPath }"></div>
+			                                                <div id="icon2_pictoT"><p>${ prlist[i].productEffect }</p></div>
+			                                            </div>	
+	                                        		</c:if>
+	                                        	</c:forEach>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
                         </c:if>
                         
-                        </div>
+                    </div>
                     
                     <div style="height: 100px;"></div>
                     
@@ -249,13 +237,14 @@
 	                            <table>
 	                                <thead>
 	                                    <tr height="80px" style="font-size: 30px;">
-	                                        <td colspan="4">${ loginUser.memberName }님만을 위한 추천 영양제입니다.</td>
+	                                        <td colspan="4" align="center">${ loginUser.memberName }님만을 위한 추천 영양제입니다.</td>
 	                                    </tr>
 	                                    <tr>
-	                                        <td colspan="4">
+	                                        <td colspan="4" align="center">
 	                                            	나에게 꼭 필요한 영양성분을 장바구니에 담아 정기구독 혜택을 확인해보세요.
 	                                        </td>
 	                                    </tr>
+	                                    <tr height="20px"/>
 	                                    <tr style="border-bottom: solid lightgray;" height="50px">
 	                                        <th width="25px" align="center"><input class="form-check-input" type="checkbox" onclick="selectAll(this);"></th>
 	                                        <td colspan="3"><b>전체선택</b></td>
@@ -276,10 +265,10 @@
 	                                		
 	                                </tbody>
 	                                <tfoot>
-	                                    <tr height="70px">
+	                                	<tr height="20px"/>
+	                                    <tr height="100px">
 	                                        <td align="center" colspan="4">
 	                                            <button type="submit" class="btn btn-primary" style="width: 170.5px;">장바구니</button>
-	                                            
 	                                        </td>
 	                                    </tr>
 	                                </tfoot>
@@ -288,6 +277,8 @@
                         </div>
                     </div>
                 </div>
+                <br clear="both">
+                <div id="content_2_3"></div>
             </div>
             <div id="content_3"></div>
         </div>

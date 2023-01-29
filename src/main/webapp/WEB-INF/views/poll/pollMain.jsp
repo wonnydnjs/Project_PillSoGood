@@ -8,98 +8,61 @@
 <meta charset="UTF-8">
 <link rel="shortcut icon" href="resources/images/favicon.ico" type="image/x-icon">
 <title>건강설문</title>
-
 <style>
 
-    div {
-        /* border : 1px solid #78C2AD; */
-        box-sizing : border-box;
-    }
+    div { box-sizing : border-box; }
+    body { font-family: 'Noto Sans KR', sans-serif !important; }
 
-    /* 전체를 감싸는 wrap */
     .wrap {
         width: 100%;
-        height: 1030px;
+        height: inherit;
         margin : auto;
     }
-
     .wrap>div { width : 100%; }
 
     #navigator2 { height: 100px; }
-
-    #content { height: 650px; }
+	#header { height: 130px; }
+	
+    #content { display: flex; height: auto; }
+    #content>div { height : 100%; float : left; }
+    
+    #content_1 { width : 20%; }
+    #content_2 { width : 60%; }
+    #content_3 { width : 20%; }
+    
     #content_2>div { width: 100%; }
-    #content_2_1 { height: 5%; float: left; }
-    #content_2_2 { height: 95%; float: left; }
+    #content_2_1, #content_2_3 { height: 115px; }
+    #content_2_2 { height: auto; color: black; }
 
-    #header { height: 130px; }
+    /* ---------------------- */
 
-    #content_2_1>p {
-        font-size: 35px;
-        color: black;
-        margin-top: 20px;
-        margin-left: 30px;
+    #content_2_1>div {
+    	width: 80%;
+    	height: 20px;
+    	margin: auto;
     }
-
-    #content_2_1>div { width: 100%; height: 20px; margin-top: 13px; }
-
-    #content_2_2>div { width: 100%; }
-    #imgg { height: 60%; }
-    #text { height: 15%; }
-    #btn { height: 15%; }
-
-    #imgg>img {
-        height: 100%;
-        width: 100%;
-        object-fit: contain;
-        margin: auto;
-        padding: 20px;
+    #content_2_2>div {
+    	width: 100%;
+    	margin: auto;
     }
-
-    #text>p {
-        color: black;
+    
+    .text>p {
         font-size: 30px;
         font-weight: bold;
+        color: black;
         text-align: center;
-        width: 100%;
-        height: 100%;
-        line-height: 80px;
+        margin: 40px 0px 0px 0px;
     }
-
-    #btn>div { width: 100%; }
-
-    /* content 영역 */
-    #content>div { height : 100%; float : left; }
-    #content_1 { width : 25%; }
-    #content_2 { width : 50%; }
-    #content_3 { width : 25%; }
-
-    body { font-family: 'Noto Sans KR', sans-serif !important; }
-
+    
     .textForm>table { 
         margin-top: 40px; 
         border-collapse: separate;
 	    border-spacing: 0 20px;
         color: black;
     }
+    
+    .surveyBtn { margin-top: 40px; }
 
-    .text>p {
-        width: 100%;
-        height: 100%;
-        font-size: 30px;
-        font-weight: bold;
-        color: black;
-        text-align: center;
-        padding-top: 40px;
-    }
-
-    #btn { height: 15%; }
-
-    .text { height: 20%; }
-    .textForm { height: 65%; }
-
-
-		
 	input[type="date"]::-webkit-inner-spin-button,
 	input[type="date"]::-webkit-calendar-picker-indicator {
 	    display: none;
@@ -155,7 +118,6 @@
       video::-webkit-media-controls {
         display: none;
       }
-	
 
 </style>
 
@@ -172,23 +134,18 @@
             <div id="content_1"></div>
             <div id="content_2">
                 <div id="content_2_1">
-                    <div>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" id="surveyProgressBar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width : 10%;"></div>
-                        </div>
-                    </div>
+	                <div class="progress">
+	                    <div class="progress-bar progress-bar-striped progress-bar-animated" id="surveyProgressBar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width : 10%;"></div>
+	                </div>
                 </div>
                 <div id="content_2_2">
 
-
                     <!-- 1번 -->
-
-                    <div id="survey1">
-                        <video id="imgg" style="width: 850px; height: 400px; object-fit: cover; padding-left: 40px; padding-top: 30px;" autoplay muted controls>
-                            <source type="video/mp4" src="resources/images/pillsoGood.mp4" style="margin: auto;">
+                    <div id="survey1" align="center">
+                        <video style="width: 70%; object-fit: cover;" autoplay muted controls>
+                            <source type="video/mp4" src="resources/images/pillsoGood.mp4">
                         </video>
 
-                      
                         <div class="text"><p>PillSoGood 과 함께 건강 설문 시작하기</p></div>
                         <div class="surveyBtn">
                             <div align="center">
@@ -200,16 +157,14 @@
                             			<button type="button" class="btn btn-secondary btn-lg" onclick="nextSurvey(2); insertPoll();" style="width: 200px">설문 시작</button>
                             		</c:otherwise>
                             	</c:choose>
-                                
                             </div>
                         </div>
                     </div>
                 
-                
                 	<script>
                 		function login() {
                 			alert("로그인이 필요한 서비스 입니다.");
-                			return false;
+                			location.href = 'loginForm.me';
                 		}
                 	</script>
 
@@ -221,23 +176,22 @@
                                 <tr>
                                     <th width="80">생년월일</th>
                                     <td  width="100"><input type="date" class="form-control" style="width: 10;" id="memberBirthYear"  name="memberBirthYear" required max='9999-12-31'></td>
-                                    
                                 </tr>
                                 <tr>
                                     <th>키</th>
                                     <td width="100"><input type="number" class="form-control" max="999" oninput="maxLengthCheck(this)" id="height" name="height" required maxlength="3"></td>
-                                    <td width="40">cm</td>
+                                    <td width="40">&nbsp;cm</td>
                                 </tr>
                                 <tr>
                                     <th>몸무게</th>
                                     <td><input type="number" class="form-control" id="weight" max="999" name="weight" oninput="maxLengthCheck(this)" required maxlength="3"></td>
-                                    <td>kg</td>
+                                    <td>&nbsp;kg</td>
                                 </tr>
                                 <tr>
                                     <th>성별</th>
                                     <td>
                                         <input class="form-check-input" type="radio" id="female" name="gender" value="F" required>
-                                        <label class="form-check-label" for="female">여</label>&emsp;
+                                        <label class="form-check-label" for="female">여</label>&emsp;&emsp;
                                         <input class="form-check-input" type="radio" name="gender" id="male" value="M" required>
                                         <label class="form-check-label" for="male">남</label>
                                     </td>
@@ -550,14 +504,14 @@
                 </div>
 
                 <!--content_2_2영역 끝-->
-                    </div>
+                </div>
+                
+                <div id="content_2_3"></div>
                 
                 </div>
 
-
                 <div id="content_3"></div>
             </div>
-            <div style="height : 150px;"></div>
         	<jsp:include page="../common/footer.jsp" />
         	    
         </div>
@@ -643,15 +597,9 @@
 				insertResultType2(productNo);
 			}
 
-            
-
-            
-
                 progress = progressValue + '%';
 
                 progressValue=progressValue+10;
-
-			
 
             $("#survey"+(num -1)).css("display","none");
             $("#survey"+num).css("display","block");

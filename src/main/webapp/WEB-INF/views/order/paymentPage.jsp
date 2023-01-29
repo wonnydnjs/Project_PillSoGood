@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -407,6 +408,7 @@
     </div>
 
     <script>
+    
     	function regular() {
     		
     		if($("#address1").val().length != 0) {
@@ -414,7 +416,6 @@
    			 	var date = moment(new Date()).format('YYYYMMDDHHmmss');
    				var orderNo = date + (parseInt(Math.random() * 90000) + 10000);
    				var amount = parseInt($("#finalprice").text().substring(0, $("#finalprice").text().lastIndexOf(' ')).replace(',', ''));
-	    		// amount = 100;
 	    		
 	    		var address = $("#address1").val();
 	    		if($("#address2").val() != '') {
@@ -423,12 +424,11 @@
    				
 	    		IMP.init("imp00813715"); // 가맹점 식별코드 초기화
 	    		
-	    		// IMP.request_pay(param, callback)
 	    		IMP.request_pay({ // param
 	    			pg: "nice", // PG사 코드값
 	    			pay_method: "card", // 결제방법
 	    			merchant_uid: orderNo, // 가맹점 주문번호 (중복X, 한 주문번호로 재결제 불가)
-	    			name: $("#product_name").text() + ' 외 1개', // 결제창에 노출될 상품명 (16자 이내 권장), 0번째 인덱스 상품명 + 외 n개
+	    			name: $("#product_name").text() + ' 외 ${ fn:length(clist) - 1 }개', // 결제창에 노출될 상품명 (16자 이내 권장), 0번째 인덱스 상품명 + 외 n개
 	    			amount: amount, // 결제할 금액
 	    			buyer_name: "${ loginUser.memberName }", // 구매자 이름
 	    			buyer_email: "${ loginUser.email }", // 구매자 이메일
@@ -437,8 +437,6 @@
 	    			custom_data: { memberNo: ${ loginUser.memberNo } }
 	    		}, rsp => { // callback
 	    			
-	    			// console.log(rsp);
-	    		
 	    			if(rsp.error_code == 'STOP') {
 	    				alert(rsp.error_msg);
 	    				location.href = 'list.cart';
@@ -448,8 +446,6 @@
 		    				type: "post",
 		    				url: "verifyIamport/" + rsp.imp_uid
 		    			}).done(data => {
-		    				
-		    				// console.log(data);
 		    				
 		    				if(rsp.paid_amount == data.response.amount) {
 		    					
@@ -476,7 +472,6 @@
    			 	var date = moment(new Date()).format('YYYYMMDDHHmmss');
    				var orderNo = date + (parseInt(Math.random() * 90000) + 10000);
    				var amount = parseInt($("#finalprice").text().substring(0, $("#finalprice").text().lastIndexOf(' ')).replace(',', ''));
-	    		// amount = 100;
 	    		
 	    		var customerUid = "${ loginUser.memberNo }" + '_' + $("#card_number").val().substring(15);
 	    		
@@ -494,7 +489,7 @@
 		    			amount: amount,
 		    			customer_uid: customerUid,
 		    			pg: "nice",
-		    			name: $("#product_name").text() + ' 외 1개',
+		    			name: $("#product_name").text() + ' 외 ${ fn:length(clist) - 1 }개',
 		    			buyer_name: "${ loginUser.memberName }",
 		    			buyer_email: "${ loginUser.email }",
 		    			buyer_postcode: $("#address_zip").val(),
@@ -506,8 +501,6 @@
 						pwd_2digit: $("#pwd_2digit").val()
 					}
 				}).done(data => {
-					
-					console.log(data);
 					
 					if(data.response.status == 'paid') {
 						
@@ -523,6 +516,7 @@
     			setTimeout(() => {$("#address_zip").focus();}, 1);
     		}
     	}
+		
     </script>
     
 </body>
