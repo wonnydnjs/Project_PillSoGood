@@ -119,7 +119,7 @@
                             </tr>
                             <tr>
                                 <td colspan="3" class="pwds">
-                                    <input type="password" class="form-control" placeholder="동일한 비밀번호를 한번 더 입력해주세요" style="width: 500px;" name="checkPwd" id="checkPwd">
+                                    <input type="password" class="form-control" placeholder="동일한 비밀번호를 한번 더 입력해주세요" style="width: 500px;" required name="checkPwd" id="checkPwd">
                                     <div class="eyes">
 	                                    <i class="fas fa-eye fa-lg"></i>
 	                                </div>
@@ -135,7 +135,7 @@
                             </tr>
                             <tr>
                                 <td colspan="3">
-                                    <input type="text" class="form-control" placeholder="이름(한글)을 입력해주세요" style="width: 500px;" required name="memberName" id="memberName">
+                                    <input type="text" class="form-control" placeholder="이름(한글)을 2 ~ 6자로 입력해주세요" style="width: 500px;" maxlength="6" required name="memberName" id="memberName">
                                 </td>
                             </tr>
                             <tr>
@@ -154,19 +154,18 @@
                                     <input type="text" class="form-control" placeholder="이메일을 입력해주세요" style="width: 240px;" required id="email1" maxlength="30">
                                 </td>
                                 <td><span style="width:10px;" id="middle">&nbsp;&nbsp;@&nbsp;&nbsp;</span></td>
-
                                 <td>
                                     <select class="form-select" style="width: 228px;" id="email2" required>
                                         <option value="naver.com">naver.com</option>
                                         <option value="gmail.com">gmail.com</option>
                                         <option value="kakao.com">kakao.com</option>
                                     </select>
+                                    <input type="hidden" name="email" id="email" value="">
                                 </td>
-                                <input type="hidden" name="email" id="email" value="">
                             </tr>
 
                             <tr>
-                                <th>주소</th>
+                                <th>주소 (선택)</th>
                             </tr>
                             <tr>
                                 <td>
@@ -181,7 +180,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="text" class="form-control" name="address2" id="address2" placeholder="상세 주소 (선택)" >
+                                    <input type="text" class="form-control" name="address2" id="address2" placeholder="상세 주소 (선택)" maxlength="50">
                                 </td>
                             </tr>
                         </table>
@@ -372,14 +371,14 @@
           
           if(!regExp.test(phone.value)) {
              
-        	  alert("- 빼고 유효한 전화번호를 입력해주세요.");
+        	  alert("- 제외한 휴대폰 번호를 입력해주세요.");
               phone.select(); // 재입력 유도
               
               return false;
           }
           regExp = /^([0-9a-zA-Z_\.-]+)$/i;
           if(!regExp.test(email.value)) {
-              alert("숫자 또는 영어만 입력해주세요.");
+              alert("숫자 또는 영어로 된 이메일을 입력해주세요.");
               email.select(); // 재입력 유도
               return false;
           }

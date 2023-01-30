@@ -46,6 +46,8 @@
 			<mapping path="/myPage.subs"/>
 			<mapping path="/detail.subs"/>
 			<mapping path="/myPage.info"/>
+			<mapping path="/changePwdForm.me"/>
+			<mapping path="/deleteForm.me"/>
 			<mapping path="/myPage.poll"/>
 			<mapping path="/pollResult.po"/>
 			<mapping path="/myPage.prod"/>

@@ -117,8 +117,9 @@
 <body>
 
     <div class="wrap">
-            <jsp:include page="../common/menubar.jsp" />
-        <div id="navigator2"></div>
+        <div id="navigator2">
+        	<jsp:include page="../common/menubar.jsp" />
+        </div>
         <div id="header"></div>
         <div id="content">
             <div id="content_1"></div>

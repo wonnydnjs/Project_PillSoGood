@@ -69,6 +69,24 @@
 
     /* 부트스트랩 페이징 */
     .pagination { justify-content: center; }
+    
+    /* 비밀번호 입력 div 들 */
+    .pwds { position: relative; }
+    
+    /* 사이즈 정렬 */
+    .pwds>input { display: inline-block; width: 60%; }
+
+    /* 눈 아이콘 위치 지정 */
+    .eyes {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        cursor: pointer;
+        margin-right: 70px;
+        line-height: 37px;
+        color: #78C2AD;
+    }
 
 </style>
 
@@ -76,8 +94,9 @@
 <body>
 
     <div class="wrap">
-            <jsp:include page="../common/menubar.jsp" />
-        <div id="navigator2"></div>
+        <div id="navigator2">
+        	<jsp:include page="../common/menubar.jsp" />
+        </div>
         <div id="header"></div>
         <div id="content">
             <div id="content_1"></div>
@@ -103,7 +122,6 @@
  					
  				
                    <div id="mypage_content">
-                    <form action="delete.me" method="post">
                         <h4>회원 탈퇴</h4>
                         <hr>
 
@@ -123,56 +141,111 @@
                         <hr>
 
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="dropout"><label class="form-check-label" for="dropout">유의사항을 모두 확인하였습니다.</label>
+                            <input class="form-check-input" type="checkbox" id="dropout"><label class="form-check-label" for="dropout">유의사항을 모두 확인하였습니다.</label>
                         </div>
 
                         <div align="center" style="margin-top: 40px;">
-                            <a data-bs-toggle="modal" data-bs-target="#deleteForm"><button type="button" class="btn btn-outline-secondary btn-sm" style="float: right;">탈퇴하기</button></a>
+                            <button type="button" class="btn btn-secondary" onclick="validate();">탈퇴하기</button>
                         </div>
+                        
                         <!-- 회원탈퇴 버튼 클릭 시 보여질 Modal -->
                         <div class="modal fade" id="deleteForm">
-                            <div class="modal-dialog modal-sm">
+                            <div class="modal-dialog">
                                 <div class="modal-content">
 
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">회원탈퇴</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-
+			                        <!-- Modal Header -->
+			                        <div class="modal-header">
+			                            <h4 class="modal-title">회원탈퇴</h4>
+			                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+			                        </div>
+		
+		                            <!-- Modal body -->
+		                            <div class="modal-body">
+		                                <div align="center">
+		                                	정말로 탈퇴 하시겠습니까?<br>
+		                                	탈퇴 후에는 복구할 수 없습니다.<br>
+		                                	<br>
+		                                	<b style="color: red;">탈퇴를 원하시면 비밀번호를 입력해주세요.</b>
+		                                </div>
+		                                <br>
+		                                <div align="center" class="pwds">
+			                                <label for="memberPwd">비밀번호 :&nbsp;&nbsp;</label>
+			                                <input type="password" class="form-control" placeholder="비밀번호를 입력해주세요" maxlength="20" id="memberPwd"> <br>
+			                                <div class="eyes">
+			                                    <i class="fas fa-eye fa-lg"></i>
+			                                </div>
+		                                </div>
+		                            </div>
+		                            
+		                            <!-- Modal footer -->
+				                    <div class="modal-footer" align="center">
+				                    	<button type="button" class="btn btn-primary" data-bs-dismiss="modal">취소</button>
+				                        <button type="button" class="btn btn-secondary" onclick="checkPwd();">탈퇴하기</button>
+				                    </div>
+					               
+					            </div>
+					        </div>
+					    </div>
                         
-                            <!-- Modal body -->
-                            <div class="modal-body">
-                                <div align="center">
-					                                    정말로 탈퇴 하시겠습니까? <br>
-                                </div>
-                                <br>
-                                    <label for="memberPwd" class="mr-sm-2">Password : </label>
-                                    <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="memberPwd" name="memberPwd"> <br>
-                                    <input type="hidden" name="memberId" value="${ loginUser.memberId }">
-                            </div>
-                            <!-- Modal footer -->
-			                    <div class="modal-footer" align="center">
-			                    	<button type="button" class="btn btn-primary" onclick="javascript:history.go(-1);">취소</button>
-			                        <button type="submit" class="btn btn-secondary">탈퇴하기</button>
-			                    </div>
-			               
-			            </div>
-			        </div>
-			    </div>
-                        
-					</form>
                         <script>
-                            $(function() {
-                                
-                                $("#mypage_content button").on("click", function() {
+                        	function validate() {
+                        		
+                        		if(!$("#dropout").is(":checked")) {
+                        			alert("유의사항에 동의해주세요.");
+                        		} else {
+                        			$("#deleteForm").modal("show");
+                        		}
+                        	}
+                        	
+                        	// modal show 될 때 포커스
+                        	$("#deleteForm").on("shown.bs.modal", function() {
+                        		$("#memberPwd").focus();
+                        	})
+                        	
+                        	// modal hide 될 때 입력값 초기화
+                        	$("#deleteForm").on("hidden.bs.modal", function() {
+                        		$("#memberPwd").val("");
+                        	})
+                        	
+                        	$(function() {
+
+                                // 눈 표시 클릭시 비밀번호가 보이도록
+                                $(".eyes").on("click", function() {
                                     
-                                    // 유의사항에 동의한 경우만 탈퇴로 넘어가도록
-                                    if(!$("#dropout").is(":checked")) {
-                                        alert("유의사항에 동의해주세요.");
-                                    }
+                                    if($(this).siblings("input").attr("type") == "password") {
+
+                                        $(this).siblings("input[type=password]").attr("type", "text");
+                                    } else {
+
+                                        $(this).siblings("input[type=text]").attr("type", "password");
+                                    } 
+
                                 });
+                                
                             });
+                        	
+                        	function checkPwd() {
+                        		
+                        		$.ajax({
+                        			url: "checkPwd.me",
+                        			data: {
+                        				memberId: "${ loginUser.memberId }",
+                        				memberPwd: $("#memberPwd").val()
+                        			},
+                        			success: result => {
+                        				
+                        				if(result == "N") {
+                        					alert("비밀번호가 일치하지 않습니다.\n다시 확인해주세요.");
+                        					$("#memberPwd").select(); // 재입력 유도
+                        				} else {
+                        					location.href="delete.me";
+                        				}
+                        			},
+                        			error: () => {
+                        				console.log("checkPwd ajax 실패");
+                        			}
+                        		});
+                        	}
                         </script>
 
                     </div>

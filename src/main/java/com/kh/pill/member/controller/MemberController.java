@@ -100,7 +100,7 @@ public class MemberController {
 		if(result > 0) { // 성공
 			
 			// 일회성 알람 문구
-			session.setAttribute("alertMsg", "회원가입에 성공했습니다.\nPillSoGood 회원이 되신 걸 환영합니다.");
+			session.setAttribute("alertMsg", "회원가입에 성공했습니다.\\nPillSoGood 회원이 되신 걸 환영합니다.");
 
 			return "member/memberEnrollFormCongrats";
 		}
@@ -142,37 +142,36 @@ public class MemberController {
 		}
 	}
 	
-
-	@RequestMapping("delete.me")
-	public String deleteMember(String memberPwd, String memberId, HttpSession session, Model model) {
+	// 탈퇴 전 비밀번호 확인 (ajax)
+	@ResponseBody
+	@RequestMapping("checkPwd.me")
+	public String checkPwd(Member m, HttpSession session) {
 		
+		// 현재 로그인한 사용자의 암호화된 비밀번호
 		String encPwd = ((Member)session.getAttribute("loginUser")).getMemberPwd();
 		
-		// 비밀번호 대조작업
-		if(bcryptPasswordEncoder.matches(memberPwd, encPwd)) {
+		// 비밀번호 대조 작업
+		return bcryptPasswordEncoder.matches(m.getMemberPwd(), encPwd) ? "Y" : "N"; 
+	}
+
+	@RequestMapping("delete.me")
+	public String deleteMember(HttpSession session, Model model) {
+		
+		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
+		int result = memberService.deleteMember(memberId);
+		
+		if(result > 0) { // 탈퇴처리 성공
 			
-			// 비밀번호가 맞을 경우 => 탈퇴처리
-			int result = memberService.deleteMember(memberId);
+			session.removeAttribute("loginUser"); // 로그인한 회원의 정보만 지움
+			session.setAttribute("alertMsg", "성공적으로 탈퇴되었습니다.\\n그동안 이용해주셔서 감사합니다.");
 			
-			if(result > 0) { // 탈퇴처리 성공
-				
-				session.removeAttribute("loginUser"); // 로그인한 회원의 정보만 지움
-				session.setAttribute("alertMsg", "성공적으로 탈퇴되었습니다. 그동안 이용해주셔서 감사합니다.");
-				
-				return "redirect:/";
-				
-			} else { 
-				
-				model.addAttribute("errorMsg", "회원 탈퇴에 실패했습니다.");
-				
-				return "common/errorPage";
-			}
-		}
-		else {
+			return "redirect:/";
 			
-			session.setAttribute("alertMsg", "비밀번호를 잘못 입력하였습니다. 확인해주세요.");
+		} else { 
 			
-			return "redirect:/myPage.info";
+			model.addAttribute("errorMsg", "회원 탈퇴에 실패했습니다.");
+			
+			return "common/errorPage";
 		}
 		
 	}
@@ -217,7 +216,7 @@ public class MemberController {
 		}
 		else {
 			
-			session.setAttribute("alertMsg", "비밀번호를 잘못 입력하였습니다. 확인해주세요.");
+			session.setAttribute("alertMsg", "비밀번호를 잘못 입력하였습니다. 다시 확인해주세요.");
 			
 			return "redirect:/changePwdForm.me";
 		}
