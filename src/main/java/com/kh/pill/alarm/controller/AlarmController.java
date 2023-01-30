@@ -105,7 +105,7 @@ public class AlarmController {
 	@RequestMapping("alarmReadUpdate.alarm")
 	public void alarmReadUpdate(int alarmNo) {
 		
-		int result = alarmService.alarmReadUpdate(alarmNo);
+		alarmService.alarmReadUpdate(alarmNo);
 		
 	}
 	
@@ -113,7 +113,7 @@ public class AlarmController {
 	@RequestMapping("deleteAlarm.alarm")
 	public void deleteAlarm(int alarmNo) {
 		
-		int result = alarmService.deleteAlarm(alarmNo);
+		alarmService.deleteAlarm(alarmNo);
 		
 	}
 	
@@ -121,15 +121,14 @@ public class AlarmController {
 	@RequestMapping("readAllAlarm.alarm")
 	public void readAllAlarm(int memberNo) {
 		
-		int result = alarmService.readAllAlarm(memberNo);
+		alarmService.readAllAlarm(memberNo);
 	}
 	
 	@ResponseBody
 	@RequestMapping("deleteReadAlarm.alarm")
 	public void deleteReadAlarm(int memberNo) {
 		
-		int result = alarmService.deleteReadAlarm(memberNo);
+		alarmService.deleteReadAlarm(memberNo);
 	}
-	
 
 }

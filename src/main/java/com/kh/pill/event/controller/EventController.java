@@ -365,10 +365,7 @@ public class EventController {
 	@RequestMapping(value="insert.el", produces="text/html; charset=UTF-8")
 	public String ajaxInsertEvtLike(EventLike el) {
 		
-		// System.out.println(el);
-		
 		int result = eventService.insertEvtLike(el);
-		
 		int evtLikeCount = 0;
 		
 		if (result > 0) { // 좋아요가 추가 되면 event_like_count 컬럼 업데이트 
@@ -379,17 +376,10 @@ public class EventController {
 			
 			evtLikeCount = eventService.selectEvtLikeCount(eno);// 업데이트한거 다시 조회함
 			
-			
 		}
 		
-		
 		return String.valueOf(evtLikeCount);
-
-		
 	}
-	
-	
-
 	
 	/**
 	 * 이벤트 좋아요 삭제하는 구문
@@ -399,27 +389,20 @@ public class EventController {
 	public String ajaxDeleteEvtLike(EventLike el) {
 	
 		int result = eventService.deleteEvtLike(el);
-		int count = 0;
 		int evtLikeCount = 0;
-		
 		
 		if (result > 0) { // 좋아요가 삭제 되면 event_like_count 컬럼 업데이트 
 					
 			int eno = el.getEvtNo();
 			
-			count = eventService.updateEventEvtLikeCount(eno);
+			result *= eventService.updateEventEvtLikeCount(eno);
 		
 			evtLikeCount = eventService.selectEvtLikeCount(eno);// 업데이트한거 다시 조회함
 			
 		}
 		
-		
-		
 		return String.valueOf(evtLikeCount);
-		
-		
 	}
-	
 	
 	/**
 	 * 이벤트 댓글 작성
@@ -484,26 +467,6 @@ public class EventController {
 		
 		return (result > 0) ? "success" : "fail";
 		
-		
 	}
-		
-		
-	
-	
-	
-	
-	
-	
 
 }
-
-
-
-
-
-
-
-
-
-
-

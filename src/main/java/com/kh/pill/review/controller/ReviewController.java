@@ -46,7 +46,7 @@ public class ReviewController {
 		// 베스트 리뷰 조회
 		ArrayList<Review> bestListAll = reviewService.selectBestList(); // 일반 리뷰 전체를 베스트 기준으로 조회 후 ArrayList bestListAll 에 담음
 		ArrayList<Review> bestList = new ArrayList<>(); // 베스트 기준에 맞는 상위 3개 리뷰를 담을 ArrayList bestList 생성 
-		// System.out.println(bestList);
+		
 		if(bestListAll.size() >= 3 ) {
 			
 			for(int i = 0; i < 3; i++) { // 상위 3개를 위해 3번만 반복
@@ -55,11 +55,9 @@ public class ReviewController {
 				
 				int rno = 0; // 일치 조건인 외래키 reviewNo 변수 설정 및 초기화
 				rno = bestReview.getReviewNo(); // rno 에 상위 3개 리뷰의 reviewNo 를 담음
-				// System.out.println(rno);
 					
 				ArrayList<ReviewFile> bflist = reviewService.selectBestReviewFile(rno); 
 				// REVIEW_FILE 테이블에서 rno 가 일치하는 썸네일 파일만 추출해서  ArrayList bflist 에 담음
-				// System.out.println("bflist : " + bflist);
 				
 				bestReview.setFlist(bflist); // bflist 를 Review 객체 bestReview 에 담음
 				bestList.add(bestReview); // bestReview 를 ArrayList bestList 에 담음
@@ -72,7 +70,6 @@ public class ReviewController {
 			model.addAttribute("bestList", bestList);
 		
 		}
-		// System.out.println("bestList : " + bestList);
 		
 		// 일반 리뷰 전체 조회는 베스트 리뷰 전체 조회와 비슷함
 		
@@ -101,12 +98,10 @@ public class ReviewController {
 			review.setFlist(flist);
 			review.setReplyCount(replyCount);
 		}
-		// System.out.println(list);
+		
 		model.addAttribute("list", list);
 		model.addAttribute("order", order);
 
-		// System.out.println(list);
-		
 		// 리턴
 		return "review/reviewListView";
 	}
@@ -116,7 +111,6 @@ public class ReviewController {
 		
 		// memberNo 회원의 GROUP 화 된 ORDER_NO(int OrderNo) 들을 배열로 받아옴 
 		ArrayList<Review> rOrderList = reviewService.selectROrderList(memberNo);
-		// System.out.println("rOrderLIst : " + rOrderList);
 		
 		if(rOrderList.size() != 0) {
 			for( int i = 0; i < rOrderList.size(); i++ ) {
@@ -125,8 +119,6 @@ public class ReviewController {
 				Review reviewOrder = rOrderList.get(i);
 				// 그 안에 있는 OrderNo 추출해서 rOrderNo 로 지정
 				long orderNo = reviewOrder.getOrderNo();
-				
-				// System.out.println("orderNo : " + orderNo);
 				
 				// rOrderNo에 해당하는 productName 들 추출해서 배열로 담음
 				ArrayList<Review> rOrderProductNameList = reviewService.selectROrderProductNameList(orderNo);
@@ -149,15 +141,12 @@ public class ReviewController {
 					}
 				}
 				
-				// System.out.println("rOrderProductNames : " + rOrderProductNames);
-				
 				// reviewOrder 안에 문자열 담음
 				reviewOrder.setProductName(rOrderProductNames);
 				reviewOrder.setMemberNo(memberNo);
-				// System.out.println("reviewOrder : " + reviewOrder);
 				
 			}
-			// System.out.println("rOrderList : " + rOrderList);
+			
 			model.addAttribute("rOrderList", rOrderList);
 			return "review/reviewEnrollForm";
 		} else {
@@ -168,10 +157,6 @@ public class ReviewController {
 	
 	@RequestMapping("insert.re")
 	public ModelAndView insertReview(long orderNo, Review r, List<MultipartFile> upfile, HttpSession session, ModelAndView mv) {
-		
-		// System.out.println(r);
-		// System.out.println(upfile);
-		// System.out.println(orderNo);
 		
 		// rOrderNo에 해당하는 productName 들 추출해서 배열로 담음
 		ArrayList<Review> rOrderProductNameList = reviewService.selectROrderProductNameList(orderNo);
@@ -192,26 +177,19 @@ public class ReviewController {
 				rOrderProductNames += rOrderProductNameList.get(j).getProductName();
 			}
 		}
-		// System.out.println("rOrderProductNames : " + rOrderProductNames);
-		
 
 		int memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
 		r.setMemberNo(memberNo);
 
-		// System.out.println(r);
-		
 		// 먼저 파일 여부와 무관하게 rawReview 를 insert
 		int rawResult = reviewService.insertRawReview(r);
 		r.setProductName(rOrderProductNames);
 
-		// System.out.println(rawResult);
-		
 		if(rawResult > 0) { // 만들어졌으면 진행
 			
 			// r에 들어있는 memberNo로 만들어진 review 중에서 rawReview 를 select 해서 reviewNo, 
 			Review rawReview = reviewService.selectRawReview(memberNo);
 			rawReview.setProductName(rOrderProductNames);
-			// System.out.println("rawReview : " + rawReview); 
 			// productName 이 담기기는 하는데, 컬럼이 없어서 조회 때 보여줄 길이 없음. 인증 조건 정도로 해야하거나, 선생님한테 여쭤보기
 
 			int rawReviewNo = rawReview.getReviewNo();
@@ -264,7 +242,6 @@ public class ReviewController {
 					
 					String filePath = session.getServletContext().getRealPath("resources/reviewUploadFiles/");
 					// String filePath = "resources/reviewUploadFiles/";
-					// System.out.println(filePath);
 					
 					try {
 						upfile.get(i).transferTo(new File(filePath + changeName));
@@ -290,7 +267,7 @@ public class ReviewController {
 				// flist 를 Review 객체에 담음
 				session.setAttribute("alertMsg", "리뷰가 성공적으로 등록되었습니다.");
 			}
-			// System.out.println("rawReview : " + rawReview);
+			
 		}
 		else {
 			// 실패했으면 그냥 alert 하고 list.re 로 리다이렉트
@@ -303,7 +280,6 @@ public class ReviewController {
 	@RequestMapping("detail.re")
 	public ModelAndView selectReview(int rno, ModelAndView mv) {
 	    
-		// System.out.println("rno 값 : " + rno);
 		// rno 에는 상세조회하고자 하는 해당 게시글 번호가 담겨있음 
 		// 1. 해당 게시글 조회수 증가용 서비스 먼저 호출 결과 받기 (update 하고 오기)
 		int result = reviewService.increaseCount(rno);
@@ -320,7 +296,6 @@ public class ReviewController {
 			
 			// 해당 리뷰에 첨부되어 있는 상품 번호 리스트 조회 후 담기
 			ArrayList<Integer> pNoList = reviewService.selectProductNoList(rno); 
-			// System.out.println("pNoList : " + pNoList);
 			
 			ArrayList<Product> pList = new ArrayList<>();
 
@@ -328,12 +303,9 @@ public class ReviewController {
 				
 				Product p = productService.selectProduct(pno);
 				pList.add(p);
-				// System.out.println("p : " + p);
 			}
 			
 			r.setPList(pList);
-			// System.out.println("pList : " + pList);
-			// System.out.println("r : " + r);
 			
 			// 조회된 데이터를 담아서 review/reviewDetailView.jsp 로 포워딩
 			mv.addObject("pList", pList);
@@ -354,20 +326,14 @@ public class ReviewController {
 	@RequestMapping(value="rlist.re", produces="application/json; charset=UTF-8")
 	public String ajaxSelectReviewReplyList(int rno) {
 		
-		// System.out.println(rno);
-		
 		ArrayList<ReviewReply> list = reviewService.selectReviewReplyList(rno);
 		
-		// System.out.println(list);
-
 		return new Gson().toJson(list);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="rinsert.re", produces="text/html; charset=UTF-8")
 	public String ajaxInsertReviewReply(ReviewReply r) {
-		
-		// System.out.println("r : " + r);
 		
 		int result = reviewService.insertReviewReply(r);
 		
@@ -378,12 +344,8 @@ public class ReviewController {
 	@RequestMapping(value="rdelete.re", produces="text/html; charset=UTF-8")
 	public String ajaxDeleteReviewReply(int replyNo) {
 	 		
-			// System.out.println("replyNo : " + replyNo);
-		
 			int result = reviewService.deleteReviewReply(replyNo);
 	 
-			// System.out.println("result : " + result);
-			
 	 		return (result > 0 ) ? "success" : "fail";
 	}
 	
@@ -394,13 +356,11 @@ public class ReviewController {
 		
 		// 리뷰에 첨부되어 있는 파일들 삭제
 		int result1 = reviewService.deleteReviewFile(rno2);
-		// System.out.println("result1 : " + result1);
 
 		// 리뷰 삭제
-		int result = reviewService.deleteReview(rno2);
-		// System.out.println("result : " + result);
+		int result2 = reviewService.deleteReview(rno2);
 		
-		if( result > 0 ) {
+		if(result1 * result2 > 0) {
 			// 리뷰 리스트 페이지 url 재요청
 			session.setAttribute("alertMsg", "성공적으로 리뷰가 삭제되었습니다.");
 			return "redirect:/list.re";
@@ -420,13 +380,11 @@ public class ReviewController {
 		
 		// 리뷰에 첨부되어 있는 파일들 삭제
 		int result1 = reviewService.deleteReviewFile(rno2);
-		// System.out.println("result1 : " + result1);
 
 		// 리뷰 삭제
-		int result = reviewService.deleteReview(rno2);
-		// System.out.println("result : " + result);
+		int result2 = reviewService.deleteReview(rno2);
 		
-		if( result > 0 ) {
+		if(result1 * result2 > 0) {
 			// 리뷰 리스트 페이지 url 재요청
 			session.setAttribute("alertMsg", "성공적으로 리뷰가 삭제되었습니다.");
 			return "redirect:/myPage.re";
@@ -445,7 +403,6 @@ public class ReviewController {
 		
 		// 리뷰 수정 페이지를 포워딩 하기 전에 우선적으로 해당 리뷰 정보 조회
 		Review r = reviewService.selectReview(rno); // 기존의 상세보기 서비스 재활용
-		System.out.println("r : " + r);
 		
 		model.addAttribute("r", r);
 		
@@ -459,7 +416,6 @@ public class ReviewController {
 		// 새로 넘어온 첨부파일이 있는 경우
 		if(!reupfile.getOriginalFilename().equals("")) {
 			
-			// System.out.println(r);
 			// r 의 reviewNo : 내가 수정하고자 하는 리뷰의 번호
 			// r 의 reviewTitle : 수정할 제목 (SET 절)
 			// r 의 reviewContent : 수정할 내용 (SET 절)

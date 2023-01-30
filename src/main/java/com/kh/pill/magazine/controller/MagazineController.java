@@ -242,7 +242,6 @@ public class MagazineController {
 	public String insertMagazineLike(MagazineLike magL) {
 
 		int result = magazineService.insertMagazineLike(magL);
-		
 		int magazineLikeCount = 0;
 		
 		if (result > 0) { 
@@ -255,10 +254,8 @@ public class MagazineController {
 			
 		}
 			
-			return String.valueOf(magazineLikeCount);
-
+		return String.valueOf(magazineLikeCount);
 	}
-
 	
 	// 좋아요 delete
 	@ResponseBody
@@ -266,21 +263,19 @@ public class MagazineController {
 	public String deleteMagazineLike(MagazineLike magL) {
 	
 		int result = magazineService.deleteMagazineLike(magL);
-		int count = 0;
 		int magazineLikeCount = 0;
 	
 		if (result > 0) {
 					
 			int magazineNo = magL.getMagazineNo();
 			
-			count = magazineService.updateMagazineLikeCount(magazineNo);
+			result *= magazineService.updateMagazineLikeCount(magazineNo);
 		
 			magazineLikeCount = magazineService.selectMagazineLikeCount(magazineNo);
 			
 		}
 	
-			return String.valueOf(magazineLikeCount);
-	
+		return String.valueOf(magazineLikeCount);
 	}
 
 	

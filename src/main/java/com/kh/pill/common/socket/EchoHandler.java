@@ -5,20 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.kh.pill.member.model.vo.Member;
 
 public class EchoHandler extends TextWebSocketHandler {
-	private static final Logger logger = LoggerFactory.getLogger(WebSocketHandler.class);
-	//로그인 한 인원 전체
+	// private static final Logger logger = LoggerFactory.getLogger(WebSocketHandler.class);
+	// 로그인 한 인원 전체
 	private List<WebSocketSession> sessions = new ArrayList<WebSocketSession>();
 	// 1:1로 할 경우
 	private Map<String, WebSocketSession> userSessionsMap = new HashMap<String, WebSocketSession>();
@@ -38,11 +35,10 @@ public class EchoHandler extends TextWebSocketHandler {
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {// 메시지
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception { // 메시지
 
 		
 		String msg = message.getPayload();//자바스크립트에서 넘어온 Msg
-		
 		
 		if (!StringUtils.isEmpty(msg)) {
 			
