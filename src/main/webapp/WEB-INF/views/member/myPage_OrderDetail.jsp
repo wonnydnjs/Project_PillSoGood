@@ -152,7 +152,7 @@
                             <c:if test="${ o.orderStatus ne 'C' and o.delivery eq 1 }">
                             	<c:choose>
                             		<c:when test="${ o.subsStatus eq 'N' }">
-                            			<button type="button" class="btn btn-outline-primary btn-sm" style="float: right;" onclick="location.href='cancel.or?ono=${ o.orderNo }&st=N'">주문취소</button>
+                            			<button type="button" class="btn btn-outline-primary btn-sm" style="float: right;" onclick="cancelOrder();">주문취소</button>
                             		</c:when>
                             		<c:when test="${ o.subsStatus eq 'Y' }">
                             			<p style="float: right; font-size: small; color: #78C2AD; margin-bottom: 0px;">* 구독해지는 구독정보에서 가능합니다.</p>
@@ -160,6 +160,26 @@
                             	</c:choose>
                             </c:if>
                             <hr>
+                            
+                            <script>
+                            	function cancelOrder() {
+                            		
+                            		$.ajax({
+                            			url: "checkdel.or",
+                            			data: { orderNo: "${ o.orderNo }" },
+                            			success: result => {
+                            				
+                            				if('${ o.orderStatus }' != 'C' && result == 1) {
+                                    			location.href = 'cancel.or?ono=${ o.orderNo }&st=N';
+                                    		} else {
+                                    			alert("배송이 시작된 주문은 취소할 수 없습니다.");
+                                    			location.reload();
+                                    		}
+                            			}
+                            		});
+                            		
+                            	}
+                            </script>
                             
                             <table id="order">
                                 <tr>

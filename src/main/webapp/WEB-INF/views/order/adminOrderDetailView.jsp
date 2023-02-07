@@ -191,7 +191,7 @@
                         <div>
                             <b>주문 정보</b>
                             <c:if test="${ o.orderStatus ne 'C' and o.subsStatus ne 'C' and o.delivery eq 1 }">
-                            	<button type="button" class="btn btn-outline-primary btn-sm" style="float: right;" onclick="cancelOrder('${ o.subsStatus }');">주문취소</button>
+                            	<button type="button" id="canOrderBtn" class="btn btn-outline-primary btn-sm" style="float: right;" onclick="cancelOrder('${ o.subsStatus }');">주문취소</button>
                             </c:if>
                             <hr>
                             
@@ -350,7 +350,7 @@
                             <b>배송지 정보</b>
                             <!-- 배송완료 전일 때만 보이도록 -->
                             <c:if test="${ o.orderStatus ne 'C' and o.delivery ne 3 }">
-                            	<button type="button" class="btn btn-outline-primary btn-sm" style="float: right;" data-bs-toggle="modal" data-bs-target="#change_delivery">배송지 변경</button>
+                            	<button type="button" id="upDeliveryBtn" class="btn btn-outline-primary btn-sm" style="float: right;" data-bs-toggle="modal" data-bs-target="#change_delivery">배송지 변경</button>
                             </c:if>
                             <hr>
 
@@ -486,8 +486,10 @@
                         					
                         					if(delivery == 1) {
                         						$("#upDelivery").text("배송준비중");
+                        						$("#canOrderBtn").css("display", "inline-block");
                         					} else if(delivery == 2) {
                         						$("#upDelivery").text("배송중");
+                        						$("#canOrderBtn").css("display", "none");
                         					} else {
                         						$("#upDelivery").text("배송완료");
                         						$(".btn-outline-primary").css("display", "none");

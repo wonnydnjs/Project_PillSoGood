@@ -24,6 +24,8 @@ public interface OrderService {
 	int insertOrderCart(OrderCart oc);
 	int deleteCart(int memberNo);
 	
+	// 배송 상태 확인
+	int selectDelivery(String orderNo);
 	// 주문 취소 (삭제)
 	int deleteOrder(Order o);
 	// 구독 해지 (다른 회차는 결제완료로 두고 마지막 회차만 삭제)

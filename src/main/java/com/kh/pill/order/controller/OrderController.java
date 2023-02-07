@@ -96,6 +96,11 @@ public class OrderController {
 		return (result > 0) ? "success" : "fail";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="checkdel.or")
+	public int selectDelivery(String orderNo) {
+		return orderService.selectDelivery(orderNo);
+	}
 	
 	// ------------------------------------------------------- 관리자 -------------------------------------------------------------------------//
 	

@@ -39,6 +39,10 @@ public class OrderDao {
 	public int deleteCart(SqlSessionTemplate sqlSession, int memberNo) {
 		return sqlSession.update("orderMapper.deleteCart", memberNo);
 	}
+	
+	public int selectDelivery(SqlSessionTemplate sqlSession, String orderNo) {
+		return sqlSession.selectOne("orderMapper.selectDelivery", orderNo);
+	}
 
 	public int deleteOrder(SqlSessionTemplate sqlSession, Order o) {
 		return sqlSession.update("orderMapper.deleteOrder", o);

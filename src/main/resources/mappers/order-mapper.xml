@@ -100,6 +100,12 @@
 		  AND CART_STATUS = 'Y'
 	</update>
 	
+	<select id="selectDelivery" parameterType="string" resultType="_int">
+		SELECT DELIVERY
+		FROM ORDERS
+		WHERE ORDER_NO = #{orderNo}
+	</select>
+	
 	<update id="deleteOrder" parameterType="order">
 		UPDATE ORDERS
 		   SET ORDER_STATUS = 'C'
@@ -290,7 +296,6 @@
 		   	 , ADDRESS = #{address}
 		 WHERE ORDER_NO = #{orderNo}
 	</update>
-	
 	
 	<!-- 관리자페이지 당해 당월 매출 구하기 -->
 	<select id="selectSalesPerMonth" resultMap="orderResultSet">
